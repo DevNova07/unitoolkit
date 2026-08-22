@@ -2,29 +2,13 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import {
-  Sparkles,
-  ArrowRight,
-  Search,
-  Check,
-  Copy,
-  Volume2,
-  Heart,
-  Lightbulb,
-  List,
-  LayoutGrid,
-  ChevronRight,
-  Info,
-} from "lucide-react";
+import { Copy, Check, Volume2, Sparkles, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
-import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { NameRecord } from "@/data/namesData";
-import { NameCard } from "./NameCard";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
-import { toggleFavoriteName, isNameFavorite } from "@/lib/namesFavoritesStore";
 
 interface NamesTemplateProps {
   h1: string;
@@ -40,6 +24,35 @@ interface NamesTemplateProps {
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
+const LETTER_INTROS: Record<string, string> = {
+  A: "Letter A is among the most popular starting sounds for unique baby names. These cute names are widely used across modern families and are easy to pronounce.",
+  B: "Explore meaningful baby names starting with B, many connecting to devotion, prosperity, the earth, or inner strength.",
+  C: "Whether you prefer a classic or a modern feel, these baby names starting with C offer great rhythm and timeless grace.",
+  D: "Here are strong and auspicious baby names starting with D for your family's shortlist.",
+  E: "Names with E can sound unique yet familiar. These are lovely modern baby names celebrating light and leadership.",
+  F: "Discover joyful and radiant baby names beginning with F with deep spiritual and poetic origins.",
+  G: "Explore noble and luminous baby names starting with G connecting to wisdom, glory, and serenity.",
+  H: "Names starting with H carry warmth, courage, and blissful happiness.",
+  I: "These luminous baby names starting with I connect to divine blessings and radiant morning light.",
+  J: "Discover triumphant and peaceful baby names starting with J that resonate with victory and joy.",
+  K: "Names beginning with K combine majestic royal heritage with crisp, modern phonetics.",
+  L: "Explore gentle, melodious baby names starting with L celebrating life, love, and celestial light.",
+  M: "Meaningful baby names starting with M with profound contemplation and cherished blessings.",
+  N: "Names starting with N represent strong foundations, eternal comfort, and divine glow.",
+  O: "Explore short, powerful baby names starting with O connected to prosperity and sacred wisdom.",
+  P: "Loving and auspicious baby names starting with P celebrating beloved grace and divine gifts.",
+  Q: "Generous and distinguished baby names starting with Q with rich heritage.",
+  R: "Luminous and inspiring baby names starting with R representing sunlight, hope, and victory.",
+  S: "Popular and prosperous baby names starting with S celebrating beauty, peace, and auspicious grace.",
+  T: "Guiding and celestial baby names starting with T representing morning stars and radiant illumination.",
+  U: "Prosperous and noble baby names starting with U symbolizing flourishing life and elevation.",
+  V: "Auspicious baby names starting with V celebrating dawn, morning light, and sacred truth.",
+  W: "Distinguished and graceful baby names starting with W with charming timeless resonance.",
+  X: "Rare and unique baby names starting with X offering a fresh international sound.",
+  Y: "Victorious and fragrant baby names starting with Y celebrating fame, triumph, and natural beauty.",
+  Z: "Modern, popular, and radiant baby names starting with Z symbolizing steady growth and excellence.",
+};
+
 export function NamesTemplate({
   h1,
   badge,
@@ -51,19 +64,14 @@ export function NamesTemplate({
   relatedLinks = [],
   breadcrumbs = [{ label: "Names", href: "/names" }],
 }: NamesTemplateProps) {
-  const [search, setSearch] = useState("");
-  const [selectedLetter, setSelectedLetter] = useState<string>("ALL");
-  const [genderFilter, setGenderFilter] = useState<string>("all");
-  const [viewMode, setViewMode] = useState<"list" | "cards">("list");
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [favMap, setFavMap] = useState<Record<string, boolean>>({});
 
   const handleCopy = async (item: NameRecord) => {
     const text = `${item.name} — ${item.meaning}`;
     const ok = await copyToClipboard(text);
     if (ok) {
       setCopiedId(item.id);
-      showToast(`Copied: "${item.name}"`);
+      showToast(`Copied: ${item.name} — ${item.meaning}`);
       setTimeout(() => setCopiedId(null), 1800);
     }
   };
@@ -77,37 +85,11 @@ export function NamesTemplate({
     }
   };
 
-  const handleToggleFav = (item: NameRecord) => {
-    const nextState = toggleFavoriteName(item);
-    setFavMap((prev) => ({ ...prev, [item.id]: nextState }));
-    showToast(nextState ? `Saved ${item.name} to Favorites!` : `Removed ${item.name}`);
-  };
-
-  // Filter items by search, gender, and selected letter
-  const filteredItems = useMemo(() => {
-    return items.filter((item) => {
-      const matchSearch =
-        search === "" ||
-        item.name.toLowerCase().includes(search.toLowerCase()) ||
-        item.meaning.toLowerCase().includes(search.toLowerCase()) ||
-        item.origin.toLowerCase().includes(search.toLowerCase());
-
-      const matchGender = genderFilter === "all" || item.gender === genderFilter;
-
-      const matchLetter =
-        selectedLetter === "ALL" ||
-        item.startingLetter.toUpperCase() === selectedLetter ||
-        item.name.toUpperCase().startsWith(selectedLetter);
-
-      return matchSearch && matchGender && matchLetter;
-    });
-  }, [items, search, genderFilter, selectedLetter]);
-
-  // Group filtered items by Alphabet letter
+  // Group items strictly by letter
   const groupedByLetter = useMemo(() => {
     const groups: Record<string, NameRecord[]> = {};
     for (const letter of ALPHABET) {
-      const letterNames = filteredItems.filter(
+      const letterNames = items.filter(
         (n) => n.startingLetter.toUpperCase() === letter || n.name.toUpperCase().startsWith(letter)
       );
       if (letterNames.length > 0) {
@@ -115,7 +97,7 @@ export function NamesTemplate({
       }
     }
     return groups;
-  }, [filteredItems]);
+  }, [items]);
 
   const activeLetters = Object.keys(groupedByLetter);
 
@@ -133,7 +115,7 @@ export function NamesTemplate({
   const activeFaqs = faqs.length > 0 ? faqs : defaultFaqs;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10 text-left">
+    <article className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10 text-left">
       <JsonLdSchema
         type="FAQPage"
         faqs={activeFaqs}
@@ -144,385 +126,173 @@ export function NamesTemplate({
 
       <Breadcrumbs items={breadcrumbs} />
 
-      {/* 1. Header Section */}
-      <div className="space-y-4 max-w-4xl">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 fill-current" />
-            <span>{badge}</span>
-          </span>
-          <span className="text-xs font-semibold text-zinc-400">
-            Updated for 2026 • Verified Etymology
-          </span>
-        </div>
-
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight">
+      {/* 1. Article Title & Metadata (Exact clean match to Screenshot 1) */}
+      <header className="space-y-4">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
           {h1}
         </h1>
 
-        <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          {intro}
-        </p>
+        <div className="flex items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400 font-medium">
+          <span>Updated for 2026</span>
+          <span>•</span>
+          <span>Verified Meanings & A–Z Guide</span>
+        </div>
+      </header>
+
+      {/* 2. Editorial Notebook Banner (Exact visual replica of Screenshot 1) */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden bg-gradient-to-br from-amber-100 via-stone-200 to-amber-50 dark:from-zinc-900 dark:via-zinc-850 dark:to-zinc-900 border border-stone-300/80 dark:border-zinc-800 shadow-md flex items-center justify-center p-6 text-center select-none">
+        {/* Wood texture background overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
+
+        {/* Notebook Card Center */}
+        <div className="relative px-8 sm:px-14 py-6 sm:py-8 rounded-2xl bg-white/90 dark:bg-zinc-950/90 shadow-xl border border-stone-200/90 dark:border-zinc-800 backdrop-blur-xs space-y-2 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+          <p className="font-serif italic text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
+            Baby Name Ideas
+          </p>
+          <p className="text-xs sm:text-sm font-sans uppercase tracking-widest text-amber-700 dark:text-amber-400 font-bold">
+            A to Z Curated List • 2026 Edition
+          </p>
+        </div>
       </div>
 
-      {/* 2. Quick Tips Editorial Guide Box (Clean & Helpful like screenshot) */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 space-y-3">
-        <h2 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-          <Lightbulb className="w-5 h-5 text-amber-500" />
-          <span>How to choose a baby name (quick tips)</span>
+      {/* 3. "How to choose a baby name (quick tips)" Section (Exact match to Screenshot 2) */}
+      <section className="space-y-4 pt-2">
+        <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
+          How to choose a baby name (quick tips)
         </h2>
-        <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-          <li className="flex items-start gap-2">
-            <span className="text-indigo-500 font-bold">•</span>
-            <span>
-              <strong>Meaning first:</strong> Pick a quality you wish for your child (peace, courage, wisdom, or light).
-            </span>
+
+        <ul className="space-y-3 text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed list-disc list-inside">
+          <li>
+            <strong>Meaning first:</strong> Pick a quality you wish for your child, peace, courage, wisdom, or light.
           </li>
-          <li className="flex items-start gap-2">
-            <span className="text-indigo-500 font-bold">•</span>
-            <span>
-              <strong>Say it out loud:</strong> Pair the name with your surname; check nicknames family might use.
-            </span>
+          <li>
+            <strong>Say it out loud:</strong> Pair the name with your surname; check nicknames family might use.
           </li>
-          <li className="flex items-start gap-2">
-            <span className="text-indigo-500 font-bold">•</span>
-            <span>
-              <strong>Astrology / Letter:</strong> Many families choose from the alphabet suggested at birth; use the A–Z jump buttons below.
-            </span>
+          <li>
+            <strong>Astrology letter:</strong> Many families choose from the alphabet suggested at birth, use the sections below by letter.
           </li>
-          <li className="flex items-start gap-2">
-            <span className="text-indigo-500 font-bold">•</span>
-            <span>
-              <strong>Spelling:</strong> One clear spelling avoids school-form and passport confusion later.
-            </span>
+          <li>
+            <strong>Spelling:</strong> One clear spelling avoids school-form confusion later.
           </li>
-          <li className="flex items-start gap-2">
-            <span className="text-indigo-500 font-bold">•</span>
-            <span>
-              <strong>Keep a short list:</strong> Three to five names are much easier to decide than thirty.
-            </span>
+          <li>
+            <strong>Keep a short list:</strong> Three to five names are easier to decide than thirty.
           </li>
         </ul>
-      </div>
+      </section>
 
-      {/* 3. Interactive Filter & Search Toolbar */}
-      <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-        {/* Search bar & Controls */}
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="relative w-full sm:flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by name, meaning, or root (e.g. peaceful, light, courage)..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium"
-            />
-          </div>
-
-          {/* Gender Pills */}
-          <div className="flex items-center gap-1.5 shrink-0 w-full sm:w-auto overflow-x-auto no-scrollbar">
-            {[
-              { id: "all", label: "All Genders" },
-              { id: "boy", label: "👦 Boy" },
-              { id: "girl", label: "👧 Girl" },
-              { id: "unisex", label: "⚡ Unisex" },
-            ].map((g) => (
-              <button
-                key={g.id}
-                type="button"
-                onClick={() => setGenderFilter(g.id)}
-                className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  genderFilter === g.id
-                    ? "bg-zinc-900 dark:bg-white text-white dark:text-black shadow-xs"
-                    : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200"
-                }`}
-              >
-                {g.label}
-              </button>
-            ))}
-
-            {/* View Mode Toggle */}
-            <div className="hidden sm:flex items-center gap-1 pl-2 border-l border-zinc-200 dark:border-zinc-800">
-              <button
-                type="button"
-                onClick={() => setViewMode("list")}
-                title="Clean List View"
-                className={`p-2 rounded-xl text-xs ${
-                  viewMode === "list"
-                    ? "bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400"
-                    : "text-zinc-400 hover:text-zinc-600"
-                }`}
-              >
-                <List className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("cards")}
-                title="Card Grid View"
-                className={`p-2 rounded-xl text-xs ${
-                  viewMode === "cards"
-                    ? "bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400"
-                    : "text-zinc-400 hover:text-zinc-600"
-                }`}
-              >
-                <LayoutGrid className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 4. Sticky / Fast A–Z Alphabet Jump Bar */}
-        <div className="space-y-1.5 pt-2 border-t border-zinc-100 dark:border-zinc-900">
-          <div className="flex items-center justify-between text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
-            <span>Jump to Letter (A to Z)</span>
-            <span>{filteredItems.length} Names Found</span>
-          </div>
-
-          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-1">
-            <button
-              type="button"
-              onClick={() => setSelectedLetter("ALL")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold shrink-0 transition-all ${
-                selectedLetter === "ALL"
-                  ? "bg-indigo-600 text-white shadow-xs"
-                  : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200"
-              }`}
+      {/* 4. A–Z Quick Jump Bar (Clean text navigation) */}
+      <nav aria-label="A to Z Alphabet Jump" className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+        <div className="flex items-center gap-1.5 flex-wrap text-xs font-bold text-zinc-600 dark:text-zinc-300">
+          <span className="text-zinc-400 font-semibold pr-1">Jump to:</span>
+          {activeLetters.map((l) => (
+            <a
+              key={l}
+              href={`#letter-${l.toLowerCase()}`}
+              className="px-2 py-1 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 transition-colors"
             >
-              ALL (A–Z)
-            </button>
-
-            {ALPHABET.map((letter) => {
-              const hasNames = items.some(
-                (n) => n.startingLetter.toUpperCase() === letter || n.name.toUpperCase().startsWith(letter)
-              );
-              return (
-                <button
-                  key={letter}
-                  type="button"
-                  disabled={!hasNames}
-                  onClick={() => setSelectedLetter(letter)}
-                  className={`w-7 h-7 rounded-lg text-xs font-bold shrink-0 flex items-center justify-center transition-all ${
-                    selectedLetter === letter
-                      ? "bg-indigo-600 text-white shadow-xs"
-                      : hasNames
-                      ? "bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:bg-indigo-50 dark:hover:bg-indigo-950"
-                      : "opacity-30 text-zinc-400 cursor-not-allowed"
-                  }`}
-                >
-                  {letter}
-                </button>
-              );
-            })}
-          </div>
+              {l}
+            </a>
+          ))}
         </div>
-      </div>
+      </nav>
 
-      {/* 5. A-to-Z Structured Sections (Exact Match with user's screenshot) */}
-      <div className="space-y-12">
-        {activeLetters.length > 0 ? (
-          activeLetters.map((letter) => {
-            const letterItems = groupedByLetter[letter];
-            return (
-              <section key={letter} id={`letter-${letter}`} className="space-y-4 scroll-mt-24">
-                {/* Section Header (Semantic H2) */}
-                <div className="pb-2 border-b border-zinc-200 dark:border-zinc-800">
-                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-                    Baby names starting with {letter}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                    Explore meaningful baby names starting with '{letter}', curated for cultural depth, good rhythm, and auspicious meanings.
-                  </p>
-                </div>
+      {/* 5. Pure Clean A to Z Text Sections (NO BOXES, NO CARDS, EXACT MATCH TO SCREENSHOTS 2, 3, 4) */}
+      <div className="space-y-12 pt-4">
+        {activeLetters.map((letter) => {
+          const letterItems = groupedByLetter[letter];
+          const introParagraph =
+            LETTER_INTROS[letter] ||
+            `Explore meaningful baby names starting with ${letter}, curated for cultural depth, good rhythm, and auspicious meanings.`;
 
-                {/* Editorial Clean Numbered List View */}
-                {viewMode === "list" ? (
-                  <div className="space-y-2">
-                    {letterItems.map((item, idx) => (
-                      <div
-                        key={item.id}
-                        className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-zinc-900/70 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-indigo-500/50 hover:shadow-xs flex items-center justify-between gap-3 transition-all group"
+          return (
+            <section
+              key={letter}
+              id={`letter-${letter.toLowerCase()}`}
+              className="space-y-3 scroll-mt-20"
+            >
+              {/* H2 Heading (Exact match: "Baby boy names starting with A") */}
+              <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
+                Baby names starting with {letter}
+              </h2>
+
+              {/* Descriptive Intro Paragraph */}
+              <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                {introParagraph}
+              </p>
+
+              {/* Numbered Plain Text List (Exact format: "1. Aarav — Peaceful") */}
+              <ol className="space-y-2.5 pt-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
+                {letterItems.map((item, idx) => (
+                  <li
+                    key={item.id}
+                    className="flex items-baseline justify-between gap-2 py-1 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
+                  >
+                    <div className="flex items-baseline gap-2 min-w-0">
+                      <span className="font-semibold text-zinc-900 dark:text-white shrink-0">
+                        {idx + 1}. {item.name}
+                      </span>
+                      <span className="text-zinc-400 dark:text-zinc-500">—</span>
+                      <span className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-normal">
+                        {item.meaning}
+                      </span>
+                    </div>
+
+                    {/* Subtle 1-click Copy & Audio icons on right */}
+                    <div className="flex items-center gap-2 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity">
+                      <button
+                        type="button"
+                        onClick={() => handlePlayAudio(item.name)}
+                        title={`Listen pronunciation of ${item.name}`}
+                        className="p-1 text-zinc-400 hover:text-indigo-600 cursor-pointer transition-colors"
                       >
-                        <div className="flex items-start sm:items-center gap-3 min-w-0">
-                          <span className="text-xs font-bold text-zinc-400 w-5 shrink-0 pt-0.5 sm:pt-0">
-                            {idx + 1}.
-                          </span>
-
-                          <div className="space-y-0.5 min-w-0">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-extrabold text-sm sm:text-base text-zinc-900 dark:text-white">
-                                {item.name}
-                              </span>
-                              <span className="text-zinc-400 dark:text-zinc-500 font-normal">—</span>
-                              <span className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-medium">
-                                {item.meaning}
-                              </span>
-                            </div>
-
-                            <div className="flex items-center gap-2 text-[10px] text-zinc-400">
-                              <span className="capitalize">{item.gender}</span>
-                              <span>•</span>
-                              <span>{item.origin}</span>
-                              {item.pronunciation && (
-                                <>
-                                  <span>•</span>
-                                  <span className="italic">{item.pronunciation}</span>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Action Buttons (1-Tap Copy, Audio, Save) */}
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => handlePlayAudio(item.name)}
-                            title="Hear Pronunciation"
-                            className="p-2 rounded-xl text-zinc-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
-                          >
-                            <Volume2 className="w-3.5 h-3.5" />
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => handleToggleFav(item)}
-                            title="Save to Favorites"
-                            className={`p-2 rounded-xl transition-colors ${
-                              favMap[item.id] || isNameFavorite(item.id)
-                                ? "text-rose-500 bg-rose-50 dark:bg-rose-950/60"
-                                : "text-zinc-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40"
-                            }`}
-                          >
-                            <Heart
-                              className={`w-3.5 h-3.5 ${
-                                favMap[item.id] || isNameFavorite(item.id) ? "fill-current" : ""
-                              }`}
-                            />
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => handleCopy(item)}
-                            title="Copy Name & Meaning"
-                            className="px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-indigo-600 hover:text-white text-zinc-700 dark:text-zinc-300 text-xs font-bold transition-all flex items-center gap-1.5"
-                          >
-                            {copiedId === item.id ? (
-                              <>
-                                <Check className="w-3 h-3 text-emerald-500" />
-                                <span>Copied</span>
-                              </>
-                            ) : (
-                              <>
-                                <Copy className="w-3 h-3" />
-                                <span>Copy</span>
-                              </>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  /* Rich Card Grid View */
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {letterItems.map((item) => (
-                      <NameCard key={item.id} nameItem={item} />
-                    ))}
-                  </div>
-                )}
-              </section>
-            );
-          })
-        ) : (
-          <div className="p-12 text-center rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
-            <p className="text-sm font-bold text-zinc-700 dark:text-zinc-300">
-              No names found matching "{search}"
-            </p>
-            <p className="text-xs text-zinc-400">
-              Try adjusting your search query or selecting "ALL" letters.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearch("");
-                setSelectedLetter("ALL");
-                setGenderFilter("all");
-              }}
-              className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold"
-            >
-              Reset Filters
-            </button>
-          </div>
-        )}
+                        <Volume2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(item)}
+                        title="Copy"
+                        className="p-1 text-zinc-400 hover:text-indigo-600 cursor-pointer transition-colors"
+                      >
+                        {copiedId === item.id ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          );
+        })}
       </div>
 
-      {/* 6. AI Studio Generator Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-tr from-indigo-950 via-zinc-950 to-purple-950 text-white border border-indigo-900/50 shadow-xl space-y-4">
-        <div className="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider">
-          <Sparkles className="w-4 h-4" />
-          <span>Need Custom or Sibling Matches?</span>
-        </div>
-        <h3 className="text-2xl sm:text-3xl font-extrabold">
-          Generate Personalized AI Baby Names
+      {/* 6. AI Generator Callout */}
+      <div className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
+        <h3 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-indigo-500" />
+          <span>Need custom AI baby name recommendations?</span>
         </h3>
-        <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
-          Blend Mom & Dad's names, match astrological letters, or generate rare cultural names based on deep virtues in seconds.
+        <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+          Use our free AI Baby Name Generator to combine parental heritage, match surname syllables, or blend mom & dad names.
         </p>
-        <div className="pt-2 flex flex-wrap gap-3">
+        <div className="pt-1">
           <Link
             href="/ai-baby-name-generator"
-            className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition-all flex items-center gap-2"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-xs"
           >
-            <span>Launch AI Baby Name Generator</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-          <Link
-            href="/ai-name-combiner"
-            className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all"
-          >
-            <span>Combine Parent Names</span>
+            <span>Launch AI Baby Name Studio</span>
           </Link>
         </div>
       </div>
 
-      {/* 7. Related Categories Navigation */}
-      {relatedLinks.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
-            Explore Related Name Collections
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {relatedLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3.5 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 transition-colors flex items-center gap-1.5"
-              >
-                <span>{link.label}</span>
-                <ChevronRight className="w-3 h-3 text-zinc-400" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 8. Verified FAQs Section */}
+      {/* 7. FAQs Section */}
       <FAQSection
         title="Frequently Asked Questions"
-        subtitle={`Everything you need to know about selecting the best ${badge.toLowerCase()}.`}
+        subtitle="Common questions about baby names, astrological sounds, and meanings."
         faqs={activeFaqs}
       />
-
-      {/* 9. Bottom CTA */}
-      <CTASection
-        title="Find or Generate the Perfect Name"
-        subtitle="Explore our 15,000+ verified multicultural name vaults or generate custom names with AI."
-        primaryBtnText="Try AI Baby Name Generator"
-        primaryBtnHref="/ai-baby-name-generator"
-        secondaryBtnText="Explore All Names"
-        secondaryBtnHref="/names"
-      />
-    </div>
+    </article>
   );
 }
