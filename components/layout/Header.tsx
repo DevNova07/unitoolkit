@@ -19,6 +19,7 @@ import {
   Quote,
   FileText,
   Hash,
+  Globe2,
 } from "lucide-react";
 import {
   InstagramIcon,
@@ -316,6 +317,22 @@ export function Header() {
           >
             <Quote className="w-3.5 h-3.5 text-yellow-500" />
             <span>Quotes</span>
+          </Link>
+
+          {/* 🌍 Global Names Hub (Independent from Platforms) */}
+          <Link
+            href="/names"
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+              pathname.startsWith("/names")
+                ? "text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/50 font-bold"
+                : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
+            }`}
+          >
+            <Globe2 className="w-3.5 h-3.5 text-blue-500" />
+            <span>Names</span>
+            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-black bg-blue-500/10 text-blue-600 dark:text-blue-400">
+              New
+            </span>
           </Link>
 
           {/* 📱 10 PLATFORMS DROPDOWN */}
@@ -698,6 +715,7 @@ export function Header() {
                     { name: "WhatsApp Status", href: "/whatsapp-status", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },
                     { name: "VIP Bios Styler", href: "/bios", icon: <User className="w-5 h-5 text-pink-500" /> },
                     { name: "Quotes Vault", href: "/quotes", icon: <Quote className="w-5 h-5 text-yellow-500" /> },
+                    { name: "Global Names Directory", href: "/names", icon: <Globe2 className="w-5 h-5 text-blue-500" /> },
                   ].map((vault) => (
                     <Link
                       key={vault.name}

@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/hero/HeroSection";
 import { CoreContentSection } from "@/components/home/CoreContentSection";
 import { PlatformsClusterSection } from "@/components/home/PlatformsClusterSection";
 import { TopicExplorerSection } from "@/components/home/TopicExplorerSection";
+import { NamesFeatureCard } from "@/components/home/NamesFeatureCard";
 import { FAQSection } from "@/components/common/FAQSection";
 import { CTASection } from "@/components/common/CTASection";
 
@@ -44,12 +45,17 @@ export default function HomePage() {
         <CoreContentSection />
       </section>
 
-      {/* 3. The 10 Dedicated Platform Hubs */}
+      {/* 3. Global Names Showcase Hub (Distinct & Standalone) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <NamesFeatureCard />
+      </section>
+
+      {/* 4. The 10 Dedicated Platform Hubs */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <PlatformsClusterSection />
       </section>
 
-      {/* 4. Popular Search Moods (Sleek, High-Density Category Explorer) */}
+      {/* 5. Popular Search Moods (Sleek, High-Density Category Explorer) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <TopicExplorerSection />
       </section>
