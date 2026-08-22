@@ -168,8 +168,8 @@ export function HeroSection() {
                 </button>
               </form>
 
-              {/* 5. Clean Horizontal Trending Pills */}
-              <div className="flex items-center gap-2 pt-3 overflow-x-auto no-scrollbar pb-1 text-xs">
+              {/* 5. Clean Wrap Trending Pills (No screen overflow on mobile) */}
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-3 text-xs justify-center sm:justify-start">
                 <span className="font-bold text-zinc-500 dark:text-zinc-400 shrink-0 flex items-center gap-1">
                   <Flame className="w-3.5 h-3.5 text-rose-500" />
                   <span>Trending:</span>
@@ -182,7 +182,7 @@ export function HeroSection() {
                       setPrompt(item.topic);
                       router.push(`/ai-caption-generator?topic=${encodeURIComponent(item.topic)}`);
                     }}
-                    className="shrink-0 px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium transition-colors cursor-pointer"
+                    className="px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-[11px] sm:text-xs font-medium transition-colors cursor-pointer"
                   >
                     {item.label}
                   </button>
@@ -197,27 +197,27 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* 🌟 10 Platform Cards Carousel Strip */}
+        {/* 🌟 10 Platform Cards (5x2 Grid on Mobile, Flex on Desktop - No Horizontal Overflow) */}
         <div className="mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-zinc-200/60 dark:border-zinc-800/80 text-center">
-          <p className="text-[11px] sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-6 sm:mb-8 flex items-center justify-center gap-2">
+          <p className="text-[11px] sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-5 sm:mb-8 flex items-center justify-center gap-2">
             <span className="w-6 sm:w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
             <span>Supported Across All 10 Major Platforms</span>
             <span className="w-6 sm:w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
           </p>
 
-          <div className="flex items-center gap-2.5 sm:gap-4 overflow-x-auto pb-3 sm:pb-4 pt-1 sm:pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar snap-x justify-start lg:justify-between">
+          <div className="grid grid-cols-5 sm:grid-cols-5 lg:flex lg:items-center gap-2 sm:gap-3 lg:gap-4 justify-items-center lg:justify-between">
             {platformsList.map((plat) => (
               <Link
                 key={plat.name}
                 href={plat.href}
-                className="snap-start shrink-0 flex flex-col items-center gap-2 p-2.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.08),inset_0_2px_4px_rgba(255,255,255,0.9)] dark:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.6)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-[74px] sm:min-w-[96px]"
+                className="w-full flex flex-col items-center gap-1.5 sm:gap-2.5 p-2 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_20px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-0 lg:min-w-[96px]"
               >
                 <div
-                  className={`w-10 h-10 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
+                  className={`w-9 h-9 xs:w-10 xs:h-10 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
                 >
                   {plat.icon}
                 </div>
-                <span className="text-[11px] sm:text-[13px] font-bold text-zinc-900 dark:text-white">
+                <span className="text-[10px] xs:text-[11px] sm:text-[13px] font-bold text-zinc-900 dark:text-white truncate max-w-full text-center">
                   {plat.name}
                 </span>
               </Link>
