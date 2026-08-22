@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, Wand2, RefreshCw, Copy, Heart, Check, BookOpen, Globe2 } from "lucide-react";
+import { Sparkles, Wand2, RefreshCw, Copy, Heart, Check, Volume2 } from "lucide-react";
 import { showToast } from "@/components/common/Toast";
 import { copyToClipboard } from "@/lib/utils";
 import { toggleFavoriteName } from "@/lib/namesFavoritesStore";
@@ -43,7 +43,7 @@ export function AINameStudio({
     setLoading(true);
 
     try {
-      const fullQuery = `Generate 6 beautiful, meaningful baby/personal names based on this criteria:
+      const fullQuery = `Generate 8 beautiful, meaningful baby/personal names based on this criteria:
 Prompt: ${prompt.trim() || "Modern meaningful names"}
 Gender Preference: ${gender}
 Origin/Culture Preference: ${origin}
@@ -72,7 +72,6 @@ Please respond strictly in JSON array format with these exact keys:
 
       const data = await res.json();
       if (data.captions && Array.isArray(data.captions)) {
-        // Try parsing json from first caption if returned as block
         let parsed: GeneratedNameResult[] = [];
         try {
           const rawText = data.captions.join("\n");
@@ -81,7 +80,6 @@ Please respond strictly in JSON array format with these exact keys:
             parsed = JSON.parse(jsonMatch[0]);
           }
         } catch {
-          // Fallback parsing lines
           parsed = data.captions.map((cap: string, idx: number) => ({
             name: cap.split("—")[0]?.trim() || `Name ${idx + 1}`,
             gender: (gender === "boy" || gender === "girl" ? gender : "unisex") as "boy" | "girl" | "unisex",
@@ -105,12 +103,21 @@ Please respond strictly in JSON array format with these exact keys:
   };
 
   const handleCopyName = async (item: GeneratedNameResult, idx: number) => {
-    const text = `${item.name} (${item.gender}) — Meaning: ${item.meaning} [Origin: ${item.origin}]`;
+    const text = `${item.name} — ${item.meaning}`;
     const ok = await copyToClipboard(text);
     if (ok) {
       setCopiedIndex(idx);
       showToast(`Copied ${item.name}!`);
-      setTimeout(() => setCopiedIndex(null), 2000);
+      setTimeout(() => setCopiedIndex(null), 1800);
+    }
+  };
+
+  const handlePlayAudio = (name: string) => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(name);
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
     }
   };
 
@@ -133,31 +140,27 @@ Please respond strictly in JSON array format with these exact keys:
   };
 
   return (
-    <div className="w-full rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-6 sm:p-8 space-y-8 text-left shadow-sm">
-      {/* Studio Header */}
+    <div className="w-full max-w-4xl mx-auto space-y-8 text-left">
+      {/* Studio Header (Clean & Minimal) */}
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-600 dark:text-indigo-400">
-          <Wand2 className="w-3.5 h-3.5" />
-          <span>Intelligent Linguistic Name Generator</span>
-        </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
+        <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 dark:text-white tracking-tight">
           {title}
         </h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
           {description}
         </p>
       </div>
 
-      {/* Generator Control Form */}
+      {/* Generator Form */}
       <form onSubmit={handleGenerate} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Gender Selector */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">Gender</label>
+            <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Gender</label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
             >
               <option value="any">✨ Any Gender / Unisex</option>
               <option value="boy">👦 Baby Boy</option>
@@ -167,40 +170,35 @@ Please respond strictly in JSON array format with these exact keys:
 
           {/* Origin / Culture Selector */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">Origin / Culture</label>
+            <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Origin / Culture</label>
             <select
               value={origin}
               onChange={(e) => setOrigin(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
             >
               <option value="any">🌍 Any Culture / Multicultural</option>
               <option value="Indian">🇮🇳 Indian / Sanskrit</option>
               <option value="Arabic">🌙 Arabic / Islamic</option>
               <option value="Persian">👑 Persian</option>
               <option value="English">🇬🇧 English / British</option>
-              <option value="French">🇫🇷 French</option>
-              <option value="Japanese">🇯🇵 Japanese</option>
+              <option value="Japanese">🌸 Japanese</option>
               <option value="Spanish">🇪🇸 Spanish / Latin</option>
-              <option value="Italian">🇮🇹 Italian</option>
-              <option value="African">🌍 African</option>
-              <option value="Hebrew">🕊️ Hebrew / Biblical</option>
             </select>
           </div>
 
           {/* Style Selector */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">Style & Vibe</label>
+            <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Naming Style</label>
             <select
               value={style}
               onChange={(e) => setStyle(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
             >
-              <option value="modern">Modern & Chic</option>
-              <option value="royal">Royal & Aristocratic</option>
+              <option value="modern">Modern & Trendy</option>
+              <option value="royal">Royal & Majestic</option>
               <option value="unique">Rare & Unique</option>
-              <option value="short">Short & Punchy (1-2 Syllables)</option>
+              <option value="short">Short (1-2 Syllables)</option>
               <option value="nature">Nature & Celestial</option>
-              <option value="cute">Cute & Melodious</option>
             </select>
           </div>
         </div>
@@ -212,7 +210,7 @@ Please respond strictly in JSON array format with these exact keys:
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Describe preferences (e.g. 'Starts with S, means peaceful morning light, easy to pronounce in USA & India')..."
-            className="w-full px-4 py-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm sm:text-base text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm sm:text-base text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
@@ -220,83 +218,100 @@ Please respond strictly in JSON array format with these exact keys:
         <button
           type="submit"
           disabled={loading}
-          className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-sm shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           {loading ? (
             <>
               <RefreshCw className="w-4 h-4 animate-spin" />
-              <span>Analyzing Linguistic Roots & Generating...</span>
+              <span>Generating AI Names...</span>
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4" />
-              <span>Generate 6 Custom Names</span>
+              <span>Generate AI Names</span>
             </>
           )}
         </button>
       </form>
 
-      {/* Generated Results Grid */}
+      {/* Generated Results: Pure Clean Editorial Numbered List (NO CARDS) */}
       {results.length > 0 && (
-        <div className="space-y-4 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
-              AI Tailored Suggestions
+        <div className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+          <div className="pb-1 border-b border-zinc-200 dark:border-zinc-800">
+            <h3 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
+              AI Tailored Baby Names
             </h3>
-            <span className="text-xs text-zinc-500">{results.length} results</span>
+            <p className="text-xs sm:text-sm text-zinc-500">
+              Personalized matches crafted for your requested style and meaning.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ol className="space-y-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
             {results.map((res, idx) => (
-              <div
+              <li
                 key={idx}
-                className="p-5 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3 flex flex-col justify-between"
+                className="flex items-baseline justify-between gap-3 py-2 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
               >
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-                      {res.origin}
+                <div className="space-y-0.5 min-w-0">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="font-bold text-zinc-900 dark:text-white">
+                      {idx + 1}. {res.name}
                     </span>
-                    <span className="text-xs text-zinc-400 capitalize">
-                      {res.gender === "boy" ? "👦 Boy" : res.gender === "girl" ? "👧 Girl" : "⚡ Unisex"}
+                    <span className="text-zinc-400 dark:text-zinc-500">—</span>
+                    <span className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 font-normal">
+                      {res.meaning}
                     </span>
                   </div>
 
-                  <h4 className="text-xl font-black text-zinc-900 dark:text-white">
-                    {res.name}
-                  </h4>
-                  {res.pronunciation && (
-                    <span className="text-[11px] text-zinc-400 font-mono">/{res.pronunciation}/</span>
-                  )}
-                  <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                    {res.meaning}
-                  </p>
-                  <p className="text-[11px] text-zinc-500 leading-relaxed pt-1">
-                    {res.whyItMatches}
-                  </p>
+                  <div className="flex items-center gap-2 text-xs text-zinc-400">
+                    <span className="capitalize">{res.gender}</span>
+                    <span>•</span>
+                    <span>{res.origin}</span>
+                    {res.pronunciation && (
+                      <>
+                        <span>•</span>
+                        <span className="italic">/{res.pronunciation}/</span>
+                      </>
+                    )}
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-zinc-200/60 dark:border-zinc-800 text-xs">
+                {/* Action buttons (Copy, Audio, Save) */}
+                <div className="flex items-center gap-1.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => handlePlayAudio(res.name)}
+                    title="Hear Pronunciation"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => handleSaveName(res)}
-                    className="flex items-center gap-1 text-zinc-500 hover:text-rose-500 font-medium"
+                    title="Save to Favorites"
+                    className="p-1.5 text-zinc-400 hover:text-rose-500 transition-colors"
                   >
-                    <Heart className="w-3.5 h-3.5" />
-                    <span>Save</span>
+                    <Heart className="w-4 h-4" />
                   </button>
+
                   <button
                     type="button"
                     onClick={() => handleCopyName(res, idx)}
-                    className="flex items-center gap-1 font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                    title="Copy"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
                   >
-                    {copiedIndex === idx ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedIndex === idx ? "Copied" : "Copy"}</span>
+                    {copiedIndex === idx ? (
+                      <Check className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       )}
     </div>
