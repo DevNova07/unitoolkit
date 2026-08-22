@@ -23,6 +23,8 @@ export function isNameFavorite(id: string): boolean {
   return list.some((item) => item.id === id);
 }
 
+export const isNameFavorited = isNameFavorite;
+
 export function toggleFavoriteName(name: NameRecord): boolean {
   if (typeof window === "undefined") return false;
   const list = getFavoriteNames();

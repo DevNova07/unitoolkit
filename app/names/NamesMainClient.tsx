@@ -2,101 +2,173 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Sparkles, Wand2, Compass, Heart, Globe2, BookOpen, Layers, ArrowRight } from "lucide-react";
-import { NameSearchHero } from "@/components/names/NameSearchHero";
-import { NameCard } from "@/components/names/NameCard";
-import { NAMES_DATA } from "@/data/namesData";
 import {
+  Search,
+  Sparkles,
+  Heart,
+  Volume2,
+  Copy,
+  Check,
+  Wand2,
+  ArrowRight,
+  Filter,
+  Layers,
+  Globe2,
+} from "lucide-react";
+import { NAMES_DATA, NameRecord } from "@/data/namesData";
+import {
+  CORE_NAME_HUBS,
   ORIGIN_CULTURE_LIST,
-  RELIGION_TRADITION_LIST,
   STYLE_PREFERENCE_LIST,
   MEANING_THEMES_LIST,
   AI_NAME_STUDIOS,
 } from "@/data/namesTaxonomy";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
-import { CTASection } from "@/components/common/CTASection";
-
-const NAMES_HUB_FAQS = [
-  {
-    question: "How many names are in the UniToolkit Names directory?",
-    answer: "Our database contains thousands of verified names spanning over 30 cultural origins, 10 spiritual traditions, and 20 distinct aesthetic styles with accurate etymologies.",
-  },
-  {
-    question: "Can I generate unique baby names based on my heritage and preferences?",
-    answer: "Yes! Use our dedicated AI Baby Name Generator to input your heritage, sound preferences, and meaning aspirations to receive personalized recommendations.",
-  },
-  {
-    question: "How are the meanings and cultural origins verified?",
-    answer: "Our editorial team verifies all names against authentic Sanskrit, Arabic, Latin, Celtic, Hebrew, and East Asian linguistic lexicons and historical dictionaries.",
-  },
-  {
-    question: "Is saving names to my favorites private?",
-    answer: "Yes, 100% private. All saved names are stored locally in your browser cache with zero tracking.",
-  },
-];
+import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { copyToClipboard } from "@/lib/utils";
+import { showToast } from "@/components/common/Toast";
+import { toggleFavoriteName, isNameFavorited } from "@/lib/namesFavoritesStore";
 
 export function NamesMainClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGender, setSelectedGender] = useState<string>("all");
   const [selectedOrigin, setSelectedOrigin] = useState<string>("all");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  // Filter names based on instant search and active pills
   const filteredNames = useMemo(() => {
     return NAMES_DATA.filter((item) => {
-      const matchSearch =
-        searchQuery === "" ||
+      const matchesQuery =
+        searchQuery.trim() === "" ||
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.meaning.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.origin.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.style.some((s) => s.toLowerCase().includes(searchQuery.toLowerCase())) ||
         item.themes.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      const matchGender = selectedGender === "all" || item.gender === selectedGender;
-      const matchOrigin =
-        selectedOrigin === "all" || item.origin.toLowerCase().includes(selectedOrigin.toLowerCase());
+      const matchesGender =
+        selectedGender === "all" || item.gender.toLowerCase() === selectedGender.toLowerCase();
 
-      return matchSearch && matchGender && matchOrigin;
+      const matchesOrigin =
+        selectedOrigin === "all" || item.origin.toLowerCase() === selectedOrigin.toLowerCase();
+
+      return matchesQuery && matchesGender && matchesOrigin;
     });
   }, [searchQuery, selectedGender, selectedOrigin]);
 
+  const handleCopyName = async (name: NameRecord) => {
+    const text = `${name.name} — ${name.meaning}`;
+    const ok = await copyToClipboard(text);
+    if (ok) {
+      setCopiedId(name.id);
+      showToast(`Copied ${name.name}!`);
+      setTimeout(() => setCopiedId(null), 1800);
+    }
+  };
+
+  const handlePlayAudio = (name: string) => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(name);
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const handleToggleFavorite = (name: NameRecord) => {
+    const isNowFav = toggleFavoriteName(name);
+    if (isNowFav) {
+      showToast(`Saved ${name.name} to Favorites! ❤️`);
+    } else {
+      showToast(`Removed ${name.name} from Favorites`);
+    }
+  };
+
+  const faqs = [
+    {
+      question: "How do I choose the best baby name for my child?",
+      answer:
+        "Focus on positive virtues, cultural resonance, easy spelling and pronunciation across languages, and check how naturally it pairs with your family surname.",
+    },
+    {
+      question: "Are these baby names verified with authentic meanings?",
+      answer:
+        "Yes, every name in our 2026 taxonomy is cross-referenced with native linguistic root dictionaries including Sanskrit, Arabic, Latin, Greek, and Old Norse.",
+    },
+    {
+      question: "Can I save my favorite names offline?",
+      answer:
+        "Yes! Click the heart icon on any name to save it to your private shortlist without needing an account or login.",
+    },
+  ];
+
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-14 text-left">
-      {/* 1. Search-First Hero */}
-      <NameSearchHero
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        totalCount={NAMES_DATA.length}
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-12 text-left">
+      <JsonLdSchema
+        type="WebSite"
+        title="100+ Unique Global Baby Names With Meanings (A to Z) [2026] | UniToolkit"
+        description="Search 2026 verified baby names across Hindu, Muslim, Indian, Arabic, and Western cultures with instant pronunciation."
+        url="https://unitoolkit.com/names"
       />
 
-      {/* 2. Gender & Origin Filter Toolbar */}
-      <div className="p-4 sm:p-5 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          {/* Gender Filter */}
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-xs font-bold text-zinc-500 mr-1">Gender:</span>
+      <Breadcrumbs items={[{ label: "Names", href: "/names" }]} />
+
+      {/* 1. Master Editorial Header */}
+      <div className="space-y-4 max-w-3xl">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-2xs">
+          <Sparkles className="w-3.5 h-3.5 fill-current" />
+          <span>Updated for 2026 • Verified Meanings & A–Z Guide</span>
+        </div>
+
+        <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
+          Global Baby Names & Meaning Directory
+        </h1>
+
+        <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          Search verified baby names by meaning, origin, gender, and starting letter. Zero cards, clean editorial list layout with 1-click pronunciation and copy.
+        </p>
+      </div>
+
+      {/* 2. Sleek Search & Filter Bar */}
+      <div className="p-4 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 space-y-3">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by name, meaning, or virtue (e.g. 'Aarav', 'Peaceful', 'Moon', 'Brave')..."
+            className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-sm sm:text-base text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
+          />
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+          {/* Gender Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
             {[
-              { label: "All Genders", value: "all" },
-              { label: "👦 Boy", value: "boy" },
-              { label: "👧 Girl", value: "girl" },
-              { label: "⚡ Unisex", value: "unisex" },
-            ].map((btn) => (
+              { id: "all", label: "✨ All Genders" },
+              { id: "boy", label: "👦 Boy Names" },
+              { id: "girl", label: "👧 Girl Names" },
+              { id: "unisex", label: "⚡ Unisex Names" },
+            ].map((tab) => (
               <button
-                key={btn.value}
+                key={tab.id}
                 type="button"
-                onClick={() => setSelectedGender(btn.value)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                  selectedGender === btn.value
-                    ? "bg-zinc-900 dark:bg-white text-white dark:text-black shadow-xs"
-                    : "bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100"
+                onClick={() => setSelectedGender(tab.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  selectedGender === tab.id
+                    ? "bg-indigo-600 text-white shadow-xs"
+                    : "bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300"
                 }`}
               >
-                {btn.label}
+                {tab.label}
               </button>
             ))}
           </div>
 
-          {/* Origin Quick Dropdown */}
+          {/* Culture Quick Filter */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-zinc-500">Origin:</span>
+            <Filter className="w-3.5 h-3.5 text-zinc-400" />
             <select
               value={selectedOrigin}
               onChange={(e) => setSelectedOrigin(e.target.value)}
@@ -107,7 +179,7 @@ export function NamesMainClient() {
               <option value="Arabic">🌙 Arabic / Islamic</option>
               <option value="English">🇬🇧 English / British</option>
               <option value="Irish">☘️ Irish / Celtic</option>
-              <option value="Japanese">🇯🇵 Japanese</option>
+              <option value="Japanese">🌸 Japanese</option>
               <option value="French">🇫🇷 French</option>
               <option value="Spanish">🇪🇸 Spanish / Latin</option>
               <option value="Greek">🏛️ Greek / Mythology</option>
@@ -117,7 +189,7 @@ export function NamesMainClient() {
         </div>
       </div>
 
-      {/* 3. Filtered Name Cards Results */}
+      {/* 3. Pure Clean Numbered List (NO CARDS) */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
           <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
@@ -127,11 +199,76 @@ export function NamesMainClient() {
         </div>
 
         {filteredNames.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredNames.map((name) => (
-              <NameCard key={name.id} nameItem={name} />
+          <ol className="space-y-1.5 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
+            {filteredNames.map((name, idx) => (
+              <li
+                key={name.id}
+                className="flex items-baseline justify-between gap-3 py-2 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
+              >
+                <div className="space-y-0.5 min-w-0">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="font-bold text-zinc-900 dark:text-white">
+                      {idx + 1}. {name.name}
+                    </span>
+                    <span className="text-zinc-400 dark:text-zinc-500">—</span>
+                    <span className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 font-normal">
+                      {name.meaning}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs text-zinc-400">
+                    <span className="capitalize">{name.gender}</span>
+                    <span>•</span>
+                    <span>{name.origin}</span>
+                    {name.pronunciation && (
+                      <>
+                        <span>•</span>
+                        <span className="italic">/{name.pronunciation}/</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action buttons (Copy, Audio, Save) */}
+                <div className="flex items-center gap-1.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => handlePlayAudio(name.name)}
+                    title="Hear Pronunciation"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleToggleFavorite(name)}
+                    title="Save to Favorites"
+                    className="p-1.5 text-zinc-400 hover:text-rose-500 transition-colors"
+                  >
+                    <Heart
+                      className={`w-4 h-4 ${
+                        isNameFavorited(name.id) ? "text-rose-500 fill-current" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopyName(name)}
+                    title="Copy"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                  >
+                    {copiedId === name.id ? (
+                      <Check className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         ) : (
           <div className="p-12 text-center rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
             <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-400">
@@ -258,17 +395,7 @@ export function NamesMainClient() {
       </section>
 
       {/* 8. FAQs */}
-      <FAQSection faqs={NAMES_HUB_FAQS} title="Frequently Asked Questions About Baby Names" />
-
-      {/* 9. Bottom CTA */}
-      <CTASection
-        title="Can't Find the Exact Name You Love?"
-        description="Let our AI Name Generator craft custom personalized names matching your family's exact vision."
-        primaryBtnText="✨ Generate with AI"
-        primaryBtnHref="/ai-baby-name-generator"
-        secondaryBtnText="❤️ View Saved Favorites"
-        secondaryBtnHref="/names/favorites"
-      />
+      <FAQSection faqs={faqs} title="Frequently Asked Questions About Global Names" />
     </div>
   );
 }

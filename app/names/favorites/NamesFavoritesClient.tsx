@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Heart, Trash2, Copy, Check, Sparkles, ArrowRight, BookOpen } from "lucide-react";
+import { Heart, Trash2, Copy, Check, Sparkles, ArrowRight, Volume2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { NameRecord } from "@/data/namesData";
-import { getFavoriteNames, clearAllFavoriteNames, NAMES_FAVORITES_CHANGE_EVENT } from "@/lib/namesFavoritesStore";
-import { NameCard } from "@/components/names/NameCard";
+import { getFavoriteNames, clearAllFavoriteNames, NAMES_FAVORITES_CHANGE_EVENT, toggleFavoriteName } from "@/lib/namesFavoritesStore";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
 
@@ -22,6 +21,7 @@ export function NamesFavoritesClient() {
     return [];
   });
   const [copiedAll, setCopiedAll] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
     const handleUpdate = () => setFavorites(getFavoriteNames());
@@ -32,7 +32,7 @@ export function NamesFavoritesClient() {
   const handleCopyAll = async () => {
     if (favorites.length === 0) return;
     const text = favorites
-      .map((f) => `${f.name} (${f.gender}) — ${f.meaning} [${f.origin}]`)
+      .map((f, idx) => `${idx + 1}. ${f.name} — ${f.meaning} [${f.origin}]`)
       .join("\n");
     const ok = await copyToClipboard(text);
     if (ok) {
@@ -40,6 +40,30 @@ export function NamesFavoritesClient() {
       showToast(`Copied all ${favorites.length} saved names!`);
       setTimeout(() => setCopiedAll(false), 2000);
     }
+  };
+
+  const handleCopyName = async (name: NameRecord) => {
+    const text = `${name.name} — ${name.meaning}`;
+    const ok = await copyToClipboard(text);
+    if (ok) {
+      setCopiedId(name.id);
+      showToast(`Copied ${name.name}!`);
+      setTimeout(() => setCopiedId(null), 1800);
+    }
+  };
+
+  const handlePlayAudio = (name: string) => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(name);
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const handleRemoveFavorite = (name: NameRecord) => {
+    toggleFavoriteName(name);
+    showToast(`Removed ${name.name} from Favorites`);
   };
 
   const handleClearAll = () => {
@@ -73,7 +97,7 @@ export function NamesFavoritesClient() {
             <button
               type="button"
               onClick={handleCopyAll}
-              className="px-4 py-2 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black text-xs font-bold shadow-xs hover:opacity-90 flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black text-xs font-bold shadow-xs hover:opacity-90 flex items-center gap-1.5 cursor-pointer"
             >
               {copiedAll ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedAll ? "Copied All" : "Copy All"}</span>
@@ -82,7 +106,7 @@ export function NamesFavoritesClient() {
             <button
               type="button"
               onClick={handleClearAll}
-              className="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-semibold border border-rose-200 dark:border-rose-900 hover:bg-rose-100 flex items-center gap-1.5"
+              className="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-semibold border border-rose-200 dark:border-rose-900 hover:bg-rose-100 flex items-center gap-1.5 cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>Clear All</span>
@@ -91,31 +115,101 @@ export function NamesFavoritesClient() {
         )}
       </div>
 
-      {/* Favorites Grid */}
+      {/* Favorites List: Pure Clean Numbered Text (NO CARDS) */}
       {favorites.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {favorites.map((item) => (
-            <NameCard key={item.id} nameItem={item} />
-          ))}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+            <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
+              Shortlisted Baby Names
+            </h2>
+            <span className="text-xs text-zinc-500">{favorites.length} saved</span>
+          </div>
+
+          <ol className="space-y-1.5 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
+            {favorites.map((name, idx) => (
+              <li
+                key={name.id}
+                className="flex items-baseline justify-between gap-3 py-2 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
+              >
+                <div className="space-y-0.5 min-w-0">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="font-bold text-zinc-900 dark:text-white">
+                      {idx + 1}. {name.name}
+                    </span>
+                    <span className="text-zinc-400 dark:text-zinc-500">—</span>
+                    <span className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 font-normal">
+                      {name.meaning}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs text-zinc-400">
+                    <span className="capitalize">{name.gender}</span>
+                    <span>•</span>
+                    <span>{name.origin}</span>
+                    {name.pronunciation && (
+                      <>
+                        <span>•</span>
+                        <span className="italic">/{name.pronunciation}/</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action buttons (Copy, Audio, Remove) */}
+                <div className="flex items-center gap-1.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => handlePlayAudio(name.name)}
+                    title="Hear Pronunciation"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveFavorite(name)}
+                    title="Remove from favorites"
+                    className="p-1.5 text-rose-500 hover:text-rose-700 transition-colors"
+                  >
+                    <Heart className="w-4 h-4 fill-current text-rose-500" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopyName(name)}
+                    title="Copy"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                  >
+                    {copiedId === name.id ? (
+                      <Check className="w-4 h-4 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       ) : (
-        <div className="p-12 sm:p-16 text-center rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950 text-rose-500 flex items-center justify-center mx-auto">
+        <div className="p-16 text-center rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-4">
+          <div className="w-12 h-12 mx-auto rounded-full bg-rose-50 dark:bg-rose-950/60 text-rose-500 flex items-center justify-center">
             <Heart className="w-6 h-6" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
-              No Favorite Names Saved Yet
+            <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+              No Saved Names Yet
             </h3>
-            <p className="text-xs text-zinc-500 max-w-md mx-auto">
-              Click the heart icon on any name card across our 10,000+ name vaults or AI generator studios to build your personal shortlist.
+            <p className="text-xs sm:text-sm text-zinc-500 max-w-sm mx-auto">
+              Explore our global directory or generate custom names and click the heart icon to build your family shortlist.
             </p>
           </div>
           <Link
             href="/names"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-xs"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
           >
-            <span>Explore Names Directory</span>
+            <span>Browse Names Hub</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
