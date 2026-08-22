@@ -30,21 +30,14 @@ import {
 export function HeroSection() {
   const router = useRouter();
   const [prompt, setPrompt] = useState("");
-  const [selectedPlatform, setSelectedPlatform] = useState("instagram");
-  const [selectedTone, setSelectedTone] = useState("bold");
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedLength, setSelectedLength] = useState("short");
 
   const handleGenerate = (e: React.FormEvent) => {
     e.preventDefault();
-    const queryParams = new URLSearchParams({
-      topic: prompt.trim() || "trending viral moments",
-      platform: selectedPlatform,
-      tone: selectedTone,
-      lang: selectedLanguage,
-      length: selectedLength,
-    });
-    router.push(`/ai-caption-generator?${queryParams.toString()}`);
+    if (prompt.trim()) {
+      router.push(`/ai-caption-generator?topic=${encodeURIComponent(prompt.trim())}`);
+    } else {
+      router.push("/ai-caption-generator");
+    }
   };
 
   const tryTags = [
@@ -65,14 +58,14 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           {/* Left Column: Copy & Input Bar */}
           <div className="lg:col-span-7 space-y-5 sm:space-y-7 text-center sm:text-left">
-            {/* Top Verified Product Badges */}
+            {/* Top Pill Badges */}
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-800 dark:text-zinc-200 shadow-xs">
                 <span className="flex items-center gap-1 font-semibold text-indigo-600 dark:text-indigo-400">
-                  <Sparkles className="w-3.5 h-3.5" /> 15K+ Curated Captions
+                  <Sparkles className="w-3.5 h-3.5" /> Unitoolkit 3.0
                 </span>
                 <span className="text-zinc-300 dark:text-zinc-700">•</span>
-                <span className="text-zinc-600 dark:text-zinc-400">52+ Moods</span>
+                <span className="text-zinc-600 dark:text-zinc-400">15K+ Curated Captions</span>
               </div>
 
               <Link
@@ -80,132 +73,46 @@ export function HeroSection() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
               >
                 <Wand2 className="w-3 h-3" />
-                <span>5 AI Creator Studios</span>
+                <span>5 AI Engines</span>
               </Link>
             </div>
 
-            {/* Main Headline (Point 1) */}
+            {/* Main Headline */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.12]">
-              Create Captions, Bios &{" "}
+              Create Better Content{" "}
               <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-                Social Content with AI
+                Faster with AI
               </span>
             </h1>
 
-            {/* Subtitle (Point 1) */}
+            {/* Subtitle */}
             <p className="text-sm sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto sm:mx-0 leading-relaxed">
-              Generate, customize and copy social content for Instagram, TikTok, YouTube, WhatsApp and more — free, instantly.
+              Instant AI caption generator, authentic Hindi shayari, WhatsApp status, and VIP bios crafted for 10 major platforms.
             </p>
 
-            {/* Real Product Guarantee & CTAs (Point 1 & Point 2) */}
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1">
-              <Link
-                href="/ai-caption-generator"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-500/20 hover:scale-105 active:scale-95 transition-all"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span>✨ Generate with AI</span>
-              </Link>
-
-              <Link
-                href="/captions"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-xs sm:text-sm transition-all"
-              >
-                <span>📚 Browse 15K+ Content</span>
-              </Link>
-            </div>
-
-            {/* Hero AI Studio Form with 4 Instant Controls (Point 5) */}
-            <div className="pt-2">
+            {/* Sleek, Simple Hero Prompt Input Bar */}
+            <div className="pt-1">
               <form
                 onSubmit={handleGenerate}
-                className="p-3 sm:p-4 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-200/40 dark:shadow-none space-y-3 text-left"
+                className="relative flex items-center p-1.5 sm:p-2 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-lg shadow-zinc-200/50 dark:shadow-none focus-within:ring-2 focus-within:ring-indigo-500/50 transition-all text-left"
               >
-                {/* 4 Instant Creator Controls Bar */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                  {/* Control 1: Platform */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Platform</label>
-                    <select
-                      value={selectedPlatform}
-                      onChange={(e) => setSelectedPlatform(e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
-                    >
-                      <option value="instagram">Instagram</option>
-                      <option value="tiktok">TikTok</option>
-                      <option value="youtube">YouTube</option>
-                      <option value="whatsapp">WhatsApp</option>
-                      <option value="linkedin">LinkedIn</option>
-                      <option value="x">X (Twitter)</option>
-                    </select>
-                  </div>
-
-                  {/* Control 2: Tone */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Tone</label>
-                    <select
-                      value={selectedTone}
-                      onChange={(e) => setSelectedTone(e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
-                    >
-                      <option value="bold">Attitude / Bold</option>
-                      <option value="romantic">Romantic & Love</option>
-                      <option value="savage">Savage & Boss</option>
-                      <option value="aesthetic">Soft Aesthetic</option>
-                      <option value="professional">Professional</option>
-                      <option value="funny">Humor & Sarcasm</option>
-                    </select>
-                  </div>
-
-                  {/* Control 3: Language */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Language</label>
-                    <select
-                      value={selectedLanguage}
-                      onChange={(e) => setSelectedLanguage(e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
-                    >
-                      <option value="en">English</option>
-                      <option value="hinglish">Hinglish</option>
-                      <option value="hi">हिंदी (Hindi)</option>
-                    </select>
-                  </div>
-
-                  {/* Control 4: Length */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Length</label>
-                    <select
-                      value={selectedLength}
-                      onChange={(e) => setSelectedLength(e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
-                    >
-                      <option value="short">Short (1-Liner)</option>
-                      <option value="medium">Medium</option>
-                      <option value="long">Long Story</option>
-                    </select>
-                  </div>
+                <div className="pl-2 sm:pl-3 text-indigo-500">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-
-                {/* Prompt Search Input + Action Button */}
-                <div className="relative flex items-center p-1 rounded-2xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 focus-within:ring-2 focus-within:ring-indigo-500/50 transition-all">
-                  <div className="pl-2 text-indigo-500">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <input
-                    type="text"
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    placeholder="Enter photo/video topic (e.g. gym workout PR, solo sunset trip)..."
-                    className="w-full min-w-0 px-2 sm:px-3 py-2 text-xs sm:text-sm bg-transparent text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none font-medium"
-                  />
-                  <button
-                    type="submit"
-                    className="shrink-0 flex items-center gap-1.5 px-4 sm:px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold shadow-md hover:opacity-95 active:scale-[0.98] transition-all cursor-pointer"
-                  >
-                    <span>Generate</span>
-                    <Sparkles className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                <input
+                  type="text"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="Enter topic (e.g. sunset vibes, gym attitude)..."
+                  className="w-full min-w-0 px-2 sm:px-3 py-2 text-xs sm:text-base bg-transparent text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none font-medium"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 flex items-center gap-1.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black text-xs sm:text-sm font-semibold shadow-md hover:opacity-95 active:scale-[0.98] transition-all cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
+                  <span>Generate</span>
+                </button>
               </form>
 
               {/* "Try these" pills */}
