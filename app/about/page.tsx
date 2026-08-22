@@ -9,7 +9,7 @@ import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 export const metadata: Metadata = {
   title: "About Us — Our Mission, Editorial Standards & Story | UniToolkit",
   description:
-    "Discover the mission behind UniToolkit: empowering 100,000+ creators worldwide with 15,000+ hand-curated captions, viral status ideas, and ultra-fast AI generation tools.",
+    "Discover the mission behind UniToolkit: an independent creator suite providing 15,000+ hand-curated captions, VIP bios, Hindi shayari, and ultra-fast AI generation tools.",
   alternates: {
     canonical: "/about",
   },
@@ -57,23 +57,23 @@ export default function AboutPage() {
         </p>
       </div>
 
-      {/* Metrics Banner */}
+      {/* Real Product Metrics Banner */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 p-6 sm:p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
         <div className="space-y-1">
           <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">15,000+</div>
           <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">Curated Captions & Lines</div>
         </div>
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">100K+</div>
-          <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">Monthly Active Creators</div>
+          <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">52+</div>
+          <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">Content Moods & Vibes</div>
         </div>
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">22+</div>
-          <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">Free Creator Engines</div>
+          <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">10</div>
+          <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">Social Platforms</div>
         </div>
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">3 Languages</div>
-          <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">English, Hinglish & Hindi</div>
+          <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">5 AI Studios</div>
+          <div className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">Captions, Bios, Status, Shayari, Quotes</div>
         </div>
       </div>
 

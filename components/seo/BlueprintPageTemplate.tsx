@@ -131,18 +131,32 @@ export function BlueprintPageTemplate({
         </section>
       )}
 
-      {/* Editorial Masterclass & Engagement Strategy Guide with Semantic H2 & H3s */}
-      <section className="p-6 sm:p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 space-y-6">
+      {/* Editorial Masterclass & Engagement Strategy Guide with Platform-Specific Algorithmic Rules (Point 6 & 7) */}
+      <section className="p-6 sm:p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 space-y-6 text-left">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 text-pink-600 dark:text-pink-400 text-xs font-bold">
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Editorial Creator Guide</span>
+            <span>
+              {page.platform
+                ? `${page.platform.toUpperCase()} Algorithm Optimization Guide`
+                : "Editorial Creator Guide"}
+            </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
             {page.h2s && page.h2s[1] ? page.h2s[1] : `How to Create High-Converting ${page.badge} Content`}
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Publishing great {page.badge.toLowerCase()} requires pairing compelling words with strong algorithmic hooks. Follow these 3 essential pillars:
+            {page.platform === "instagram"
+              ? "Instagram favors Reels and Carousel posts where the first 5 words hook viewers before the '...more' truncation."
+              : page.platform === "tiktok"
+              ? "TikTok algorithm rewards fast 1-second visual hooks paired with relatable looping captions that boost completion rate."
+              : page.platform === "youtube"
+              ? "YouTube Shorts and Community posts convert best when the caption creates curiosity for the full video."
+              : page.platform === "linkedin"
+              ? "LinkedIn prioritizes clear B2B value, career mindset shifts, and clean spacing between paragraphs."
+              : page.platform === "whatsapp"
+              ? "WhatsApp status viewers read in under 2 seconds; keep lines punchy with authentic emotion."
+              : `Publishing great ${page.badge.toLowerCase()} requires pairing compelling words with strong algorithmic hooks.`}
           </p>
         </div>
 
@@ -153,7 +167,13 @@ export function BlueprintPageTemplate({
               <span>{page.h3s && page.h3s[0] ? page.h3s[0] : "1. The 2-Second Hook"}</span>
             </h3>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Place the most captivating words in the opening line so mobile viewers immediately pause their feed.
+              {page.platform === "instagram"
+                ? "Put your boldest statement in line 1 before the 'more' button cut-off to maximize Reels dwell time."
+                : page.platform === "tiktok"
+                ? "Match your caption with on-screen text in the first second to boost FYP algorithm recommendation."
+                : page.platform === "linkedin"
+                ? "Open with a counter-intuitive industry insight or career lesson to stop the professional feed scroll."
+                : "Place the most captivating words in the opening line so mobile viewers immediately pause their feed."}
             </p>
           </div>
 
@@ -163,7 +183,11 @@ export function BlueprintPageTemplate({
               <span>{page.h3s && page.h3s[1] ? page.h3s[1] : "2. Emotional Resonance"}</span>
             </h3>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Deliver genuine attitude, wit, or vulnerability that triggers shares, DMs, and bookmarks.
+              {page.platform === "whatsapp"
+                ? "Use heartfelt Hindi couplets or punchy 2-line attitude statuses that contacts will want to screenshot."
+                : page.platform === "threads" || page.platform === "x"
+                ? "Write relatable hot-takes or raw self-reflections that prompt instant reposts and quote-tweets."
+                : "Deliver genuine attitude, wit, or vulnerability that triggers shares, DMs, and bookmarks."}
             </p>
           </div>
 
@@ -173,7 +197,11 @@ export function BlueprintPageTemplate({
               <span>{page.h3s && page.h3s[2] ? page.h3s[2] : "3. Clear Call to Action"}</span>
             </h3>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              End with a question or relatable opinion to multiply comments and signal strong relevance to the algorithm.
+              {page.platform === "youtube"
+                ? "Prompt viewers to comment their favorite timestamp or subscribe for weekly shorts."
+                : page.platform === "instagram"
+                ? "Ask '1 or 2?' or 'Drop a 🔥 if you agree' to multiply comment section activity."
+                : "End with a question or relatable opinion to multiply comments and signal strong relevance to the algorithm."}
             </p>
           </div>
         </div>

@@ -20,7 +20,7 @@ const THEMES = [
 
 export function VisualQuoteModal({ isOpen, onClose, captionText }: VisualQuoteModalProps) {
   const [selectedTheme, setSelectedTheme] = useState(THEMES[0]);
-  const [aspectRatio, setAspectRatio] = useState<"square" | "story">("story");
+  const [aspectRatio, setAspectRatio] = useState<"square" | "story" | "portrait">("story");
   const [copied, setCopied] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -32,8 +32,8 @@ export function VisualQuoteModal({ isOpen, onClose, captionText }: VisualQuoteMo
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const width = aspectRatio === "story" ? 1080 : 1080;
-    const height = aspectRatio === "story" ? 1920 : 1080;
+    const width = 1080;
+    const height = aspectRatio === "story" ? 1920 : aspectRatio === "portrait" ? 1350 : 1080;
     canvas.width = width;
     canvas.height = height;
 
@@ -148,7 +148,11 @@ export function VisualQuoteModal({ isOpen, onClose, captionText }: VisualQuoteMo
           <div
             ref={cardRef}
             className={`w-full ${
-              aspectRatio === "story" ? "aspect-[9/16] max-h-[300px] sm:max-h-[340px]" : "aspect-square max-h-[260px] sm:max-h-[300px]"
+              aspectRatio === "story"
+                ? "aspect-[9/16] max-h-[300px] sm:max-h-[340px]"
+                : aspectRatio === "portrait"
+                ? "aspect-[4/5] max-h-[280px] sm:max-h-[320px]"
+                : "aspect-square max-h-[260px] sm:max-h-[300px]"
             } rounded-2xl p-6 sm:p-8 flex flex-col justify-between items-center text-center shadow-lg transition-all border ${selectedTheme.bg} ${selectedTheme.border}`}
           >
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold">
@@ -168,30 +172,41 @@ export function VisualQuoteModal({ isOpen, onClose, captionText }: VisualQuoteMo
           {/* Format Picker */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2">
             <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400">Format:</span>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               <button
                 type="button"
                 onClick={() => setAspectRatio("story")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 border transition-all ${
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 border transition-all ${
                   aspectRatio === "story"
                     ? "bg-indigo-600 text-white border-indigo-600 shadow-2xs"
                     : "bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800"
                 }`}
               >
                 <Smartphone className="w-3.5 h-3.5" />
-                <span>Story (9:16)</span>
+                <span>Story 9:16</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setAspectRatio("portrait")}
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 border transition-all ${
+                  aspectRatio === "portrait"
+                    ? "bg-indigo-600 text-white border-indigo-600 shadow-2xs"
+                    : "bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800"
+                }`}
+              >
+                <span>Portrait 4:5</span>
               </button>
               <button
                 type="button"
                 onClick={() => setAspectRatio("square")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 border transition-all ${
+                className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 border transition-all ${
                   aspectRatio === "square"
                     ? "bg-indigo-600 text-white border-indigo-600 shadow-2xs"
                     : "bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800"
                 }`}
               >
                 <Square className="w-3.5 h-3.5" />
-                <span>Square (1:1)</span>
+                <span>Post 1:1</span>
               </button>
             </div>
           </div>
