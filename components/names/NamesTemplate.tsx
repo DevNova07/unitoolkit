@@ -6,7 +6,7 @@ import { Copy, Check, Volume2, Sparkles, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
-import { NameRecord } from "@/data/namesData";
+import { NAMES_DATA, NameRecord } from "@/data/namesData";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
 
@@ -85,13 +85,24 @@ export function NamesTemplate({
     }
   };
 
-  // Group items strictly by letter
+  // Group items strictly by letter (guaranteeing at least 10 names per letter)
   const groupedByLetter = useMemo(() => {
     const groups: Record<string, NameRecord[]> = {};
     for (const letter of ALPHABET) {
-      const letterNames = items.filter(
+      let letterNames = items.filter(
         (n) => n.startingLetter.toUpperCase() === letter || n.name.toUpperCase().startsWith(letter)
       );
+
+      // Ensure at least 10 names per letter by filling from comprehensive NAMES_DATA
+      if (letterNames.length < 10) {
+        const globalLetterNames = NAMES_DATA.filter(
+          (n) =>
+            (n.startingLetter.toUpperCase() === letter || n.name.toUpperCase().startsWith(letter)) &&
+            !letterNames.some((m) => m.id === n.id)
+        );
+        letterNames = [...letterNames, ...globalLetterNames].slice(0, 10);
+      }
+
       if (letterNames.length > 0) {
         groups[letter] = letterNames;
       }
