@@ -30,7 +30,7 @@ export function EditorialHero({
   platformName = "Instagram",
   badge,
   date = "Feb 20, 2026",
-  title = "350+ Caption Ideas to Make Your Own",
+  title = "15,000+ Curated Social Media Captions & Viral Lines",
   description = "Curated aesthetic, viral, and savage caption ideas ready to copy in 1-click.",
   heroImage,
   readTime = "10 min read",

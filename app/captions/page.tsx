@@ -206,13 +206,13 @@ function CaptionsContent() {
       {/* 1. Editorial Hero (Clean & Action-First) */}
       <EditorialHero
         platformName="Captions"
-        badge="Curated Library"
-        title="350+ Caption Ideas to Make Your Own (+ Write Yours with AI)"
-        description="Over 350 funny, clever, or meaningful caption ideas for you to use on your next post, along with a guide to creating your own AI caption generator."
+        badge="15K+ Curated Vault"
+        title="15,000+ Viral Instagram & Social Media Captions [2026]"
+        description="Explore aesthetic, attitude, romantic, and savage captions organized across 52+ vibes. Copy with 1-click or customize instantly with our free AI tool."
         heroImage="/images/hero-creator.jpg"
         breadcrumbs={[
           { label: "Content", href: "/#explore-content" },
-          { label: "Caption Library" },
+          { label: "Caption Vault" },
         ]}
         tocItems={structuredSections.map((sec) => ({
           id: sec.id,
