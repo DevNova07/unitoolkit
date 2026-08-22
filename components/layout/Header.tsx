@@ -163,7 +163,7 @@ export function Header() {
               <Sparkles className="w-3.5 h-3.5 fill-current" />
               <span>AI Tools</span>
               <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-600 dark:text-indigo-300">
-                5
+                6
               </span>
               <ChevronDown
                 className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -176,7 +176,7 @@ export function Header() {
               <div className="absolute top-full left-0 w-[340px] p-3 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-2xl space-y-1 animate-in fade-in-50 slide-in-from-top-2 duration-150 z-50 text-left">
                 <div className="px-2 py-1 flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                    5 Dedicated AI Generators
+                    6 Dedicated AI Studios
                   </span>
                   <span className="text-[10px] text-zinc-400">ChatGPT Style</span>
                 </div>
@@ -195,7 +195,21 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 2: AI Bio Generator */}
+                {/* AI Tool 2: AI Hashtag Studio */}
+                <Link
+                  href="/ai-hashtag-generator"
+                  className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-purple-600 transition-colors group"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-purple-50 dark:bg-purple-950 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Hash className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-extrabold text-xs">AI Hashtag Studio</p>
+                    <p className="text-[10px] font-normal text-zinc-400">Viral 30-tag ladder reach</p>
+                  </div>
+                </Link>
+
+                {/* AI Tool 3: AI Bio Generator */}
                 <Link
                   href="/ai-bio-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-pink-600 transition-colors group"
@@ -209,7 +223,7 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 3: AI Status Generator */}
+                {/* AI Tool 4: AI Status Generator */}
                 <Link
                   href="/ai-status-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-emerald-600 transition-colors group"
@@ -223,7 +237,7 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 4: AI Hindi Shayari Generator */}
+                {/* AI Tool 5: AI Hindi Shayari Generator */}
                 <Link
                   href="/ai-shayari-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-amber-600 transition-colors group"
@@ -237,17 +251,17 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 5: AI Hashtags & Quotes Generator */}
+                {/* AI Tool 6: AI Baby Name Studio */}
                 <Link
-                  href="/ai-quotes-generator"
-                  className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-yellow-600 transition-colors group"
+                  href="/ai-baby-name-generator"
+                  className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-blue-600 transition-colors group"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-yellow-50 dark:bg-yellow-950 text-yellow-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Hash className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Globe2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="font-extrabold text-xs">AI Hashtags & Quotes</p>
-                    <p className="text-[10px] font-normal text-zinc-400">Viral tags & mindset wisdom</p>
+                    <p className="font-extrabold text-xs">AI Baby Name Studio</p>
+                    <p className="text-[10px] font-normal text-zinc-400">Astrology & heritage blender</p>
                   </div>
                 </Link>
               </div>
