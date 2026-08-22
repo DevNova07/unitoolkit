@@ -3,33 +3,38 @@
 import Link from "next/link";
 import React from "react";
 import {
-  Sparkles,
+  Zap,
   ArrowRight,
   User,
   Quote,
   BookOpen,
   MessageCircle,
   FileText,
+  Hash,
+  PenTool,
+  Video,
+  Flame,
 } from "lucide-react";
 import { PlatformDetail } from "@/data/platformTaxonomy";
 
 const FEATURE_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  "ai-studio": Sparkles,
+  "ai-studio": Zap,
   posts: FileText,
-  viral: Sparkles,
-  shorts: Sparkles,
-  "one-liners": FileText,
+  viral: Flame,
+  shorts: Video,
+  "one-liners": PenTool,
   photos: FileText,
   conversations: MessageCircle,
-  aesthetic: Sparkles,
-  streaks: Sparkles,
-  leadership: Sparkles,
+  aesthetic: PenTool,
+  streaks: Flame,
+  leadership: PenTool,
   bios: User,
   bio: User,
   quotes: Quote,
   shayari: BookOpen,
   status: MessageCircle,
-  "status-gen": Sparkles,
+  "status-gen": MessageCircle,
+  hashtags: Hash,
 };
 
 interface PlatformToolsSuiteProps {
@@ -45,27 +50,27 @@ export function PlatformToolsSuite({ platformDetail }: PlatformToolsSuiteProps) 
             {platformDetail.name} Creator Tools
           </h2>
           <p className="hidden sm:block text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
-            Dedicated caption vaults, bio generators, quotes, and AI tools for {platformDetail.name}.
+            Dedicated caption vaults, hashtag hubs, bio stylers, quotes, and tools for {platformDetail.name}.
           </p>
         </div>
 
         <Link
           href={`/ai-caption-generator?platform=${platformDetail.id}`}
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
+          className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <Zap className="w-3.5 h-3.5" />
           <span>Launch AI Studio</span>
         </Link>
       </div>
 
       {/* Grid of Platform Tools */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {platformDetail.features.map((feat) => {
-          const Icon = FEATURE_ICON_MAP[feat.slug] || Sparkles;
+          const Icon = FEATURE_ICON_MAP[feat.slug] || PenTool;
 
           return (
             <Link
-              key={feat.slug}
+              key={feat.name}
               href={feat.route}
               className="p-5 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/90 dark:border-zinc-800/90 hover:border-indigo-400 dark:hover:border-indigo-600 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-4 group text-left"
             >
