@@ -168,8 +168,8 @@ export function HeroSection() {
                 </button>
               </form>
 
-              {/* 5. Clean Wrap Trending Pills (No screen overflow on mobile) */}
-              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-3 text-xs justify-center sm:justify-start">
+              {/* 5. Clean Trending Pills (Single clean row on PC, wrap on mobile) */}
+              <div className="flex flex-wrap lg:flex-nowrap items-center gap-1.5 sm:gap-2 pt-3 text-xs justify-center sm:justify-start overflow-x-auto lg:overflow-x-visible no-scrollbar">
                 <span className="font-bold text-zinc-500 dark:text-zinc-400 shrink-0 flex items-center gap-1">
                   <Flame className="w-3.5 h-3.5 text-rose-500" />
                   <span>Trending:</span>
@@ -182,7 +182,7 @@ export function HeroSection() {
                       setPrompt(item.topic);
                       router.push(`/ai-caption-generator?topic=${encodeURIComponent(item.topic)}`);
                     }}
-                    className="px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-[11px] sm:text-xs font-medium transition-colors cursor-pointer"
+                    className="shrink-0 px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 border border-zinc-200/80 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-[11px] sm:text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
                   >
                     {item.label}
                   </button>
@@ -197,27 +197,27 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* 🌟 10 Platform Cards (5x2 Grid on Mobile, Flex on Desktop - No Horizontal Overflow) */}
-        <div className="mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-zinc-200/60 dark:border-zinc-800/80 text-center">
+        {/* 🌟 10 Platform Cards (5x2 on Mobile, 10-Cols Grid on Desktop) */}
+        <div className="mt-12 sm:mt-18 pt-8 sm:pt-10 border-t border-zinc-200/60 dark:border-zinc-800/80 text-center">
           <p className="text-[11px] sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-5 sm:mb-8 flex items-center justify-center gap-2">
             <span className="w-6 sm:w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
             <span>Supported Across All 10 Major Platforms</span>
             <span className="w-6 sm:w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
           </p>
 
-          <div className="grid grid-cols-5 sm:grid-cols-5 lg:flex lg:items-center gap-2 sm:gap-3 lg:gap-4 justify-items-center lg:justify-between">
+          <div className="grid grid-cols-5 lg:grid-cols-10 gap-2 sm:gap-3 lg:gap-3.5 items-stretch">
             {platformsList.map((plat) => (
               <Link
                 key={plat.name}
                 href={plat.href}
-                className="w-full flex flex-col items-center gap-1.5 sm:gap-2.5 p-2 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_20px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-0 lg:min-w-[96px]"
+                className="flex flex-col items-center justify-center gap-2 p-2.5 sm:p-3.5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_4px_14px_-2px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_20px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-0"
               >
                 <div
-                  className={`w-9 h-9 xs:w-10 xs:h-10 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
                 >
                   {plat.icon}
                 </div>
-                <span className="text-[10px] xs:text-[11px] sm:text-[13px] font-bold text-zinc-900 dark:text-white truncate max-w-full text-center">
+                <span className="text-[10px] sm:text-xs font-bold text-zinc-900 dark:text-white truncate max-w-full text-center">
                   {plat.name}
                 </span>
               </Link>
