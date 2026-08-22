@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Zap, Search, ArrowRight, Flame } from "lucide-react";
+import { Zap, Search, ArrowRight, Flame, ShieldCheck, Globe2, Layers, PenTool } from "lucide-react";
 import {
   InstagramIcon,
   YoutubeIcon,
@@ -40,16 +40,76 @@ export function HeroSection() {
   ];
 
   const platformsList = [
-    { name: "Instagram", href: "/instagram-captions", icon: <InstagramIcon size={20} /> },
-    { name: "YouTube", href: "/youtube-captions", icon: <YoutubeIcon size={20} /> },
-    { name: "TikTok", href: "/tiktok-captions", icon: <TikTokIcon size={18} /> },
-    { name: "WhatsApp", href: "/whatsapp-status", icon: <WhatsAppIcon size={20} /> },
-    { name: "Facebook", href: "/facebook-captions", icon: <FacebookIcon size={20} /> },
-    { name: "LinkedIn", href: "/linkedin-captions", icon: <LinkedInIcon size={20} /> },
-    { name: "Twitter / X", href: "/twitter-captions", icon: <XIcon size={18} /> },
-    { name: "Threads", href: "/threads-captions", icon: <ThreadsIcon size={20} /> },
-    { name: "Pinterest", href: "/pinterest-captions", icon: <PinterestIcon size={20} /> },
-    { name: "Snapchat", href: "/snapchat-captions", icon: <SnapchatIcon size={20} /> },
+    {
+      name: "Instagram",
+      href: "/instagram-captions",
+      icon: <InstagramIcon size={22} />,
+      bg: "bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600",
+      shadow: "shadow-[0_8px_18px_rgba(244,63,94,0.35)]",
+    },
+    {
+      name: "YouTube",
+      href: "/youtube-captions",
+      icon: <YoutubeIcon size={22} />,
+      bg: "bg-gradient-to-tr from-red-600 to-rose-500",
+      shadow: "shadow-[0_8px_18px_rgba(239,68,68,0.35)]",
+    },
+    {
+      name: "TikTok",
+      href: "/tiktok-captions",
+      icon: <TikTokIcon size={20} />,
+      bg: "bg-zinc-950 border border-zinc-700",
+      shadow: "shadow-[0_8px_18px_rgba(0,0,0,0.4)]",
+    },
+    {
+      name: "WhatsApp",
+      href: "/whatsapp-status",
+      icon: <WhatsAppIcon size={22} />,
+      bg: "bg-gradient-to-tr from-emerald-500 to-teal-500",
+      shadow: "shadow-[0_8px_18px_rgba(16,185,129,0.35)]",
+    },
+    {
+      name: "Facebook",
+      href: "/facebook-captions",
+      icon: <FacebookIcon size={22} />,
+      bg: "bg-gradient-to-tr from-blue-600 to-indigo-600",
+      shadow: "shadow-[0_8px_18px_rgba(37,99,235,0.35)]",
+    },
+    {
+      name: "LinkedIn",
+      href: "/linkedin-captions",
+      icon: <LinkedInIcon size={22} />,
+      bg: "bg-gradient-to-tr from-blue-700 to-cyan-700",
+      shadow: "shadow-[0_8px_18px_rgba(2,132,199,0.35)]",
+    },
+    {
+      name: "Twitter / X",
+      href: "/twitter-captions",
+      icon: <XIcon size={20} />,
+      bg: "bg-zinc-950 border border-zinc-700",
+      shadow: "shadow-[0_8px_18px_rgba(0,0,0,0.4)]",
+    },
+    {
+      name: "Threads",
+      href: "/threads-captions",
+      icon: <ThreadsIcon size={22} />,
+      bg: "bg-zinc-900 dark:bg-zinc-800",
+      shadow: "shadow-[0_8px_18px_rgba(0,0,0,0.3)]",
+    },
+    {
+      name: "Pinterest",
+      href: "/pinterest-captions",
+      icon: <PinterestIcon size={22} />,
+      bg: "bg-gradient-to-tr from-rose-600 to-red-500",
+      shadow: "shadow-[0_8px_18px_rgba(225,29,72,0.35)]",
+    },
+    {
+      name: "Snapchat",
+      href: "/snapchat-captions",
+      icon: <SnapchatIcon size={22} />,
+      bg: "bg-gradient-to-tr from-amber-400 to-yellow-500",
+      shadow: "shadow-[0_8px_18px_rgba(234,179,8,0.35)]",
+    },
   ];
 
   return (
@@ -163,23 +223,91 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Clean Platform Logos Strip */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-zinc-200/70 dark:border-zinc-800/80 text-center">
-          <p className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-5">
-            Supported Across All 10 Major Platforms
+        {/* 🌟 10 Platform Cards Carousel Strip */}
+        <div className="mt-16 sm:mt-20 pt-10 border-t border-zinc-200/60 dark:border-zinc-800/80 text-center">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-8 flex items-center justify-center gap-2">
+            <span className="w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
+            <span>Supported Across All 10 Major Platforms</span>
+            <span className="w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
           </p>
 
-          <div className="flex items-center justify-center gap-3 sm:gap-6 flex-wrap">
+          <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar snap-x justify-start lg:justify-between">
             {platformsList.map((plat) => (
               <Link
                 key={plat.name}
                 href={plat.href}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:border-indigo-400 dark:hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-2xs"
+                className="snap-start shrink-0 flex flex-col items-center gap-2.5 p-3 sm:p-4 rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_12px_28px_-6px_rgba(0,0,0,0.08),inset_0_2px_4px_rgba(255,255,255,0.9)] dark:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.6)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-[84px] sm:min-w-[96px]"
               >
-                <span>{plat.icon}</span>
-                <span className="hidden sm:inline">{plat.name}</span>
+                <div
+                  className={`w-11 h-11 sm:w-13 sm:h-13 rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
+                >
+                  {plat.icon}
+                </div>
+                <span className="text-xs sm:text-[13px] font-bold text-zinc-900 dark:text-white">
+                  {plat.name}
+                </span>
               </Link>
             ))}
+          </div>
+        </div>
+
+        {/* 📊 Bottom Real Architecture Metrics Bar */}
+        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800 shadow-sm">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 items-center divide-y md:divide-y-0 md:divide-x divide-zinc-100 dark:divide-zinc-800">
+            {/* Stat 1 */}
+            <div className="flex items-center gap-3 pt-3 md:pt-0">
+              <div className="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+                <PenTool className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">15K+</div>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Curated Captions</div>
+              </div>
+            </div>
+
+            {/* Stat 2 */}
+            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6">
+              <div className="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-950/50 border border-amber-100 dark:border-amber-900 flex items-center justify-center text-amber-500 shrink-0">
+                <Flame className="w-5 h-5 fill-current" />
+              </div>
+              <div>
+                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">52+</div>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Content Moods</div>
+              </div>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6">
+              <div className="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 flex items-center justify-center text-blue-500 shrink-0">
+                <Globe2 className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">10</div>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Social Platforms</div>
+              </div>
+            </div>
+
+            {/* Stat 4 */}
+            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6">
+              <div className="w-11 h-11 rounded-2xl bg-pink-50 dark:bg-pink-950/50 border border-pink-100 dark:border-pink-900 flex items-center justify-center text-pink-500 shrink-0">
+                <Layers className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">6</div>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">AI Creator Studios</div>
+              </div>
+            </div>
+
+            {/* Stat 5 */}
+            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6 col-span-2 md:col-span-1">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900 flex items-center justify-center text-emerald-600 shrink-0">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">100%</div>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Free Forever</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
