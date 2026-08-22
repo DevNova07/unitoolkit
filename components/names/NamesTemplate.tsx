@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Copy, Check, Volume2, Sparkles, BookOpen, Heart, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { NameRecord } from "@/data/namesData";
 import { copyToClipboard } from "@/lib/utils";
@@ -412,7 +413,10 @@ export function NamesTemplate({
       {/* 9. FAQs Section */}
       <FAQSection faqs={activeFaqs} title={`Frequently Asked Questions`} />
 
-      {/* 10. Related Category Links */}
+      {/* 10. E-E-A-T Author & Research Review Box */}
+      <AuthorBioBox categoryType="Names" topic={h1} />
+
+      {/* 11. Related Category Links */}
       {relatedLinks.length > 0 && (
         <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
           <h3 className="text-lg font-bold text-zinc-900 dark:text-white">

@@ -4,9 +4,11 @@ import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { CaptionCard } from "@/components/captions/CaptionCard";
+import { SearchIntentGuide } from "@/components/common/SearchIntentGuide";
 import { CAPTIONS_DATA } from "@/data/captionsData";
 import { PILLAR_CAPTIONS_SUBPAGES } from "@/data/master300Architecture";
 
@@ -153,30 +155,8 @@ export default async function CaptionsSubpage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Editorial Content Masterclass Section with Semantic H2 & H3s */}
-      <section className="p-6 sm:p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 space-y-6">
-        <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
-          The Ultimate Guide to Writing Viral {name} Captions in 2026
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-              1. First-Line Retention (The Hook)
-            </h3>
-            <p>
-              Over 80% of users scroll past without tapping &lsquo;more&rsquo;. Ensure your first line contains the emotional punchline or mystery to guarantee high dwell time.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-              2. Strategic Emoji Balancing
-            </h3>
-            <p>
-              Use 1 to 2 relevant emojis to add warmth without cluttering the aesthetic tone of your post. Keep the focus sharp on your authentic message.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Search Intent Guide (Posting times, hashtags, photo ideas, 3-sec hook) */}
+      <SearchIntentGuide categoryName={name} type="caption" />
 
       {/* Related Categories */}
       <section className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
@@ -195,6 +175,9 @@ export default async function CaptionsSubpage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      {/* E-E-A-T Author & Research Review Box */}
+      <AuthorBioBox categoryType="Social Captions" topic={`${name} Captions`} />
 
       <FAQSection faqs={faqs} />
       <CTASection />

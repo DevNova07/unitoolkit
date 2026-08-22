@@ -4,9 +4,11 @@ import Link from "next/link";
 import { Sparkles, ArrowRight, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { SubpageShayariList } from "./SubpageShayariList";
+import { SearchIntentGuide } from "@/components/common/SearchIntentGuide";
 import { PILLAR_SHAYARI_SUBPAGES } from "@/data/master300Architecture";
 import { SHAYARI_SECTIONS, ShayariItem } from "@/data/shayariData";
 
@@ -153,6 +155,9 @@ export default async function ShayariSubSlugPage({ params }: PageProps) {
         subslug={subslug}
       />
 
+      {/* Search Intent Guide (Background music, typography, timing, 1-click sharing) */}
+      <SearchIntentGuide categoryName={name} type="shayari" />
+
       {/* Related Categories */}
       <section className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
         <h3 className="text-lg font-extrabold text-zinc-900 dark:text-white">
@@ -170,6 +175,9 @@ export default async function ShayariSubSlugPage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      {/* E-E-A-T Author & Research Review Box */}
+      <AuthorBioBox categoryType="Hindi Poetry & Shayari" topic={`${name} Shayari`} />
 
       <FAQSection faqs={faqs} />
       <CTASection />

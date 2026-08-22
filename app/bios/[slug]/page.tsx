@@ -4,10 +4,12 @@ import Link from "next/link";
 import { Sparkles, ArrowRight, Layers, ShieldCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { InstagramBioGenerator } from "@/components/tools/InstagramBioGenerator";
 import { BioCardsList } from "@/components/bios/BioCardsList";
+import { SearchIntentGuide } from "@/components/common/SearchIntentGuide";
 import { PILLAR_BIOS_SUBPAGES } from "@/data/master300Architecture";
 import { BIOS_DATA } from "@/data/biosData";
 
@@ -151,32 +153,8 @@ export default async function BioSlugPage({ params }: PageProps) {
         <BioCardsList bios={matchingBios} />
       </section>
 
-      {/* Editorial Guide with Semantic H2 & H3s */}
-      <section className="p-6 sm:p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-6">
-        <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
-          How to Optimize Your {name} Instagram Bio for Maximum Followers
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-pink-500" />
-              <span>1. The 3-Second Hook Rule</span>
-            </h3>
-            <p>
-              Visitors decide whether to follow your account within 3 seconds of landing on your profile. State your identity, core passion, or unique edge on line one using punchy symbols.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>2. Clean Line Breaks & Visual Breathing Room</span>
-            </h3>
-            <p>
-              Avoid long walls of text. Stack your bio into 3 to 4 distinct vertical lines with aesthetic bullet points like 👑, ⚡, 📍, or 🖤 for clean readability.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Search Intent Guide (Character limits, CTA placement, aesthetic bullets) */}
+      <SearchIntentGuide categoryName={name} type="bio" />
 
       {/* Interactive Bio Generator Studio */}
       <InstagramBioGenerator />
@@ -199,6 +177,9 @@ export default async function BioSlugPage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      {/* E-E-A-T Author & Research Review Box */}
+      <AuthorBioBox categoryType="Social Profiles & Bios" topic={`${name} Bios`} />
 
       <FAQSection faqs={faqs} />
       <CTASection />

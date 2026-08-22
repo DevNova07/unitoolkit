@@ -9,7 +9,7 @@ interface BreadcrumbItem {
 }
 
 interface JsonLdSchemaProps {
-  type?: "FAQPage" | "ItemList" | "SoftwareApplication" | "WebSite" | "Breadcrumbs";
+  type?: "FAQPage" | "ItemList" | "SoftwareApplication" | "WebApplication" | "Article" | "WebSite" | "Breadcrumbs";
   faqs?: FAQItem[];
   items?: { name: string; position?: number }[];
   breadcrumbs?: BreadcrumbItem[];
@@ -18,6 +18,8 @@ interface JsonLdSchemaProps {
   url?: string;
   ratingValue?: string;
   reviewCount?: string;
+  datePublished?: string;
+  dateModified?: string;
 }
 
 export function JsonLdSchema({
@@ -25,11 +27,13 @@ export function JsonLdSchema({
   faqs,
   items,
   breadcrumbs,
-  title = "Unitoolkit — Social Media Caption Generator & Creator Studio",
-  description = "Find 15,000+ viral, aesthetic, and attitude captions for Instagram, TikTok, Facebook, and Threads.",
-  url = "https://unitoolkit.app",
+  title = "UniToolkit — Multi-Tool Creator Studio & Global Names Vault",
+  description = "Access 15,000+ verified captions, shayari, social tools, and global baby names with meanings and audio pronunciation.",
+  url = "https://unitoolkit.com",
   ratingValue = "4.9",
   reviewCount = "18450",
+  datePublished = "2026-01-01",
+  dateModified = "2026-08-22",
 }: JsonLdSchemaProps) {
   let schemaData: Record<string, unknown> = {};
 
@@ -69,14 +73,16 @@ export function JsonLdSchema({
         item: bc.item,
       })),
     };
-  } else if (type === "SoftwareApplication") {
+  } else if (type === "WebApplication" || type === "SoftwareApplication") {
     schemaData = {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": "WebApplication",
       name: title,
       description: description,
-      applicationCategory: "DesignApplication",
+      url: url,
+      applicationCategory: "UtilityApplication",
       operatingSystem: "All, Web, iOS, Android, macOS, Windows",
+      browserRequirements: "Requires JavaScript. Requires HTML5.",
       offers: {
         "@type": "Offer",
         price: "0.00",
@@ -88,6 +94,39 @@ export function JsonLdSchema({
         reviewCount: reviewCount,
         bestRating: "5",
         worstRating: "1",
+      },
+      author: {
+        "@type": "Organization",
+        name: "UniToolkit Research & Development Team",
+        url: "https://unitoolkit.com",
+      },
+    };
+  } else if (type === "Article") {
+    schemaData = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description: description,
+      url: url,
+      datePublished: datePublished,
+      dateModified: dateModified,
+      author: {
+        "@type": "Organization",
+        name: "UniToolkit Editorial Team",
+        url: "https://unitoolkit.com",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "UniToolkit",
+        url: "https://unitoolkit.com",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://unitoolkit.com/icon.png",
+        },
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": url,
       },
     };
   } else {

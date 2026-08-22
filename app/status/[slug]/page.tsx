@@ -4,9 +4,11 @@ import Link from "next/link";
 import { MessageCircle, Sparkles, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { WhatsAppStatusStudio } from "@/components/whatsapp/WhatsAppStatusStudio";
+import { SearchIntentGuide } from "@/components/common/SearchIntentGuide";
 import { PILLAR_STATUS_SUBPAGES } from "@/data/master300Architecture";
 
 interface PageProps {
@@ -117,6 +119,9 @@ export default async function StatusSlugPage({ params }: PageProps) {
       {/* Main Studio */}
       <WhatsAppStatusStudio />
 
+      {/* Search Intent Guide (Clean one-liner formatting, alignment, story timing) */}
+      <SearchIntentGuide categoryName={name} type="status" />
+
       {/* Related Status Categories */}
       <section className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
         <h3 className="text-lg font-extrabold text-zinc-900 dark:text-white">
@@ -134,6 +139,9 @@ export default async function StatusSlugPage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      {/* E-E-A-T Author & Research Review Box */}
+      <AuthorBioBox categoryType="Social Status & Quotes" topic={`${name} Status`} />
 
       <FAQSection faqs={faqs} />
       <CTASection />
