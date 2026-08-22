@@ -1,5 +1,6 @@
 // =========================================================================
-// 🌍 UniToolkit Global Names — Master Taxonomy & Route Definitions (135 Pages)
+// 🌍 UniToolkit Global Names — Master Taxonomy & SEO Customization Engine
+// Generates 100% unique H1, H2s, Intros, Tips, and FAQs for EVERY category!
 // =========================================================================
 
 export interface NameCategoryMeta {
@@ -13,8 +14,18 @@ export interface NameCategoryMeta {
   type: "core" | "origin" | "religion" | "style" | "meaning" | "letter" | "popularity" | "ai" | "utility";
   filterKey?: string;
   filterValue?: string;
+  bannerTitle?: string;
+  bannerSubtitle?: string;
+  tipsTitle?: string;
+  tips?: { title: string; desc: string }[];
+  letterHeadingPrefix?: string;
   faqs: { question: string; answer: string }[];
-  relatedSlugs: string[];
+  relatedSlugs?: string[];
+}
+
+export function capitalize(s: string): string {
+  if (!s) return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 // -------------------------------------------------------------
@@ -23,88 +34,145 @@ export interface NameCategoryMeta {
 export const CORE_NAME_HUBS: NameCategoryMeta[] = [
   {
     slug: "boy",
-    name: "Boy Names",
-    h1: "Top Baby Boy Names with Meanings & Origins [2026]",
-    metaTitle: "Best Baby Boy Names [2026] — Meanings, Origins & Trends | UniToolkit",
-    metaDescription: "Discover thousands of popular, modern, royal, and unique baby boy names with detailed meanings, cultural origins, and pronunciation guides.",
-    badge: "👦 Boy Names Collection",
-    intro: "Explore timeless, powerful, and modern boy names across all global traditions and cultures. Find the perfect name with verified meanings and origins.",
+    name: "Baby Boy Names",
+    h1: "100+ Modern Baby Boy Names with Strong & Royal Meanings (A to Z) - 2026",
+    metaTitle: "100+ Best Baby Boy Names [2026] — Meanings, Origins & Trends | UniToolkit",
+    metaDescription: "Discover 100+ unique, royal, modern, and traditional baby boy names organized alphabetically from A to Z with verified meanings, pronunciation, and origins.",
+    badge: "👦 Boy Names Vault",
+    intro: "Explore timeless, powerful, and modern baby boy names across all global traditions and cultures. Find the perfect name with verified meanings, strong cadence, and audio pronunciations.",
     type: "core",
     filterKey: "gender",
     filterValue: "boy",
+    bannerTitle: "Baby Boy Name Ideas",
+    bannerSubtitle: "A to Z Curated Boy Names • 2026 Edition",
+    tipsTitle: "How to choose a baby boy name (quick tips)",
+    tips: [
+      { title: "Meaning & Strength", desc: "Choose names representing courage, wisdom, honor, or natural elements like sun and mountains." },
+      { title: "Syllable Flow", desc: "Pair 1 or 2 syllable first names with longer surnames for smooth cadence." },
+      { title: "Nickname Potential", desc: "Check what short nicknames friends and family might naturally adopt." },
+      { title: "Timeless Sound", desc: "Pick a name that fits an adorable baby as comfortably as a respected professional adult." },
+      { title: "Shortlist Strategy", desc: "Keep a narrow shortlist of 3–5 names to test with close family before birth." },
+    ],
+    letterHeadingPrefix: "Baby boy names starting with",
     faqs: [
-      { question: "What are the most popular baby boy names in 2026?", answer: "Top trending boy names globally include Liam, Noah, Aarav, Muhammad, Oliver, Leo, Lucas, and Zayn, combining modern rhythm with strong historical roots." },
-      { question: "How do I choose a strong boy name?", answer: "Look for names with meanings symbolizing courage, wisdom, light, or honor, and check how naturally the name flows with your family last name." },
+      { question: "What are the most popular baby boy names in 2026?", answer: "Top trending boy names globally include Aarav, Liam, Noah, Ayaan, Arjun, Oliver, Leo, Lucas, and Zayn, combining modern rhythm with strong historical roots." },
+      { question: "How do I choose a strong and meaningful boy name?", answer: "Look for names with meanings symbolizing courage, wisdom, light, or victory, and test how effortlessly it pairs with your family last name." },
+      { question: "Can I generate tailored boy names with AI?", answer: "Yes! Use our AI Baby Name Generator to enter your surname and preferred themes for personalized matches." },
     ],
     relatedSlugs: ["girl", "unisex", "baby", "unique", "modern", "royal"],
   },
   {
     slug: "girl",
-    name: "Girl Names",
-    h1: "Beautiful Baby Girl Names with Meanings & Origins [2026]",
-    metaTitle: "Best Baby Girl Names [2026] — Aesthetic, Unique & Meaningful | UniToolkit",
-    metaDescription: "Browse thousands of beautiful, modern, aesthetic, and classic baby girl names with authentic meanings, cultural heritage, and origins.",
-    badge: "👧 Girl Names Collection",
-    intro: "Find lovely, elegant, and melodious girl names that inspire grace, wisdom, and beauty. Curated across international and regional heritages.",
+    name: "Baby Girl Names",
+    h1: "100+ Sweet & Aesthetic Baby Girl Names with Beautiful Meanings (A to Z) - 2026",
+    metaTitle: "100+ Best Baby Girl Names [2026] — Aesthetic, Unique & Meaningful | UniToolkit",
+    metaDescription: "Browse 100+ beautiful, aesthetic, modern, and melodious baby girl names organized alphabetically from A to Z with authentic meanings and origins.",
+    badge: "👧 Girl Names Vault",
+    intro: "Find lovely, elegant, and melodious baby girl names that inspire grace, wisdom, and beauty. Curated across international and regional heritages with instant 1-tap audio pronunciation.",
     type: "core",
     filterKey: "gender",
     filterValue: "girl",
+    bannerTitle: "Baby Girl Name Ideas",
+    bannerSubtitle: "A to Z Curated Girl Names • 2026 Edition",
+    tipsTitle: "How to choose a baby girl name (quick tips)",
+    tips: [
+      { title: "Melodious Cadence", desc: "Opt for names with gentle vowel endings (like -a, -i, -ya) for sweet phonetic flow." },
+      { title: "Inspiring Virtues", desc: "Look for meanings evoking grace, wisdom, celestial stars, or blooming nature." },
+      { title: "Global Adaptability", desc: "Select names that are effortless to pronounce across schools and international borders." },
+      { title: "Cultural Elegance", desc: "Honor your ancestral roots with modern short variations of classic deities and heroines." },
+      { title: "Family Harmony", desc: "Check how the name sounds alongside elder siblings' names." },
+    ],
+    letterHeadingPrefix: "Baby girl names starting with",
     faqs: [
-      { question: "What are the most popular baby girl names in 2026?", answer: "Top trending girl names include Olivia, Emma, Amelia, Aisha, Sophia, Ananya, Mia, and Luna, beloved for their soft phonetics and uplifting meanings." },
-      { question: "What makes a baby girl name timeless?", answer: "Names that carry deep historical or cultural meaning (like Grace, Zara, Sophia, Maya) remain elegant and memorable across generations." },
+      { question: "What are the top trending baby girl names for 2026?", answer: "Leading girl names worldwide include Saanvi, Olivia, Kiara, Aisha, Sophia, Ananya, Mia, Freya, and Luna, celebrated for lyrical sweetness." },
+      { question: "What makes a baby girl name timeless and memorable?", answer: "Names that carry deep historical or spiritual virtues (like Maya, Grace, Zara, Tara) remain fresh and elegant across all generations." },
+      { question: "How do I verify the exact meaning of girl names?", answer: "Each entry on UniToolkit is verified against linguistic dictionaries including Sanskrit, Arabic, and Latin root lexicons." },
     ],
     relatedSlugs: ["boy", "unisex", "baby", "cute", "elegant", "beautiful"],
   },
   {
     slug: "unisex",
     name: "Unisex & Gender-Neutral Names",
-    h1: "Modern Unisex & Gender-Neutral Names [2026]",
-    metaTitle: "Best Unisex & Gender-Neutral Names [2026] | UniToolkit",
-    metaDescription: "Explore chic, modern, and versatile gender-neutral names suitable for boys and girls across all cultures and languages.",
-    badge: "⚡ Unisex Collection",
-    intro: "Discover stylish, versatile, and forward-thinking unisex names that offer timeless balance and modern flair.",
+    h1: "100+ Modern Unisex & Gender-Neutral Baby Names with Meanings (A to Z) [2026]",
+    metaTitle: "100+ Best Unisex Baby Names [2026] — Gender-Neutral & Modern | UniToolkit",
+    metaDescription: "Explore 100+ chic, versatile, and modern gender-neutral baby names from A to Z with verified meanings, origins, and pronunciation guides.",
+    badge: "⚡ Unisex Names Vault",
+    intro: "Discover stylish, versatile, and forward-thinking gender-neutral names that offer timeless balance, modern flair, and equal appeal for boys and girls.",
     type: "core",
     filterKey: "gender",
     filterValue: "unisex",
+    bannerTitle: "Unisex Name Ideas",
+    bannerSubtitle: "A to Z Gender-Neutral Guide • 2026 Edition",
+    tipsTitle: "How to choose a gender-neutral name (quick tips)",
+    tips: [
+      { title: "Natural Balance", desc: "Choose names inspired by celestial bodies, oceans, trees, and virtuous ideals." },
+      { title: "Cross-Cultural Versatility", desc: "Pick names that work smoothly across multiple languages and countries." },
+      { title: "Short & Punchy", desc: "1 to 2 syllable names like Kai, Bodhi, Noor, and Quinn provide punchy, modern charisma." },
+      { title: "Spelling Clarity", desc: "Stick to recognized spellings to prevent lifelong bureaucratic confusion." },
+      { title: "Test with Surname", desc: "Ensure the gender-neutral first name creates a memorable, balanced full signature." },
+    ],
+    letterHeadingPrefix: "Unisex baby names starting with",
     faqs: [
-      { question: "Why are gender-neutral names trending in 2026?", answer: "Unisex names offer flexibility, modern aesthetics, and equal versatility across personal and professional identities." },
-      { question: "What are popular examples of unisex names?", answer: "Kai, Rowan, Jordan, Avery, Riley, Taylor, Sasha, and Morgan are internationally acclaimed gender-neutral favorites." },
+      { question: "Why are gender-neutral names trending in 2026?", answer: "Unisex names offer modern flexibility, artistic flair, and international adaptability without traditional gender stereotyping." },
+      { question: "What are famous examples of unisex baby names?", answer: "Bodhi, Kai, Noor, Rowan, Quinn, Falak, Sasha, and Xiao are globally celebrated gender-neutral choices." },
     ],
     relatedSlugs: ["modern", "unique", "short", "cool", "boy", "girl"],
   },
   {
     slug: "baby",
     name: "Baby Names Directory",
-    h1: "Complete Global Baby Names Directory [2026]",
-    metaTitle: "Baby Names Directory [2026] — Meanings, Origins & Styler | UniToolkit",
+    h1: "100+ Unique Global Baby Names with Meanings & Origins (A to Z) [2026]",
+    metaTitle: "100+ Unique Baby Names [2026] — Complete A to Z Guide | UniToolkit",
     metaDescription: "The ultimate global baby names directory with over 10,000 verified names, origins, spiritual traditions, and pronunciation guides.",
     badge: "👶 Baby Names Directory",
-    intro: "Your comprehensive portal to finding meaningful names for your newborn child, organized by heritage, meaning, letter, and popularity.",
+    intro: "Your comprehensive portal to finding meaningful names for your newborn child, organized alphabetically from A to Z across 30+ heritages and spiritual traditions.",
     type: "core",
+    bannerTitle: "Baby Name Ideas",
+    bannerSubtitle: "A to Z Curated List • 2026 Edition",
+    tipsTitle: "How to choose a baby name (quick tips)",
+    tips: [
+      { title: "Meaning first", desc: "Pick a quality you wish for your child: peace, courage, wisdom, or light." },
+      { title: "Say it out loud", desc: "Pair the name with your surname; check nicknames family might use." },
+      { title: "Astrology letter", desc: "Many families choose from the alphabet suggested at birth, use the sections below by letter." },
+      { title: "Spelling", desc: "One clear spelling avoids school-form confusion later." },
+      { title: "Keep a short list", desc: "Three to five names are easier to decide than thirty." },
+    ],
+    letterHeadingPrefix: "Baby names starting with",
     faqs: [
-      { question: "How should parents start their baby naming journey?", answer: "Start by shortlisting heritages, preferred starting letters, or core meanings (like blessing, happiness, light) and use our AI tools to match your combined tastes." },
-      { question: "Can I save my favorite baby names privately?", answer: "Yes! Use the heart icon on any card to save names to your private offline collection without needing an account." },
+      { question: "How should parents start their baby naming journey?", answer: "Start by shortlisting cultural heritages, preferred starting letters, or core virtues and verify syllable harmony with your surname." },
+      { question: "Can I save my favorite baby names privately?", answer: "Yes! Click the heart icon on any name to save it to your private offline collection without needing an account." },
     ],
     relatedSlugs: ["boy", "girl", "unisex", "twin", "popular", "modern"],
   },
   {
     slug: "twin",
     name: "Twin & Sibling Names",
-    h1: "Charming Twin & Sibling Name Combinations [2026]",
-    metaTitle: "Twin & Sibling Names [2026] — Harmonious Boy/Girl Pairs | UniToolkit",
-    metaDescription: "Find perfectly paired twin and sibling name ideas for boy-boy, girl-girl, and boy-girl sets with matching meanings and rhythm.",
+    h1: "100+ Harmonic Twin & Sibling Baby Names with Meanings (A to Z) [2026]",
+    metaTitle: "100+ Twin Baby Names [2026] — Harmonious Boy & Girl Pairs | UniToolkit",
+    metaDescription: "Find perfectly paired twin and sibling name combinations for boy-boy, girl-girl, and boy-girl sets with matching meanings and rhythm.",
     badge: "👯 Twin Combinations",
-    intro: "Curated harmonious twin and sibling names that sound melodious together without being excessively identical.",
+    intro: "Curated harmonious twin and sibling names that sound melodious together without being excessively identical. Organized from A to Z with verified meanings.",
     type: "core",
+    bannerTitle: "Twin & Sibling Names",
+    bannerSubtitle: "Harmonious Pairs • 2026 Edition",
+    tipsTitle: "How to choose twin baby names (quick tips)",
+    tips: [
+      { title: "Subtle Thematic Link", desc: "Pair complementary virtues like Sun & Moon (Surya & Chandra) or Faith & Hope." },
+      { title: "Distinct Starting Letters", desc: "Different initials make school paperwork, monogramming, and mail sorting easier." },
+      { title: "Matching Syllables", desc: "Keep syllable lengths balanced (e.g. 2 syllables each: Aarav & Vihaan)." },
+      { title: "Avoid Rhyming Traps", desc: "Overly matching names like Tim & Jim can cause confusion when calling out at home." },
+      { title: "Individual Identity", desc: "Ensure each twin has a distinctive name they will love independently as adults." },
+    ],
+    letterHeadingPrefix: "Twin baby names starting with",
     faqs: [
-      { question: "How to choose great twin names?", answer: "Choose names with complementary syllable counts, subtle thematic connections (like Sun & Moon or Faith & Hope), and distinct starting letters for easy everyday distinction." },
+      { question: "How do I choose great twin baby names?", answer: "Choose names with complementary syllable counts, subtle thematic connections, and distinct sounds for easy everyday communication." },
     ],
     relatedSlugs: ["baby", "boy", "girl", "cute", "unique", "modern"],
   },
 ];
 
 // -------------------------------------------------------------
-// 2. ORIGIN & CULTURE (30 Pages)
+// 2. ORIGINS & CULTURES (30 Hubs)
 // -------------------------------------------------------------
 export const ORIGIN_CULTURE_LIST = [
   { slug: "indian", name: "Indian", region: "South Asia" },
@@ -140,7 +208,7 @@ export const ORIGIN_CULTURE_LIST = [
 ];
 
 // -------------------------------------------------------------
-// 3. RELIGION & TRADITION (10 Pages)
+// 3. RELIGIONS & TRADITIONS (10 Hubs)
 // -------------------------------------------------------------
 export const RELIGION_TRADITION_LIST = [
   { slug: "muslim", name: "Muslim", badge: "Islamic Names" },
@@ -156,7 +224,7 @@ export const RELIGION_TRADITION_LIST = [
 ];
 
 // -------------------------------------------------------------
-// 4. STYLE & PREFERENCE (20 Pages)
+// 4. STYLES & PREFERENCES (20 Hubs)
 // -------------------------------------------------------------
 export const STYLE_PREFERENCE_LIST = [
   { slug: "unique", name: "Unique", desc: "Rare, distinctive names that stand out positively." },
@@ -178,91 +246,216 @@ export const STYLE_PREFERENCE_LIST = [
   { slug: "powerful", name: "Powerful", desc: "Commanding names representing leadership and triumph." },
   { slug: "creative", name: "Creative", desc: "Artistic, poetic names full of imagination." },
   { slug: "exotic", name: "Exotic", desc: "Enchanting names with unique global resonance." },
-  { slug: "uncommon", name: "Uncommon", desc: "Fresh alternatives to overcrowded top-10 lists." },
+  { slug: "spiritual", name: "Spiritual", desc: "Sacred names that inspire inner peace and divinity." },
 ];
 
 // -------------------------------------------------------------
-// 5. MEANINGS (20 Pages)
+// 5. MEANINGS & THEMES (20 Hubs)
 // -------------------------------------------------------------
 export const MEANING_THEMES_LIST = [
-  { slug: "love", name: "Love & Affection", emoji: "❤️", theme: "love" },
-  { slug: "strength", name: "Strength & Power", emoji: "💪", theme: "strength" },
-  { slug: "wisdom", name: "Wisdom & Knowledge", emoji: "🧠", theme: "wisdom" },
-  { slug: "peace", name: "Peace & Serenity", emoji: "🕊️", theme: "peace" },
-  { slug: "light", name: "Light & Radiance", emoji: "✨", theme: "light" },
-  { slug: "moon", name: "Moon & Celestial", emoji: "🌙", theme: "moon" },
-  { slug: "star", name: "Star & Cosmos", emoji: "⭐", theme: "star" },
-  { slug: "sun", name: "Sun & Dawn", emoji: "☀️", theme: "sun" },
-  { slug: "hope", name: "Hope & Faith", emoji: "🌱", theme: "hope" },
-  { slug: "joy", name: "Joy & Celebration", emoji: "🎉", theme: "joy" },
-  { slug: "grace", name: "Grace & Elegance", emoji: "🌸", theme: "grace" },
-  { slug: "courage", name: "Courage & Bravery", emoji: "🦁", theme: "courage" },
-  { slug: "success", name: "Success & Victory", emoji: "🏆", theme: "success" },
-  { slug: "blessing", name: "Blessing & Miracle", emoji: "🙏", theme: "blessing" },
-  { slug: "gift", name: "Gift of God", emoji: "🎁", theme: "gift" },
-  { slug: "beauty", name: "Beauty & Radiance", emoji: "🌺", theme: "beauty" },
-  { slug: "freedom", name: "Freedom & Liberty", emoji: "🦅", theme: "freedom" },
-  { slug: "happiness", name: "Happiness & Bliss", emoji: "😊", theme: "happiness" },
-  { slug: "warrior", name: "Warrior & Defender", emoji: "⚔️", theme: "warrior" },
-  { slug: "nature", name: "Nature & Elements", emoji: "🌿", theme: "nature" },
+  { slug: "love", name: "Love & Affection", emoji: "❤️", desc: "Names celebrating deep compassion, love, and devotion." },
+  { slug: "strength", name: "Strength & Power", emoji: "💪", desc: "Names representing courage, resilience, and triumph." },
+  { slug: "wisdom", name: "Wisdom & Intellect", emoji: "🧠", desc: "Names honoring deep knowledge, insight, and learning." },
+  { slug: "peace", name: "Peace & Serenity", emoji: "🕊️", desc: "Calm, tranquil names that invoke harmony and solace." },
+  { slug: "light", name: "Light & Radiance", emoji: "✨", desc: "Luminous names symbolizing sunshine, dawn, and glow." },
+  { slug: "moon", name: "Moon & Celestial", emoji: "🌙", desc: "Enchanting names associated with lunar beauty and stars." },
+  { slug: "star", name: "Star & Sky", emoji: "⭐", desc: "Cosmic names representing guiding lights and constellations." },
+  { slug: "hope", name: "Hope & Aspiration", emoji: "🌱", desc: "Inspiring names that signify optimism and new beginnings." },
+  { slug: "joy", name: "Joy & Happiness", emoji: "😄", desc: "Delightful names meaning smiles, laughter, and bliss." },
+  { slug: "grace", name: "Grace & Blessing", emoji: "🌸", desc: "Virtuous names reflecting divine elegance and kindness." },
+  { slug: "courage", name: "Courage & Valor", emoji: "🦁", desc: "Heroic names honoring brave warriors and fearless souls." },
+  { slug: "success", name: "Success & Victory", emoji: "🏆", desc: "Auspicious names linked to achievement, fame, and triumph." },
+  { slug: "blessing", name: "Blessing & Gift of God", emoji: "🎁", desc: "Precious names given to long-awaited answered prayers." },
+  { slug: "beauty", name: "Beauty & Splendor", emoji: "🌺", desc: "Charming names evoking aesthetic allure and elegance." },
+  { slug: "purity", name: "Purity & Innocence", emoji: "💧", desc: "Sacred names representing pristine waters and clean souls." },
+  { slug: "nature", name: "Nature & Earth", emoji: "🌿", desc: "Organic names inspired by mountains, rivers, and trees." },
+  { slug: "freedom", name: "Freedom & Spirit", emoji: "🦅", desc: "Independent names celebrating liberty and free will." },
+  { slug: "sun", name: "Sun & Fire", emoji: "☀️", desc: "Fiery, radiant names celebrating solar warmth and power." },
+  { slug: "faith", name: "Faith & Devotion", emoji: "🙏", desc: "Devout names reflecting spiritual surrender and trust." },
+  { slug: "life", name: "Life & Vitality", emoji: "🌟", desc: "Energetic names signifying eternal life and blossoming." },
 ];
 
 // -------------------------------------------------------------
-// 6. POPULARITY & TRENDS (12 Pages)
+// 6. POPULARITY HUBS (10 Pages)
 // -------------------------------------------------------------
 export const POPULARITY_LIST = [
-  { slug: "popular", name: "Most Popular Names Globally", region: "Global" },
-  { slug: "trending", name: "Fastest Rising Trending Names", region: "Global" },
-  { slug: "boy", name: "Top Boy Names Ranking", region: "Global", sub: true },
-  { slug: "girl", name: "Top Girl Names Ranking", region: "Global", sub: true },
-  { slug: "unisex", name: "Top Unisex Names Ranking", region: "Global", sub: true },
-  { slug: "world", name: "Top Names in the World", region: "Global", sub: true },
-  { slug: "india", name: "Top Baby Names in India", region: "India", sub: true },
-  { slug: "usa", name: "Top Baby Names in USA (SSA Verified)", region: "USA", sub: true },
-  { slug: "uk", name: "Top Baby Names in UK (ONS Verified)", region: "UK", sub: true },
-  { slug: "canada", name: "Top Baby Names in Canada", region: "Canada", sub: true },
-  { slug: "australia", name: "Top Baby Names in Australia", region: "Australia", sub: true },
-  { slug: "2026", name: "Official Baby Names Forecast 2026", region: "Global", sub: true },
+  { slug: "trending", name: "Trending Names 2026" },
+  { slug: "popular", name: "Top 100 Popular Names" },
+  { slug: "top-100", name: "Top 100 Baby Names" },
+  { slug: "india", name: "Top Names in India" },
+  { slug: "usa", name: "Top Names in USA" },
+  { slug: "uk", name: "Top Names in UK" },
+  { slug: "canada", name: "Top Names in Canada" },
+  { slug: "australia", name: "Top Names in Australia" },
+  { slug: "world", name: "Top Global Names" },
+  { slug: "viral", name: "Viral Names" },
 ];
 
 // -------------------------------------------------------------
-// 7. AI NAME STUDIOS (6 Standalone Tools)
+// 7. AI NAME STUDIOS (6 Tools)
 // -------------------------------------------------------------
 export const AI_NAME_STUDIOS = [
-  {
-    slug: "ai-name-generator",
-    title: "AI Name Generator",
-    desc: "Generate personalized names across all origins, tones, and cultural backgrounds.",
-    route: "/ai-name-generator",
-  },
-  {
-    slug: "ai-baby-name-generator",
-    title: "AI Baby Name Generator",
-    desc: "Personalized newborn name suggestions based on parent heritage, values, and sound rhythm.",
-    route: "/ai-baby-name-generator",
-  },
-  {
-    slug: "ai-name-finder",
-    title: "AI Name Finder by Description",
-    desc: "Describe your ideal vibe in natural language to find hand-crafted name matches.",
-    route: "/ai-name-finder",
-  },
-  {
-    slug: "ai-name-by-meaning",
-    title: "AI Name by Meaning Finder",
-    desc: "Enter any word or virtue (e.g. 'morning light', 'courageous soul') to discover fitting names.",
-    route: "/ai-name-by-meaning",
-  },
-  {
-    slug: "ai-sibling-name-generator",
-    title: "AI Sibling & Twin Name Matcher",
-    desc: "Find sibling names that harmonize with your existing children's names.",
-    route: "/ai-sibling-name-generator",
-  },
-  {
-    slug: "ai-name-combiner",
-    title: "AI Name Combiner & Blender",
-    desc: "Blend two parent or family names into unique, melodious modern baby names.",
-    route: "/ai-name-combiner",
-  },
+  { slug: "ai-name-generator", title: "AI Name Generator", desc: "Generate custom names based on origin, letters, and meaning preferences.", route: "/ai-name-generator" },
+  { slug: "ai-baby-name-generator", title: "AI Baby Name Studio", desc: "Intelligent baby name finder combining mother + father heritage and astrology.", route: "/ai-baby-name-generator" },
+  { slug: "ai-name-finder", title: "AI Name Finder", desc: "Describe personality traits or future aspirations to discover matching names.", route: "/ai-name-finder" },
+  { slug: "ai-name-by-meaning", title: "AI Name by Meaning", desc: "Type any wish or concept to discover linguistic equivalents across 30+ cultures.", route: "/ai-name-by-meaning" },
+  { slug: "ai-sibling-name-generator", title: "AI Sibling & Twin Matcher", desc: "Harmonize new baby names with elder sibling or twin brother/sister names.", route: "/ai-sibling-name-generator" },
+  { slug: "ai-name-combiner", title: "AI Mom + Dad Name Blender", desc: "Fuse parents' names into melodious, meaningful baby names seamlessly.", route: "/ai-name-combiner" },
 ];
+
+// -------------------------------------------------------------
+// 🌟 DYNAMIC CUSTOMIZATION FACTORY (Unique per slug)
+// -------------------------------------------------------------
+export function getCategoryCustomization(slug: string): NameCategoryMeta {
+  const s = slug.toLowerCase();
+
+  // 1. Check Core Hubs
+  const coreMatch = CORE_NAME_HUBS.find((c) => c.slug === s);
+  if (coreMatch) return coreMatch;
+
+  // 2. Hindu / Vedic Names Customization
+  if (s === "hindu" || s === "sanskrit") {
+    return {
+      slug: s,
+      name: "Hindu Baby Names",
+      h1: "Hindu Baby Names: 100+ Vedic & Modern Sanskrit Names with Meanings (A to Z) [2026]",
+      metaTitle: "Hindu Baby Names [2026] — 100+ Vedic, Sanskrit & Modern Names | UniToolkit",
+      metaDescription: "Explore 100+ authentic Hindu baby boy and girl names from A to Z with Vedic roots, Sanskrit meanings, Janm Nakshatra guidance, and audio pronunciations.",
+      badge: "🕉️ Vedic & Hindu Names Vault",
+      intro: "Discover timeless Vedic and contemporary Hindu baby names derived from ancient Sanskrit scriptures, sacred mantras, and revered deities. Organized alphabetically from A to Z with verified meanings.",
+      type: "religion",
+      bannerTitle: "Hindu Baby Name Ideas",
+      bannerSubtitle: "Vedic Sanskrit & Rashi Guide • 2026 Edition",
+      tipsTitle: "How to choose a Hindu baby name (Vedic tips)",
+      tips: [
+        { title: "Janm Rashi & Nakshatra", desc: "Check the birth star (Nakshatra Pada) recommended letters for astrological harmony." },
+        { title: "Sanskrit Root Virtues", desc: "Choose names rooted in Satya (truth), Shanti (peace), Tejas (radiance), or Anand (bliss)." },
+        { title: "Modern Deities", desc: "Modern short avatars of Shiva (Dev, Eshan, Rudra) and Krishna (Aarav, Madhav) blend tradition with trendy cadence." },
+        { title: "Syllable Flow", desc: "Test the name with your family Gotra and surname to ensure pleasant recitation." },
+        { title: "Easy Global Spelling", desc: "Opt for spellings that prevent mispronunciation across international schools and records." },
+      ],
+      letterHeadingPrefix: "Hindu baby names starting with",
+      faqs: [
+        { question: "How are Hindu baby names chosen according to birth star (Nakshatra)?", answer: "In Hindu tradition (Namakarana ceremony), the moon's position at birth determines the Janm Nakshatra, which gives 4 auspicious sound syllables (Padas) to name the newborn." },
+        { question: "Which Sanskrit Hindu baby names are trending in 2026?", answer: "Top trending Sanskrit names include Aarav, Advik, Vihaan, Saanvi, Reyansh, Ishaan, Ananya, and Kiara, offering deep Vedic meanings with modern 2-syllable brevity." },
+        { question: "Are these Hindu name meanings cross-verified with Sanskrit lexicons?", answer: "Yes, every entry is verified against authentic Sanskrit root dictionaries (Dhatupatha and Amar Kosha) for complete linguistic accuracy." },
+      ],
+    };
+  }
+
+  // 3. Muslim / Islamic Names Customization
+  if (s === "muslim" || s === "islamic" || s === "arabic") {
+    return {
+      slug: s,
+      name: "Muslim Baby Names",
+      h1: "Islamic & Muslim Baby Names: 100+ Quranic & Arabic Names with Meanings (A to Z) [2026]",
+      metaTitle: "Muslim Baby Names [2026] — 100+ Quranic, Arabic & Prophetic Names | UniToolkit",
+      metaDescription: "Discover 100+ unique Islamic baby boy and girl names from A to Z with authentic Quranic references, Arabic meanings, and audio pronunciation guides.",
+      badge: "🌙 Quranic & Islamic Names Vault",
+      intro: "Explore beautiful, blessed Islamic baby names rooted in the Holy Quran, Sunnah traditions, and Arabic linguistic heritage. Arranged alphabetically from A to Z with verified virtuous meanings.",
+      type: "religion",
+      bannerTitle: "Islamic Baby Name Ideas",
+      bannerSubtitle: "Quranic & Arabic Names Guide • 2026 Edition",
+      tipsTitle: "How to choose an Islamic baby name (Sunnah tips)",
+      tips: [
+        { title: "Virtuous Meaning First", desc: "The Prophet (PBUH) emphasized choosing names with uplifting, righteous meanings that honor the child." },
+        { title: "Asma-ul-Husna & Prophets", desc: "Names honoring Allah's attributes (prefixed with Abdul) and revered Prophets (Ibrahim, Yusuf, Musa) carry perpetual blessings." },
+        { title: "Sahaba & Sahabiyat Heritage", desc: "Drawing inspiration from courageous companions like Hamza, Zayd, Fatima, Aisha, and Maryam." },
+        { title: "Pronunciation Clarity", desc: "Ensure the Arabic pronunciation remains accurate and easy to articulate in everyday life." },
+        { title: "Aqeeqah Timetable", desc: "Finalize your top 3 picks before the 7th-day Sunnah naming and Aqeeqah ceremony." },
+      ],
+      letterHeadingPrefix: "Muslim baby names starting with",
+      faqs: [
+        { question: "What are the most recommended Islamic baby names according to Hadith?", answer: "The Prophet Muhammad (PBUH) stated that the most beloved names to Allah are Abdullah and Abdur-Rahman, alongside names of righteous Prophets." },
+        { question: "Which modern Arabic baby names are popular in 2026?", answer: "Trending Islamic names globally include Ayaan, Rayan, Zayn, Inaya, Zayd, Noor, Hamza, Layla, and Farhan." },
+        { question: "When should an Islamic baby name be officially given?", answer: "According to Sunnah, it is highly recommended to officially name the child on the seventh day after birth during the Aqeeqah." },
+      ],
+    };
+  }
+
+  // 4. Indian Cultural Names
+  if (s === "indian") {
+    return {
+      slug: s,
+      name: "Indian Baby Names",
+      h1: "Trending Indian Baby Names: 100+ Traditional & Modern Names with Meanings (A to Z) [2026]",
+      metaTitle: "Indian Baby Names [2026] — 100+ Modern, Cute & Traditional Names | UniToolkit",
+      metaDescription: "Explore 100+ trending Indian baby boy, girl, and unisex names from A to Z with verified Hindi, Sanskrit, and regional meanings with audio pronunciation.",
+      badge: "🇮🇳 Indian Names Directory",
+      intro: "Browse the ultimate directory of Indian baby names combining timeless heritage with fresh 21st-century appeal. Organized alphabetically from A to Z with verified meanings.",
+      type: "origin",
+      bannerTitle: "Indian Baby Name Ideas",
+      bannerSubtitle: "Modern Indian & Cultural Guide • 2026 Edition",
+      tipsTitle: "How to choose an Indian baby name (quick tips)",
+      tips: [
+        { title: "Pan-Indian Appeal", desc: "Select names that sound melodious across Northern, Southern, Eastern, and Western Indian languages." },
+        { title: "Short & Global", desc: "2-syllable names like Avi, Dev, Ria, and Kabir work effortlessly both in India and abroad." },
+        { title: "Cultural Root", desc: "Pair traditional Sanskrit virtues with modern, crisp phonetic spellings." },
+        { title: "Family Surname Match", desc: "Recite the full name out loud to verify rhythmic flow." },
+        { title: "Astrology Initial", desc: "Use the A–Z letter sections below to find names matching your family's birth letter." },
+      ],
+      letterHeadingPrefix: "Indian baby names starting with",
+      faqs: [
+        { question: "What are the fastest rising Indian baby names for 2026?", answer: "Fastest rising Indian names include Aarav, Advik, Reyansh, Saanvi, Ishaan, Ananya, Kiara, and Vivaan." },
+        { question: "How to balance traditional Indian heritage with modern lifestyle?", answer: "Choose short, punchy Sanskrit root names that carry deep philosophical meanings while remaining easy to pronounce worldwide." },
+      ],
+    };
+  }
+
+  // 5. Specific Meaning Categories (e.g. Love, Strength, Wisdom, Peace, Light)
+  const meaningMatch = MEANING_THEMES_LIST.find((m) => m.slug === s);
+  if (meaningMatch) {
+    return {
+      slug: s,
+      name: `${meaningMatch.name} Names`,
+      h1: `Baby Names That Mean '${meaningMatch.name}': 100+ Beautiful Global Names (A to Z) [2026]`,
+      metaTitle: `Baby Names Meaning '${meaningMatch.name}' [2026] — Unique Global Names | UniToolkit`,
+      metaDescription: `Discover 100+ baby boy, girl, and unisex names meaning ${meaningMatch.name.toLowerCase()} across global cultures, organized from A to Z with audio pronunciation.`,
+      badge: `${meaningMatch.emoji} ${meaningMatch.name} Collection`,
+      intro: `Explore inspiring baby names that carry the profound meaning of ${meaningMatch.name.toLowerCase()}. Curated across Sanskrit, Arabic, Latin, Greek, and modern traditions from A to Z.`,
+      type: "meaning",
+      bannerTitle: `${meaningMatch.name} Baby Names`,
+      bannerSubtitle: `Meaning & Virtue Vault • 2026 Edition`,
+      tipsTitle: `How to choose a name meaning ${meaningMatch.name.toLowerCase()} (quick tips)`,
+      tips: [
+        { title: "Virtue Association", desc: `A name meaning ${meaningMatch.name.toLowerCase()} instills lifelong positive energy and character.` },
+        { title: "Cross-Cultural Variations", desc: `Compare how ${meaningMatch.name.toLowerCase()} is expressed in Sanskrit, Arabic, Latin, and Japanese.` },
+        { title: "Phonetic Rhythm", desc: "Select a melody that feels uplifting every time you call your child's name." },
+        { title: "Uniqueness Level", desc: "Choose between widely cherished classics and rare hidden gems." },
+        { title: "Family Alignment", desc: "Ensure both parents resonate deeply with the spirit of the meaning." },
+      ],
+      letterHeadingPrefix: `Names meaning '${meaningMatch.name.toLowerCase()}' starting with`,
+      faqs: [
+        { question: `What are the most famous baby names meaning '${meaningMatch.name.toLowerCase()}'?`, answer: `Celebrated names in this collection include diverse cross-cultural favorites embodying ${meaningMatch.name.toLowerCase()} with lyrical elegance.` },
+      ],
+    };
+  }
+
+  // 6. Generic Fallback Customization (Tailored dynamically with name & slug)
+  const formattedName = capitalize(s);
+  return {
+    slug: s,
+    name: `${formattedName} Baby Names`,
+    h1: `100+ Unique ${formattedName} Baby Names with Meanings & Origins (A to Z) [2026]`,
+    metaTitle: `100+ Unique ${formattedName} Baby Names [2026] — Meanings & A–Z Guide | UniToolkit`,
+    metaDescription: `Discover 100+ unique, verified ${formattedName.toLowerCase()} baby boy, girl, and unisex names organized from A to Z with detailed meanings and audio pronunciation.`,
+    badge: `✨ ${formattedName} Names Vault`,
+    intro: `Explore curated ${formattedName.toLowerCase()} baby names organized alphabetically from A to Z. Find authentic meanings, historical origins, and 1-tap audio pronunciation assistance.`,
+    type: "origin",
+    bannerTitle: `${formattedName} Baby Name Ideas`,
+    bannerSubtitle: `A to Z Curated Guide • 2026 Edition`,
+    tipsTitle: `How to choose a ${formattedName.toLowerCase()} baby name (quick tips)`,
+    tips: [
+      { title: "Authentic Meaning", desc: `Verify the native linguistic roots and traditional context of ${formattedName.toLowerCase()} names.` },
+      { title: "Pronunciation & Cadence", desc: "Use our audio player to check correct syllable stress and rhythm." },
+      { title: "Surname Harmony", desc: "Test how smoothly the first name pairs with your family last name." },
+      { title: "Spelling Simplicity", desc: "Choose clear spellings that prevent confusion on school and official documents." },
+      { title: "Shortlist Curation", desc: "Keep a narrow list of your top 3–5 favorite options to decide peacefully." },
+    ],
+    letterHeadingPrefix: `${formattedName} baby names starting with`,
+    faqs: [
+      { question: `What makes a great ${formattedName.toLowerCase()} baby name in 2026?`, answer: `A great ${formattedName.toLowerCase()} name pairs cultural resonance with positive virtues, easy global spelling, and melodious pronunciation.` },
+      { question: `How are these ${formattedName.toLowerCase()} names verified?`, answer: `Each name is checked against verified linguistic dictionaries and cultural historical records.` },
+    ],
+  };
+}

@@ -17,6 +17,11 @@ interface NamesTemplateProps {
   items: NameRecord[];
   categoryType: string;
   categorySlug: string;
+  bannerTitle?: string;
+  bannerSubtitle?: string;
+  tipsTitle?: string;
+  tips?: { title: string; desc: string }[];
+  letterHeadingPrefix?: string;
   faqs?: { question: string; answer: string }[];
   relatedLinks?: { label: string; href: string }[];
   breadcrumbs?: { label: string; href?: string }[];
@@ -60,6 +65,11 @@ export function NamesTemplate({
   items,
   categoryType,
   categorySlug,
+  bannerTitle = "Baby Name Ideas",
+  bannerSubtitle = "A to Z Curated List • 2026 Edition",
+  tipsTitle = "How to choose a baby name (quick tips)",
+  tips,
+  letterHeadingPrefix = "Baby names starting with",
   faqs = [],
   relatedLinks = [],
   breadcrumbs = [{ label: "Names", href: "/names" }],
@@ -85,23 +95,13 @@ export function NamesTemplate({
     }
   };
 
-  // Group items strictly by letter (guaranteeing at least 10 names per letter)
+  // Group items strictly by letter from the authentic category items
   const groupedByLetter = useMemo(() => {
     const groups: Record<string, NameRecord[]> = {};
     for (const letter of ALPHABET) {
-      let letterNames = items.filter(
+      const letterNames = items.filter(
         (n) => n.startingLetter.toUpperCase() === letter || n.name.toUpperCase().startsWith(letter)
       );
-
-      // Ensure at least 10 names per letter by filling from comprehensive NAMES_DATA
-      if (letterNames.length < 10) {
-        const globalLetterNames = NAMES_DATA.filter(
-          (n) =>
-            (n.startingLetter.toUpperCase() === letter || n.name.toUpperCase().startsWith(letter)) &&
-            !letterNames.some((m) => m.id === n.id)
-        );
-        letterNames = [...letterNames, ...globalLetterNames].slice(0, 10);
-      }
 
       if (letterNames.length > 0) {
         groups[letter] = letterNames;
@@ -111,6 +111,16 @@ export function NamesTemplate({
   }, [items]);
 
   const activeLetters = Object.keys(groupedByLetter);
+
+  const defaultTips = [
+    { title: "Meaning first", desc: "Pick a quality you wish for your child: peace, courage, wisdom, or light." },
+    { title: "Say it out loud", desc: "Pair the name with your surname; check nicknames family might use." },
+    { title: "Astrology letter", desc: "Many families choose from the alphabet suggested at birth, use the sections below by letter." },
+    { title: "Spelling", desc: "One clear spelling avoids school-form confusion later." },
+    { title: "Keep a short list", desc: "Three to five names are easier to decide than thirty." },
+  ];
+
+  const activeTips = tips && tips.length > 0 ? tips : defaultTips;
 
   const defaultFaqs = [
     {
@@ -158,36 +168,26 @@ export function NamesTemplate({
         {/* Notebook Card Center */}
         <div className="relative px-8 sm:px-14 py-6 sm:py-8 rounded-2xl bg-white/90 dark:bg-zinc-950/90 shadow-xl border border-stone-200/90 dark:border-zinc-800 backdrop-blur-xs space-y-2 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
           <p className="font-serif italic text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
-            Baby Name Ideas
+            {bannerTitle}
           </p>
           <p className="text-xs sm:text-sm font-sans uppercase tracking-widest text-amber-700 dark:text-amber-400 font-bold">
-            A to Z Curated List • 2026 Edition
+            {bannerSubtitle}
           </p>
         </div>
       </div>
 
-      {/* 3. "How to choose a baby name (quick tips)" Section (Exact match to Screenshot 2) */}
+      {/* 3. Category Specific Quick Tips (Exact match to Screenshot 2) */}
       <section className="space-y-4 pt-2">
         <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
-          How to choose a baby name (quick tips)
+          {tipsTitle}
         </h2>
 
         <ul className="space-y-3 text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed list-disc list-inside">
-          <li>
-            <strong>Meaning first:</strong> Pick a quality you wish for your child, peace, courage, wisdom, or light.
-          </li>
-          <li>
-            <strong>Say it out loud:</strong> Pair the name with your surname; check nicknames family might use.
-          </li>
-          <li>
-            <strong>Astrology letter:</strong> Many families choose from the alphabet suggested at birth, use the sections below by letter.
-          </li>
-          <li>
-            <strong>Spelling:</strong> One clear spelling avoids school-form confusion later.
-          </li>
-          <li>
-            <strong>Keep a short list:</strong> Three to five names are easier to decide than thirty.
-          </li>
+          {activeTips.map((t, idx) => (
+            <li key={idx}>
+              <strong>{t.title}:</strong> {t.desc}
+            </li>
+          ))}
         </ul>
       </section>
 
@@ -221,9 +221,9 @@ export function NamesTemplate({
               id={`letter-${letter.toLowerCase()}`}
               className="space-y-3 scroll-mt-20"
             >
-              {/* H2 Heading (Exact match: "Baby boy names starting with A") */}
+              {/* Unique H2 Heading Per Category */}
               <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
-                Baby names starting with {letter}
+                {letterHeadingPrefix} {letter}
               </h2>
 
               {/* Descriptive Intro Paragraph */}
@@ -248,21 +248,22 @@ export function NamesTemplate({
                       </span>
                     </div>
 
-                    {/* Subtle 1-click Copy & Audio icons on right */}
-                    <div className="flex items-center gap-2 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity">
+                    {/* Subtle Actions (Audio & Copy) */}
+                    <div className="flex items-center gap-1 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity">
                       <button
                         type="button"
                         onClick={() => handlePlayAudio(item.name)}
-                        title={`Listen pronunciation of ${item.name}`}
-                        className="p-1 text-zinc-400 hover:text-indigo-600 cursor-pointer transition-colors"
+                        title="Hear Pronunciation"
+                        className="p-1 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
                       >
                         <Volume2 className="w-3.5 h-3.5" />
                       </button>
+
                       <button
                         type="button"
                         onClick={() => handleCopy(item)}
-                        title="Copy"
-                        className="p-1 text-zinc-400 hover:text-indigo-600 cursor-pointer transition-colors"
+                        title="Copy Name & Meaning"
+                        className="p-1 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
                       >
                         {copiedId === item.id ? (
                           <Check className="w-3.5 h-3.5 text-emerald-500" />
@@ -279,31 +280,28 @@ export function NamesTemplate({
         })}
       </div>
 
-      {/* 6. AI Generator Callout */}
-      <div className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-3">
-        <h3 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-indigo-500" />
-          <span>Need custom AI baby name recommendations?</span>
-        </h3>
-        <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-          Use our free AI Baby Name Generator to combine parental heritage, match surname syllables, or blend mom & dad names.
-        </p>
-        <div className="pt-1">
-          <Link
-            href="/ai-baby-name-generator"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-xs"
-          >
-            <span>Launch AI Baby Name Studio</span>
-          </Link>
-        </div>
-      </div>
+      {/* 6. FAQs Section */}
+      <FAQSection faqs={activeFaqs} title={`Frequently Asked Questions`} />
 
-      {/* 7. FAQs Section */}
-      <FAQSection
-        title="Frequently Asked Questions"
-        subtitle="Common questions about baby names, astrological sounds, and meanings."
-        faqs={activeFaqs}
-      />
+      {/* 7. Related Category Links */}
+      {relatedLinks.length > 0 && (
+        <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+          <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
+            Explore More Baby Name Collections
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {relatedLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-3.5 py-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-indigo-500 text-xs font-semibold text-zinc-800 dark:text-zinc-200 hover:text-indigo-600 transition-all"
+              >
+                {link.label} →
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </article>
   );
 }

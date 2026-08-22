@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NamesTemplate } from "@/components/names/NamesTemplate";
 import { NAMES_DATA } from "@/data/namesData";
-import { MEANING_THEMES_LIST } from "@/data/namesTaxonomy";
+import { MEANING_THEMES_LIST, getCategoryCustomization } from "@/data/namesTaxonomy";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -12,10 +12,6 @@ export async function generateStaticParams() {
   return MEANING_THEMES_LIST.map((m) => ({ slug: m.slug }));
 }
 
-function capitalize(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const theme = MEANING_THEMES_LIST.find((m) => m.slug === slug);
@@ -23,11 +19,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: "Meaning Not Found" };
   }
 
+  const custom = getCategoryCustomization(slug);
+
   return {
-    title: `Baby Names Meaning ${theme.name} [2026] — Origins & AI Matcher | UniToolkit`,
-    description: `Discover beautiful baby boy, girl, and unisex names meaning ${theme.name.toLowerCase()} across global cultures with pronunciations and meanings.`,
+    title: custom.metaTitle,
+    description: custom.metaDescription,
     alternates: {
       canonical: `/names/meaning/${slug}`,
+    },
+    openGraph: {
+      title: custom.metaTitle,
+      description: custom.metaDescription,
+      url: `https://unitoolkit.com/names/meaning/${slug}`,
+      type: "article",
     },
   };
 }
@@ -39,6 +43,8 @@ export default async function NameMeaningSubpage({ params }: PageProps) {
     notFound();
   }
 
+  const custom = getCategoryCustomization(slug);
+
   // Find names matching this meaning or theme
   let matchedNames = NAMES_DATA.filter((item) => {
     return (
@@ -48,24 +54,13 @@ export default async function NameMeaningSubpage({ params }: PageProps) {
     );
   });
 
-  if (matchedNames.length < 6) {
+  if (matchedNames.length < 15) {
     const additional = NAMES_DATA.filter((n) => !matchedNames.some((m) => m.id === n.id)).slice(
       0,
-      12 - matchedNames.length
+      25 - matchedNames.length
     );
     matchedNames = [...matchedNames, ...additional];
   }
-
-  const faqs = [
-    {
-      question: `Why choose a baby name meaning ${theme.name.toLowerCase()}?`,
-      answer: `Names meaning ${theme.name.toLowerCase()} offer continuous positive spiritual and emotional reinforcement, inspiring virtue and confidence throughout life.`,
-    },
-    {
-      question: `Which cultures have the richest names meaning ${theme.name.toLowerCase()}?`,
-      answer: `Sanskrit, Arabic, Hebrew, Greek, and Celtic traditions feature some of the most poetic and enduring names celebrating ${theme.name.toLowerCase()}.`,
-    },
-  ];
 
   const relatedLinks = MEANING_THEMES_LIST.filter((m) => m.slug !== slug)
     .slice(0, 8)
@@ -76,13 +71,18 @@ export default async function NameMeaningSubpage({ params }: PageProps) {
 
   return (
     <NamesTemplate
-      h1={`Baby Names Meaning ${theme.name} [2026]`}
-      badge={`${theme.emoji} Meaning: ${theme.name}`}
-      intro={`Explore beautiful, powerful, and poetic baby names from across the world that celebrate the profound virtue and beauty of ${theme.name.toLowerCase()}.`}
+      h1={custom.h1}
+      badge={custom.badge}
+      intro={custom.intro}
       items={matchedNames}
       categoryType="meaning"
       categorySlug={`meaning/${slug}`}
-      faqs={faqs}
+      bannerTitle={custom.bannerTitle}
+      bannerSubtitle={custom.bannerSubtitle}
+      tipsTitle={custom.tipsTitle}
+      tips={custom.tips}
+      letterHeadingPrefix={custom.letterHeadingPrefix}
+      faqs={custom.faqs}
       relatedLinks={relatedLinks}
       breadcrumbs={[
         { label: "Names", href: "/names" },
