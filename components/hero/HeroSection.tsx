@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Zap, Search, ArrowRight, Flame } from "lucide-react";
-import { Hero3DVisual } from "./Hero3DVisual";
 import {
   InstagramIcon,
   YoutubeIcon,
@@ -59,7 +59,7 @@ export function HeroSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 2-Column Responsive Hero Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Clean Copy & Input Bar */}
           <div className="lg:col-span-7 space-y-5 text-center sm:text-left">
             {/* 1. Sleek Single Badge */}
@@ -131,9 +131,35 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: 3D Stage Visual (PC ONLY) */}
+          {/* Right Column: Original Creator Studio Image (PC ONLY) */}
           <div className="hidden lg:flex lg:col-span-5 justify-center">
-            <Hero3DVisual />
+            <div className="relative w-full aspect-4/3 rounded-3xl overflow-hidden shadow-2xl border border-zinc-200/80 dark:border-zinc-800 group">
+              <Image
+                src="/images/hero-creator.jpg"
+                alt="UniToolkit Creator Suite"
+                fill
+                priority
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 1200px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+              {/* Floating Badge on Image */}
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-2xl bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border border-white/20 dark:border-zinc-800/80 shadow-lg text-left">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-xs shadow-xs">
+                    U
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-zinc-900 dark:text-white">UniToolkit 2026</p>
+                    <p className="text-[10px] text-zinc-500 dark:text-zinc-400">15K+ Lines • 6 AI Studios • 10 Platforms</p>
+                  </div>
+                </div>
+                <span className="px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold border border-emerald-500/20">
+                  100% Free
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
