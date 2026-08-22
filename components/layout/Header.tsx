@@ -319,7 +319,20 @@ export function Header() {
             <span>Quotes</span>
           </Link>
 
-          {/* 🌍 Global Names Hub (Independent from Platforms) */}
+          {/* 🏷️ Hashtags Direct Link */}
+          <Link
+            href="/hashtags"
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+              pathname.startsWith("/hashtags")
+                ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/50 font-bold"
+                : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
+            }`}
+          >
+            <Hash className="w-3.5 h-3.5 text-emerald-500" />
+            <span>Hashtags</span>
+          </Link>
+
+          {/* 🌍 Global Names Hub */}
           <Link
             href="/names"
             className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
@@ -625,10 +638,11 @@ export function Header() {
                   <div className="space-y-0.5 pt-1 animate-in fade-in-50 duration-150">
                     {[
                       { name: "AI Caption Studio", href: "/ai-caption-generator", icon: <Sparkles className="w-5 h-5 text-indigo-500" /> },
+                      { name: "AI Hashtag Studio", href: "/ai-hashtag-generator", icon: <Hash className="w-5 h-5 text-purple-500" /> },
                       { name: "AI Bio Generator", href: "/ai-bio-generator", icon: <User className="w-5 h-5 text-pink-500" /> },
                       { name: "AI WhatsApp Status", href: "/ai-status-generator", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },
                       { name: "AI Hindi Shayari", href: "/ai-shayari-generator", icon: <BookOpen className="w-5 h-5 text-amber-500" /> },
-                      { name: "AI Quotes & Hashtags", href: "/ai-quotes-generator", icon: <Hash className="w-5 h-5 text-yellow-500" /> },
+                      { name: "AI Baby Name Studio", href: "/ai-baby-name-generator", icon: <Globe2 className="w-5 h-5 text-blue-500" /> },
                     ].map((tool) => (
                       <Link
                         key={tool.name}
@@ -715,6 +729,7 @@ export function Header() {
                     { name: "WhatsApp Status", href: "/whatsapp-status", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },
                     { name: "VIP Bios Styler", href: "/bios", icon: <User className="w-5 h-5 text-pink-500" /> },
                     { name: "Quotes Vault", href: "/quotes", icon: <Quote className="w-5 h-5 text-yellow-500" /> },
+                    { name: "Trending Hashtags", href: "/hashtags", icon: <Hash className="w-5 h-5 text-emerald-500" /> },
                     { name: "Global Names Directory", href: "/names", icon: <Globe2 className="w-5 h-5 text-blue-500" /> },
                   ].map((vault) => (
                     <Link
