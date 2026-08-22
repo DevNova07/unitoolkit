@@ -28,8 +28,8 @@ export function HashtagReportTemplate({ data, relatedSlugs = [] }: HashtagReport
     }
   };
 
-  const primaryText = data.megaSet.join(" ");
-  const secondaryText = data.popularSet.join(" ");
+  const primaryText = data.primarySet.join(" ");
+  const secondaryText = data.secondarySet.join(" ");
   const compactText = data.compactSet.join(" ");
 
   return (

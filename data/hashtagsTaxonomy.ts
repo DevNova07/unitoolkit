@@ -1,6 +1,6 @@
 // =========================================================================
-// 🏷️ UniToolkit Master Hashtag Taxonomy & Analytics Data Engine [2026]
-// 4-Tier Ladder (120+ Tags), Competition Difficulty, Best Post Times & Matched Captions
+// 🏷️ UniToolkit Master Hashtag Taxonomy & Analytics Data Engine
+// Exact visual replica of Screenshots 1, 2, 3, 4
 // =========================================================================
 
 export interface ViralPercentageItem {
@@ -14,11 +14,6 @@ export interface PopularTableItem {
   posts: string;
 }
 
-export interface MatchedCaption {
-  text: string;
-  category: string;
-}
-
 export interface HashtagTopicData {
   slug: string;
   name: string;
@@ -27,17 +22,8 @@ export interface HashtagTopicData {
   metaDescription: string;
   platform: string;
   recentUses: string;
-  difficulty: "Very High" | "Medium" | "Low / Fast Rank";
-  bestTime: {
-    instagram: string;
-    tiktok: string;
-    youtube: string;
-  };
-  // 4 Tiered Sets (Total 120 Tags)
-  megaSet: string[];        // Set 1: 50M+ posts
-  popularSet: string[];     // Set 2: 5M-20M posts
-  mediumSet: string[];      // Set 3: 500K-2M posts (Best for rank)
-  nicheSet: string[];       // Set 4: 50K-200K posts (Instant discovery)
+  primarySet: string[];
+  secondarySet: string[];
   compactSet: string[];
   reportMetrics: {
     totalPosts: string;
@@ -47,7 +33,6 @@ export interface HashtagTopicData {
   };
   viralPercentages: ViralPercentageItem[];
   popularTable: PopularTableItem[];
-  matchedCaptions: MatchedCaption[];
   intro: string;
   faqs: { question: string; answer: string }[];
 }
@@ -109,16 +94,10 @@ export function getHashtagTopicData(slug: string): HashtagTopicData {
       name: s === "instagram" ? "Instagram" : "Viral",
       h1: `Best #${s} Hashtags for Social Media Growth [2026]`,
       metaTitle: `Best #${s} Hashtags for Instagram, Reels & TikTok [2026] | UniToolkit`,
-      metaDescription: `Discover 120+ curated #${s} hashtags across 4 competition tiers. Includes 1-click copy, live post count reports, and best posting times.`,
+      metaDescription: `Discover the top #${s} hashtags with 1-click copy, live post count reports, viral percentage breakdowns, and posting tips.`,
       platform: "Instagram, TikTok, Reels & Twitter",
       recentUses: "522.9K",
-      difficulty: "Very High",
-      bestTime: {
-        instagram: "6:00 PM – 9:00 PM (Peak Feed Activity)",
-        tiktok: "7:00 PM – 11:00 PM (FYP Scroll Surge)",
-        youtube: "2:00 PM – 5:00 PM (Pre-Evening Watch Time)",
-      },
-      megaSet: [
+      primarySet: [
         "#insta", "#instagram", "#instagood", "#instadaily", "#love",
         "#instalike", "#like", "#follow", "#photography", "#photo",
         "#photooftheday", "#viral", "#trending", "#likeforlikes", "#instamood",
@@ -126,29 +105,13 @@ export function getHashtagTopicData(slug: string): HashtagTopicData {
         "#nature", "#instapic", "#happy", "#style", "#explore",
         "#life", "#explorepage", "#model", "#art", "#beautiful"
       ],
-      popularSet: [
+      secondarySet: [
         "#travel", "#instalove", "#reels", "#instafashion", "#music",
         "#followme", "#beauty", "#likesforlike", "#cute", "#instaphoto",
         "#lifestyle", "#memes", "#girl", "#selfie", "#me",
         "#likeforfollow", "#smile", "#k", "#photoshoot", "#bhfyp",
         "#tiktok", "#loveyourself", "#comment", "#post", "#pic",
         "#foryou", "#l", "#fyp", "#following", "#photographer"
-      ],
-      mediumSet: [
-        `#${s}content`, `#${s}video`, `#${s}reelsindia`, `#${s}postoftheday`, `#${s}creators`,
-        "#reelitfeelit", "#explorepage✨", "#viralvideos", "#viralpost", "#trendingnow",
-        "#trendingsongs", "#fypシ", "#foryoupage", "#algorithmboost", "#reachgrowth",
-        "#creatorcommunity", "#contentcreator", "#microinfluencer", "#instafamous", "#discoverfeed",
-        "#trendingreels", "#instatrend", "#feedviral", "#explorepageviral", "#dailyreels",
-        "#reelsvideo", "#highreach", "#reelsinstagram", "#reelsviral", "#explorepagegain"
-      ],
-      nicheSet: [
-        `#${s}strategy2026`, `#${s}hack`, `#${s}tips`, `#growwith${s}`, `#${s}community`,
-        "#reelshacks", "#algorithmhack", "#organicreach", "#contentgrowth", "#smallcreators",
-        "#indiacreators", "#reelsgrowth", "#instatips", "#creatorhelp", "#reelstips",
-        "#engagementboost", "#growthhack2026", "#explorepagetips", "#reelsoptimization", "#shadowbanfree",
-        "#contentmarketing", "#socialmediatips", "#creatorsofinstagram", "#explorepageindia", "#reelstrending",
-        "#contentstrategy", "#growyouraudience", "#socialgrowth", "#reelsmarketing", "#viralaudio"
       ],
       compactSet: ["#viral", "#insta", "#meme", "#viral", "#explorepage"],
       reportMetrics: {
@@ -181,32 +144,22 @@ export function getHashtagTopicData(slug: string): HashtagTopicData {
         { rank: 9, hashtag: "#indonesia", posts: "119,990,464" },
         { rank: 10, hashtag: "#tiktok", posts: "111,630,060" }
       ],
-      matchedCaptions: [
-        { text: "Silent hustle speaks the loudest. Watch till the end. ⚡", category: "Attitude & Viral Hook" },
-        { text: "Proof that consistency beats talent every single day. 🎯", category: "Motivation & Reels" },
-        { text: "Lost in the moments that take your breath away. ✨", category: "Aesthetic & Lifestyle" },
-        { text: "Tag someone who needs to see this today! 👇", category: "High Engagement Call-to-Action" },
-      ],
-      intro: `Grow your audience using 120+ curated #${s} hashtags structured into 4 competition tiers. Use our 3-second ladder strategy to mix mega tags with medium and low-competition tags for guaranteed algorithmic discovery.`,
+      intro: `Grow your instagram using the most popular ${s} hashtags`,
       faqs: [
         {
-          question: `How many #${s} hashtags should I use on Instagram in 2026?`,
-          answer: `Instagram's official Creator guidelines recommend 3 to 5 hyper-targeted hashtags for feed clarity, while Reels creators achieve maximum reach using a 3-tier ladder (2 Mega + 3 Medium + 2 Low competition tags).`
+          question: `How many #${s} hashtags should I use on Instagram?`,
+          answer: `Instagram officially recommends using 3 to 5 highly relevant hashtags per post, while Reels creators often test up to 8–10 targeted tags for broader algorithmic indexing.`
         },
         {
-          question: `Do #${s} hashtags work better in the caption or in the comments?`,
-          answer: `Instagram indexes hashtags in both locations equally. However, placing them at the bottom of the caption with clean spacing ensures immediate crawling by semantic algorithms without cluttering the first 3 lines.`
-        },
-        {
-          question: `Why shouldn't small creators use only 100M+ mega hashtags?`,
-          answer: `Mega hashtags get thousands of new posts every minute, pushing your content down the 'Recent' feed within seconds. Combining mega tags with Set 3 (Medium) and Set 4 (Low competition) allows smaller accounts to stay in the 'Top Posts' tab for days.`
+          question: `Do #${s} hashtags help push posts to the Explore Page?`,
+          answer: `Yes! Hashtags categorize your visual content in Instagram's interest graph, helping the recommendation engine deliver your post to users who engage with similar media.`
         }
       ]
     };
   }
 
   // Dynamic Generator for other topics
-  const mega = [
+  const primary = [
     `#${s}`, `#${s}vibes`, `#${s}life`, `#${s}oftheday`, `#${s}love`,
     `#${s}daily`, `#${s}gram`, `#${s}post`, `#${s}goals`, `#${s}trend`,
     "#viral", "#trending", "#explore", "#explorepage", "#fyp",
@@ -215,7 +168,7 @@ export function getHashtagTopicData(slug: string): HashtagTopicData {
     "#aesthetic", "#creator", "#contentcreator", "#trendingnow", "#likes"
   ];
 
-  const popular = [
+  const secondary = [
     `#best${s}`, `#my${s}`, `#${s}world`, `#${s}community`, `#${s}lover`,
     `#${s}photography`, `#${s}style`, `#${s}art`, `#${s}challenge`, `#${s}inspiration`,
     "#followme", "#likesforlike", "#selfie", "#cute", "#smile",
@@ -224,42 +177,16 @@ export function getHashtagTopicData(slug: string): HashtagTopicData {
     "#bhfyp", "#foryoupage", "#following", "#photographer", "#loveyourself"
   ];
 
-  const medium = [
-    `#${s}content`, `#${s}creators`, `#${s}guide`, `#${s}reels`, `#${s}moments`,
-    `#${s}post`, `#daily${s}`, `#explore${s}`, `#top${s}`, `#${s}hub`,
-    "#reelitfeelit", "#fypシ", "#algorithmboost", "#reachgrowth", "#contentcreation",
-    "#creatorsofinstagram", "#trendingaudio", "#microinfluencer", "#viralreel", "#feedviral",
-    "#instavibe", "#explorepageviral", "#highreach", "#reelsvideo", "#growthhacks",
-    "#creatorslife", "#videoviral", "#trendalert", "#reelsinsta", "#viralcontent"
-  ];
-
-  const niche = [
-    `#${s}tips`, `#${s}hack`, `#${s}2026`, `#${s}community`, `#${s}inspo`,
-    `#small${s}`, `#${s}growth`, `#learn${s}`, `#${s}dailyinspo`, `#${s}addict`,
-    "#organictraffic", "#shadowbanfree", "#reachboost", "#lowcompetition", "#fastrank",
-    "#reelshacks", "#smallcreatorsquad", "#indiacreator", "#creatorssupport", "#discoverfeed",
-    "#audiencegrowth", "#contentgrowthtips", "#explorepageindia", "#reelstips2026", "#algorithmhelp",
-    "#engagementpod", "#contentstrategy", "#creatorshub", "#viralgrowth", "#trendingtoday"
-  ];
-
   return {
     slug: s,
     name,
     h1: `Best #${s} Hashtags for Social Media Growth [2026]`,
     metaTitle: `Best #${s} Hashtags for Instagram, TikTok & Reels [2026] | UniToolkit`,
-    metaDescription: `Copy 120+ curated #${s} hashtags across 4 competition tiers. Includes live post volume metrics, best posting hours, and matched viral captions.`,
+    metaDescription: `Copy top #${s} hashtags with 1-click. View live post analytics, viral percentage breakdowns, and engagement growth strategies.`,
     platform: "Instagram, TikTok & YouTube",
     recentUses: "384.2K",
-    difficulty: "Medium",
-    bestTime: {
-      instagram: "6:00 PM – 9:00 PM (Evenings) & 12:00 PM – 2:00 PM (Lunch)",
-      tiktok: "7:00 PM – 10:30 PM (Peak FYP Activity)",
-      youtube: "3:00 PM – 6:00 PM (Shorts Engagement)",
-    },
-    megaSet: mega,
-    popularSet: popular,
-    mediumSet: medium,
-    nicheSet: niche,
+    primarySet: primary,
+    secondarySet: secondary,
     compactSet: [`#${s}`, `#${s}vibes`, "#viral", "#trending", "#explorepage"],
     reportMetrics: {
       totalPosts: "482,910,240",
@@ -291,24 +218,15 @@ export function getHashtagTopicData(slug: string): HashtagTopicData {
       { rank: 9, hashtag: "#instadaily", posts: "89,120,300" },
       { rank: 10, hashtag: "#aesthetic", posts: "76,540,800" }
     ],
-    matchedCaptions: [
-      { text: `Creating my own sunshine with these #${s} vibes. ✨`, category: "Lifestyle & Aesthetic" },
-      { text: `Work in silence, let your results make the noise. ⚡`, category: "Attitude & Reels Hook" },
-      { text: `Save this post so you don't lose this #${s} inspiration later! 📌`, category: "High Save Call-to-Action" },
-    ],
-    intro: `Discover 120+ verified #${s} hashtags grouped into 4 competition tiers. Use our recommended posting times and viral ladder strategy for steady Instagram and TikTok impressions.`,
+    intro: `Grow your instagram using the most popular ${s} hashtags`,
     faqs: [
       {
         question: `Why should I use #${s} hashtags in my posts?`,
-        answer: `Hashtags help AI recommendation engines categorize your video and photo media, delivering your post to active users searching for #${s}.`
+        answer: `Hashtags help algorithms properly index and surface your content to active audiences interested in #${s}.`
       },
       {
-        question: `What is the best hashtag ladder strategy for #${s}?`,
-        answer: `Use 1–2 Mega tags (Set 1), 2–3 Popular tags (Set 2), 3–4 Medium tags (Set 3), and 2 Low competition tags (Set 4). This guarantees both rapid initial engagement and long-term search impressions.`
-      },
-      {
-        question: `When is the best time to post with #${s} hashtags?`,
-        answer: `On Instagram, post between 6:00 PM and 9:00 PM local time. On TikTok, post between 7:00 PM and 11:00 PM to capture the evening scroll surge.`
+        question: `Where should I place #${s} hashtags?`,
+        answer: `You can place hashtags at the end of your caption separated with clean line breaks, or in the very first comment of your post.`
       }
     ]
   };
