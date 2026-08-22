@@ -1,0 +1,248 @@
+import { BlogPost } from "@/lib/types";
+
+export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: "how-to-write-instagram-captions",
+    title: "How to Write Better Instagram Captions [2026 Strategy]",
+    excerpt: "Learn how to write engaging, scroll-stopping captions that boost comments, shares, and algorithm reach.",
+    category: "Instagram Tips",
+    readTime: "5 min read",
+    publishedAt: "2026-08-10",
+    author: { name: "Aarav Sharma", role: "Content Lead", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Instagram", "Captions", "Engagement"],
+    content: `## The Art of Writing Scroll-Stopping Captions
+A great caption turns passive scrollers into active community members. Learn how to craft high-retention hooks and meaningful conversations under every post.`,
+  },
+  {
+    slug: "instagram-caption-ideas",
+    title: "Instagram Caption Ideas for Every Type of Post (Photos, Reels & Dumps)",
+    excerpt: "Over 100+ creative caption ideas for selfies, golden hour, travel, and photo dumps with 1-click copy.",
+    category: "Captions",
+    readTime: "6 min read",
+    publishedAt: "2026-08-11",
+    author: { name: "Priya Patel", role: "Social Strategist", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Captions", "Inspiration", "Instagram"],
+    content: `## 100+ Ready-to-Use Caption Ideas
+Explore curated short, funny, aesthetic, and attitude captions ready to post on your next feed photo or carousel.`,
+  },
+  {
+    slug: "how-to-write-viral-reels-captions",
+    title: "How to Write Better Reels Captions for Maximum Watch Time",
+    excerpt: "Discover the 3-second hook formula and curiosity gaps that keep viewers watching your short-form videos.",
+    category: "Reels & Video",
+    readTime: "5 min read",
+    publishedAt: "2026-08-12",
+    author: { name: "Aarav Sharma", role: "Video Creator", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Reels", "TikTok", "Shorts"],
+    content: `## The 3-Second Rule for Short Video Captions
+Your caption is part of the hook. Learn how top creators use quick on-screen text and matching caption intros to skyrocket retention.`,
+  },
+  {
+    slug: "instagram-bio-guide",
+    title: "How to Write a Great Instagram Bio in 150 Characters",
+    excerpt: "The complete step-by-step framework to optimize your bio for profile visits, clicks, and followers.",
+    category: "Bio Optimization",
+    readTime: "4 min read",
+    publishedAt: "2026-08-13",
+    author: { name: "Priya Patel", role: "Branding Expert", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Instagram Bio", "Profile Optimization"],
+    content: `## The 4-Part Bio Blueprint
+1. Who you are. 2. What value you offer. 3. Personality hook. 4. Clear call-to-action link.`,
+  },
+  {
+    slug: "instagram-bio-ideas",
+    title: "Instagram Bio Ideas for Every Style (Aesthetic, Attitude & VIP)",
+    excerpt: "50+ aesthetic, cool, and VIP attitude bio templates formatted with clean lines and aesthetic unicode fonts.",
+    category: "Bio Inspiration",
+    readTime: "5 min read",
+    publishedAt: "2026-08-14",
+    author: { name: "Priya Patel", role: "Creator", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Bio", "Aesthetic", "VIP"],
+    content: `## Aesthetic & VIP Bio Formats
+Copy and customize these aesthetic line-by-line bio templates for boys and girls.`,
+  },
+  {
+    slug: "whatsapp-status-guide",
+    title: "How to Choose the Perfect WhatsApp Status for Every Mood",
+    excerpt: "Tips on picking short 2-line quotes, attitude lines, and meaningful status updates for WhatsApp.",
+    category: "WhatsApp Tips",
+    readTime: "4 min read",
+    publishedAt: "2026-08-15",
+    author: { name: "Aarav Sharma", role: "Editor", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["WhatsApp", "Status", "Quotes"],
+    content: `## Expressing Mood in 2 Lines
+How to pick attitude, motivation, or heartfelt status quotes that resonate with your contact list.`,
+  },
+  {
+    slug: "short-whatsapp-status-ideas",
+    title: "50+ Short WhatsApp Status Ideas (Hindi & English 2-Liners)",
+    excerpt: "Punchy, relatable, and meaningful status lines ready to share directly to your WhatsApp story.",
+    category: "Status Lines",
+    readTime: "4 min read",
+    publishedAt: "2026-08-16",
+    author: { name: "Aarav Sharma", role: "Editor", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["WhatsApp", "Short Status"],
+    content: `## Quick Status Couplets
+Curated 2-line Hindi and English status quotes formatted for WhatsApp mobile screens.`,
+  },
+  {
+    slug: "how-to-write-shayari",
+    title: "How to Write Shayari — Rhyme, Rhythm & Emotion Guide",
+    excerpt: "Learn the fundamentals of traditional Hindi & Urdu poetry, qafiya, radif, and modern couplet composition.",
+    category: "Shayari Guide",
+    readTime: "6 min read",
+    publishedAt: "2026-08-17",
+    author: { name: "Kabir Mirza", role: "Poet & Writer", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Shayari", "Hindi Poetry", "Urdu"],
+    content: `## Understanding the Core of Shayari
+Explore the emotional rhythm, matla, maqta, and meter that make 2-line couplets so enduring.`,
+  },
+  {
+    slug: "love-shayari-guide",
+    title: "Love Shayari Guide — Deep Romance & Emotional Couplets",
+    excerpt: "Explore classic and modern love shayari in Hindi script and Hinglish for sharing with your partner.",
+    category: "Shayari",
+    readTime: "5 min read",
+    publishedAt: "2026-08-18",
+    author: { name: "Kabir Mirza", role: "Poet", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Love Shayari", "Romantic"],
+    content: `## Expressing Heartfelt Emotions
+The timeless power of romantic couplets and how to choose the right words for love.`,
+  },
+  {
+    slug: "motivational-quotes-guide",
+    title: "How to Use Motivational Quotes to Build a Resilient Mindset",
+    excerpt: "Why daily wisdom quotes impact discipline, focus, and long-term creator consistency.",
+    category: "Mindset & Growth",
+    readTime: "5 min read",
+    publishedAt: "2026-08-19",
+    author: { name: "Aarav Sharma", role: "Strategist", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Mindset", "Motivation", "Discipline"],
+    content: `## Transforming Thoughts with Daily Wisdom
+How stoic principles and powerful one-liners anchor your focus amidst modern digital noise.`,
+  },
+  {
+    slug: "social-media-content-ideas",
+    title: "Social Media Content Ideas for Creators in 2026",
+    excerpt: "Never run out of post ideas with this 30-day content calendar framework for all social channels.",
+    category: "Content Strategy",
+    readTime: "7 min read",
+    publishedAt: "2026-08-20",
+    author: { name: "Priya Patel", role: "Strategist", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Content Calendar", "Growth"],
+    content: `## The Infinite Content Matrix
+Categorize your posts into Education, Entertainment, Inspiration, and Community to keep feeds vibrant.`,
+  },
+  {
+    slug: "instagram-content-ideas",
+    title: "Instagram Content Ideas — Carousels, Stories & Reels",
+    excerpt: "20+ fresh content formats designed to trigger the Instagram algorithm and drive saves.",
+    category: "Instagram Tips",
+    readTime: "6 min read",
+    publishedAt: "2026-08-21",
+    author: { name: "Priya Patel", role: "Creator", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Instagram", "Content Ideas"],
+    content: `## Formats That Drive Engagement
+Why carousels generate the highest share rates and how to structure your slides for maximum saves.`,
+  },
+  {
+    slug: "tiktok-content-ideas",
+    title: "TikTok Content Ideas & Viral Trend Frameworks",
+    excerpt: "How to spot emerging sounds, capitalize on trends, and structure fast-paced short videos.",
+    category: "TikTok Growth",
+    readTime: "5 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Aarav Sharma", role: "Video Creator", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["TikTok", "Viral Trends"],
+    content: `## Mastering the For You Page
+Understanding algorithmic velocity and retention signals on TikTok.`,
+  },
+  {
+    slug: "youtube-shorts-content-ideas",
+    title: "YouTube Shorts Content Ideas & Search-Optimized Titles",
+    excerpt: "How to craft high-CTR video titles, loop transitions, and engaging Shorts descriptions.",
+    category: "YouTube Strategy",
+    readTime: "5 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Aarav Sharma", role: "Video Lead", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["YouTube Shorts", "CTR"],
+    content: `## Search-Driven Short Form Video
+Pairing evergreen search queries with punchy editing to generate perpetual views on YouTube Shorts.`,
+  },
+  {
+    slug: "social-media-bio-guide",
+    title: "Social Media Bio Guide — Cross-Platform Optimization",
+    excerpt: "How to adapt your personal bio across Instagram, Twitter, LinkedIn, and TikTok.",
+    category: "Profile Branding",
+    readTime: "5 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Priya Patel", role: "Branding Specialist", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Bio", "LinkedIn", "Twitter"],
+    content: `## One Identity, Four Audiences
+How professional tones shift between corporate LinkedIn and aesthetic Instagram.`,
+  },
+  {
+    slug: "how-to-use-hashtags",
+    title: "How to Use Hashtags Effectively in 2026 (The 3-Tier Strategy)",
+    excerpt: "Stop spamming 30 hashtags. Learn the balanced 3-tier ladder formula for explore reach.",
+    category: "Hashtag Strategy",
+    readTime: "5 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Aarav Sharma", role: "SEO Specialist", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Hashtags", "Instagram Reach"],
+    content: `## The Hashtag Ladder Formula
+Combine Low (10k-50k), Medium (50k-250k), and High (500k+) competition tags for predictable indexing.`,
+  },
+  {
+    slug: "aesthetic-fonts-guide",
+    title: "Aesthetic Fonts for Social Media — Unicode & Typography Guide",
+    excerpt: "How to use fancy, bold, italic, and cursive unicode fonts safely without breaking accessibility.",
+    category: "Design & Style",
+    readTime: "4 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Priya Patel", role: "Designer", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Aesthetic Fonts", "Typography"],
+    content: `## Styling Text with Unicode
+Best practices for highlighting key bio phrases with cursive or small-caps typography.`,
+  },
+  {
+    slug: "creator-tools-guide",
+    title: "Best Creator Tools for Social Media Management and Growth",
+    excerpt: "The essential software stack for caption writing, hashtag research, and visual content production.",
+    category: "Creator Tools",
+    readTime: "6 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Aarav Sharma", role: "Product Specialist", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Creator Tools", "Productivity"],
+    content: `## The Modern Creator Toolkit
+How AI caption generators, hashtag builders, and typography tools streamline daily workflows.`,
+  },
+  {
+    slug: "ai-caption-generator-guide",
+    title: "How to Use an AI Caption Generator to Overcome Writer's Block",
+    excerpt: "Prompt frameworks and tips to get customized, human-sounding captions in seconds.",
+    category: "AI & Tools",
+    readTime: "5 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Aarav Sharma", role: "AI Strategist", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+    tags: ["AI Tools", "Captions"],
+    content: `## Prompting AI for Authentic Social Copy
+Provide vibe context, audience tone, and desired length to generate scroll-stopping caption variations.`,
+  },
+  {
+    slug: "social-media-content-workflow",
+    title: "Social Media Content Creation Workflow from Idea to Publish",
+    excerpt: "A repeatable 5-step daily workflow to batch content, write copy, and schedule posts stress-free.",
+    category: "Workflow",
+    readTime: "6 min read",
+    publishedAt: "2026-08-22",
+    author: { name: "Priya Patel", role: "Operations Lead", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" },
+    tags: ["Workflow", "Batching", "Productivity"],
+    content: `## The 5-Step Batching Method
+1. Idea bank. 2. Visual asset creation. 3. Copywriting & hashtags. 4. Review & format. 5. Scheduled distribution.`,
+  },
+];
+
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return BLOG_POSTS.find((p) => p.slug === slug);
+}
