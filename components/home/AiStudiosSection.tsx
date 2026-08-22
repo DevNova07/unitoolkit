@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, Hash, User, MessageCircle, BookOpen, Globe2, ArrowRight, Wand2 } from "lucide-react";
+import { PenTool, Hash, User, MessageCircle, BookOpen, Globe2, ArrowRight, Zap } from "lucide-react";
 
 export function AiStudiosSection() {
   const studios = [
@@ -9,7 +9,7 @@ export function AiStudiosSection() {
       name: "AI Caption Studio",
       desc: "Generate 5 high-converting Reels, Post & Story hooks in 3 seconds.",
       href: "/ai-caption-generator",
-      icon: Sparkles,
+      icon: PenTool,
       color: "from-indigo-600 to-purple-600",
       badge: "Reels & Hooks",
     },
@@ -60,8 +60,8 @@ export function AiStudiosSection() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 text-[11px] font-bold text-purple-600 dark:text-purple-400">
-            <Sparkles className="w-3 h-3" />
-            <span>6 AI Generation Studios</span>
+            <Zap className="w-3 h-3 fill-current" />
+            <span>6 Dedicated AI Studios</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
             ChatGPT-Powered Creator Tools

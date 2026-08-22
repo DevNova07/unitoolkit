@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Sparkles, ArrowRight, CheckCircle2, Copy } from "lucide-react";
+import { PenTool, Zap, ArrowRight, CheckCircle2, Copy } from "lucide-react";
 import { CaptionCard } from "@/components/captions/CaptionCard";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
@@ -88,7 +88,7 @@ export default async function InstagramIntentSubPage({ params }: PageProps) {
       {/* Header */}
       <div className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 dark:bg-pink-950/60 border border-pink-200/60 dark:border-pink-800 text-pink-600 dark:text-pink-400 text-xs font-bold shadow-2xs">
-          <Sparkles className="w-3.5 h-3.5 fill-current" />
+          <PenTool className="w-3.5 h-3.5" />
           <span>{pageInfo.badge} • Curated Collection</span>
         </div>
 
@@ -105,7 +105,7 @@ export default async function InstagramIntentSubPage({ params }: PageProps) {
       <div className="p-5 sm:p-6 rounded-3xl bg-linear-to-r from-pink-500/10 via-rose-500/10 to-transparent border border-pink-200/80 dark:border-pink-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-pink-500" />
+            <Zap className="w-4 h-4 text-pink-500" />
             <span>Need a custom {pageInfo.badge} caption?</span>
           </h3>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">

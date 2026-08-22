@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Sparkles,
   Copy,
   Check,
   Heart,
@@ -17,6 +16,7 @@ import {
   Filter,
   ArrowRight,
   ShieldCheck,
+  Zap,
 } from "lucide-react";
 import {
   WHATSAPP_STATUS_SECTIONS,
@@ -315,7 +315,7 @@ export function WhatsAppStatusStudio() {
         <div className="p-8 sm:p-12 rounded-3xl bg-linear-to-b from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-200 dark:border-emerald-900 shadow-xl text-center space-y-6">
           <div className="space-y-2 max-w-xl mx-auto">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-zinc-900 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 text-xs font-bold shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 fill-current" />
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
               <span>AI WhatsApp Status Synthesizer</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white">
@@ -366,7 +366,7 @@ export function WhatsAppStatusStudio() {
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4" />
+                  <Zap className="w-4 h-4" />
                   <span>Generate 20 {selectedVibe} WhatsApp Statuses</span>
                 </>
               )}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import {
-  Sparkles,
+  Zap,
   Bookmark,
   Menu,
   X,
@@ -20,6 +20,7 @@ import {
   FileText,
   Hash,
   Globe2,
+  PenTool,
 } from "lucide-react";
 import {
   InstagramIcon,
@@ -160,7 +161,7 @@ export function Header() {
                   : "bg-indigo-50/80 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/80 dark:border-indigo-800/80 hover:bg-indigo-100"
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 fill-current" />
+              <Zap className="w-3.5 h-3.5 fill-current" />
               <span>AI Tools</span>
               <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-600 dark:text-indigo-300">
                 6
@@ -187,7 +188,7 @@ export function Header() {
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-indigo-600 transition-colors group"
                 >
                   <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Sparkles className="w-4 h-4" />
+                    <PenTool className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="font-extrabold text-xs">AI Caption Studio</p>
@@ -651,7 +652,7 @@ export function Header() {
                 {mobileAiOpen && (
                   <div className="space-y-0.5 pt-1 animate-in fade-in-50 duration-150">
                     {[
-                      { name: "AI Caption Studio", href: "/ai-caption-generator", icon: <Sparkles className="w-5 h-5 text-indigo-500" /> },
+                      { name: "AI Caption Studio", href: "/ai-caption-generator", icon: <PenTool className="w-5 h-5 text-indigo-500" /> },
                       { name: "AI Hashtag Studio", href: "/ai-hashtag-generator", icon: <Hash className="w-5 h-5 text-purple-500" /> },
                       { name: "AI Bio Generator", href: "/ai-bio-generator", icon: <User className="w-5 h-5 text-pink-500" /> },
                       { name: "AI WhatsApp Status", href: "/ai-status-generator", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },

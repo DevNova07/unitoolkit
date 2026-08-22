@@ -6,7 +6,7 @@ import {
   Check,
   Heart,
   MessageCircle,
-  Sparkles,
+  Zap,
   RefreshCw,
 } from "lucide-react";
 import { WhatsAppStatusItem } from "@/data/whatsappStatusData";
@@ -173,7 +173,7 @@ export function SubpageStatusList({
       <div className="p-6 sm:p-8 rounded-3xl bg-linear-to-b from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-200 dark:border-emerald-900 shadow-md text-center space-y-4">
         <div className="space-y-1 max-w-md mx-auto">
           <span className="px-3 py-1 rounded-full bg-white dark:bg-zinc-900 border border-emerald-200 text-emerald-600 text-xs font-bold inline-flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 fill-current" />
+            <MessageCircle className="w-3.5 h-3.5 fill-current" />
             <span>Need More {badge} Lines?</span>
           </span>
           <h4 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
@@ -194,7 +194,7 @@ export function SubpageStatusList({
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4" />
+              <Zap className="w-4 h-4" />
               <span>Generate 20 More {badge} Statuses</span>
             </>
           )}

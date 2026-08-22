@@ -131,7 +131,7 @@ export default async function ShayariSubSlugPage({ params }: PageProps) {
       <div className="p-5 sm:p-6 rounded-3xl bg-linear-to-r from-amber-500/10 via-orange-500/10 to-transparent border border-amber-200/80 dark:border-amber-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-500" />
+            <BookOpen className="w-4 h-4 text-amber-500" />
             <span>Compose custom {name} shayari with AI?</span>
           </h3>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Globe2, Sparkles, ArrowRight, Wand2, Compass, Heart, Users } from "lucide-react";
+import { Globe2, ArrowRight, Compass, Heart, Users, Star } from "lucide-react";
 
 export function NamesFeatureCard() {
   const quickPills = [
@@ -52,7 +52,7 @@ export function NamesFeatureCard() {
                 href="/ai-baby-name-generator"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-indigo-600/40 hover:bg-indigo-600/60 border border-indigo-400/40 text-white font-bold text-xs sm:text-sm transition-all"
               >
-                <Wand2 className="w-4 h-4 text-indigo-300" />
+                <Star className="w-4 h-4 text-indigo-300" />
                 <span>AI Baby Name Generator</span>
               </Link>
             </div>

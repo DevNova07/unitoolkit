@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { InstagramIcon, YoutubeIcon, TikTokIcon, WhatsAppIcon } from "@/components/common/BrandIcons";
-import { Hash, Sparkles } from "lucide-react";
+import { Hash } from "lucide-react";
 
 export function Hero3DVisual() {
   const containerRef = useRef<HTMLDivElement>(null);

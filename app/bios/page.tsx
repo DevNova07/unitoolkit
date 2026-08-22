@@ -5,7 +5,7 @@ import { InstagramBioGenerator } from "@/components/tools/InstagramBioGenerator"
 import { FAQSection } from "@/components/common/FAQSection";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
-import { Sparkles, UserCheck, ShieldCheck, Zap, Compass, CheckCircle2 } from "lucide-react";
+import { UserCheck, ShieldCheck, Zap, Compass, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "VIP Instagram Bio Generator & Aesthetic Profile Styler — UniToolkit",

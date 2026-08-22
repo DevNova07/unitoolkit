@@ -6,7 +6,8 @@ import {
   Check,
   Heart,
   MessageCircle,
-  Sparkles,
+  BookOpen,
+  Zap,
   RefreshCw,
 } from "lucide-react";
 import { ShayariItem } from "@/data/shayariData";
@@ -235,7 +236,7 @@ export function SubpageShayariList({
       <div className="p-6 sm:p-8 rounded-3xl bg-linear-to-b from-amber-500/10 via-orange-500/5 to-transparent border border-amber-200 dark:border-amber-900 shadow-md text-center space-y-4">
         <div className="space-y-1 max-w-md mx-auto">
           <span className="px-3 py-1 rounded-full bg-white dark:bg-zinc-900 border border-amber-200 text-amber-600 text-xs font-bold inline-flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 fill-current" />
+            <BookOpen className="w-3.5 h-3.5 fill-current" />
             <span>Need More {badge}?</span>
           </span>
           <h4 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
@@ -256,7 +257,7 @@ export function SubpageShayariList({
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4" />
+              <Zap className="w-4 h-4" />
               <span>Generate 5 More {badge}</span>
             </>
           )}

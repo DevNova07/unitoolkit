@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {
-  Sparkles,
+  PenTool,
   MessageCircle,
   User,
   Hash,
@@ -42,7 +42,8 @@ import {
 } from "@/components/common/BrandIcons";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string; size?: number; color?: string }>> = {
-  Sparkles,
+  Sparkles: PenTool,
+  PenTool,
   MessageCircle,
   User,
   Hash,
@@ -86,7 +87,7 @@ export function ToolCard({
   variant = "default",
   showCategoryBadge = true,
 }: ToolCardProps) {
-  const Icon = ICON_MAP[tool.iconName] || Sparkles;
+  const Icon = ICON_MAP[tool.iconName] || PenTool;
 
   const getCategoryBadge = () => {
     switch (tool.category) {

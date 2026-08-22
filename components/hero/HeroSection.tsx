@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Sparkles, ArrowRight, Wand2, Flame } from "lucide-react";
+import { Zap, Search, ArrowRight, Flame } from "lucide-react";
 import { Hero3DVisual } from "./Hero3DVisual";
 import {
   InstagramIcon,
@@ -65,8 +65,8 @@ export function HeroSection() {
             {/* 1. Sleek Single Badge */}
             <div className="flex items-center justify-center sm:justify-start">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/80 text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 fill-current" />
-                <span>AI Creator Suite • 2026 Edition</span>
+                <Zap className="w-3.5 h-3.5 fill-current" />
+                <span>Creator Suite • 2026 Edition</span>
               </div>
             </div>
 
@@ -90,7 +90,7 @@ export function HeroSection() {
                 className="relative flex items-center p-1.5 sm:p-2 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-lg shadow-zinc-200/50 dark:shadow-none focus-within:ring-2 focus-within:ring-indigo-500/50 transition-all text-left"
               >
                 <div className="pl-2 sm:pl-3 text-indigo-500">
-                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Search className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <input
                   type="text"
@@ -103,8 +103,8 @@ export function HeroSection() {
                   type="submit"
                   className="shrink-0 flex items-center gap-1.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-black text-xs sm:text-sm font-bold shadow-md hover:opacity-95 active:scale-[0.98] transition-all cursor-pointer"
                 >
-                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-500" />
                   <span>Generate</span>
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </form>
 

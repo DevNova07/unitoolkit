@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import {
-  Sparkles,
+  PenTool,
   BookOpen,
   MessageCircle,
   User,
   Quote,
   Hash,
   ArrowRight,
-  Wand2,
+  Layers,
 } from "lucide-react";
 import { useLocale } from "@/components/common/LocaleProvider";
 
@@ -21,9 +21,9 @@ export function CoreContentSection() {
       id: "captions",
       title: "Captions Studio & Vault",
       desc: "15,000+ hand-crafted lines & AI caption generator across 52+ vibes.",
-      icon: Sparkles,
+      icon: PenTool,
       href: "/captions",
-      badge: "15K+ & AI",
+      badge: "15K+ Vault",
       color: "from-indigo-500 to-purple-600",
       accentBorder: "hover:border-indigo-400 dark:hover:border-indigo-600",
       regional: false,
@@ -95,7 +95,7 @@ export function CoreContentSection() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-[11px] font-bold text-indigo-600 dark:text-indigo-400">
-            <Wand2 className="w-3 h-3" />
+            <Layers className="w-3 h-3" />
             <span>6 Core Creator Vaults</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">

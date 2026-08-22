@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles, Heart, ShieldCheck, Zap, Layers, Wand2, Globe2, BookOpen, Hash } from "lucide-react";
+import { Heart, ShieldCheck, Zap, Layers, Globe2, BookOpen, Hash, PenTool, Cpu } from "lucide-react";
 
 export function Footer() {
   return (
@@ -78,7 +78,7 @@ export function Footer() {
           {/* Col 2: AI Studios */}
           <div className="space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-              <Wand2 className="w-3.5 h-3.5 text-purple-500" />
+              <Cpu className="w-3.5 h-3.5 text-purple-500" />
               <span>AI Studios</span>
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">

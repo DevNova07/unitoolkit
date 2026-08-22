@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { CategoryGrid } from "@/components/captions/CategoryGrid";
 import { CTASection } from "@/components/common/CTASection";
-import { Sparkles } from "lucide-react";
+import { Layers } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Caption Categories — Browse 18+ Themes & Vibes",
@@ -20,7 +20,7 @@ export default function CategoriesPage() {
 
       <div className="space-y-3 text-left">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950 border border-indigo-100 dark:border-indigo-900 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-          <Sparkles className="w-3.5 h-3.5" />
+          <Layers className="w-3.5 h-3.5" />
           <span>18+ Curated Themes</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white">

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Hash, Copy, Check, TrendingUp, ArrowRight, Sparkles } from "lucide-react";
+import { Hash, Copy, Check, TrendingUp, ArrowRight, Zap } from "lucide-react";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
 
@@ -67,7 +67,7 @@ export function HashtagFeatureCard() {
                 href="/ai-hashtag-generator"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-bold text-xs sm:text-sm transition-all"
               >
-                <Sparkles className="w-4 h-4 text-emerald-400" />
+                <Zap className="w-4 h-4 text-emerald-400" />
                 <span>AI Hashtag Generator</span>
               </Link>
             </div>
