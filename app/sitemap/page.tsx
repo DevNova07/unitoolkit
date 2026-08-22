@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Sparkles, MapPin, Grid, Layers, ArrowRight, ExternalLink, Globe2 } from "lucide-react";
+import { Sparkles, MapPin, Grid, Layers, ArrowRight, ExternalLink, Globe2, Hash } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { ALL_PLATFORM_BLUEPRINTS, CORE_PAGES } from "@/data/masterSeo300Data";
@@ -144,6 +144,40 @@ export default function VisualSitemapPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Section 3: Trending Hashtags & Platform Analytics */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-black text-zinc-900 dark:text-white flex items-center gap-2">
+          <Hash className="w-5 h-5 text-emerald-500" />
+          <span>3. Trending Hashtags & Platform Analytics (35+ Hubs)</span>
+        </h2>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          {[
+            { slug: "instagram", name: "Instagram" },
+            { slug: "tiktok", name: "TikTok" },
+            { slug: "youtube", name: "YouTube Shorts" },
+            { slug: "reels", name: "Reels" },
+            { slug: "viral", name: "Viral" },
+            { slug: "trending", name: "Trending" },
+            { slug: "fitness", name: "Fitness" },
+            { slug: "travel", name: "Travel" },
+            { slug: "fashion", name: "Fashion" },
+            { slug: "food", name: "Food" },
+            { slug: "photography", name: "Photography" },
+            { slug: "love", name: "Love" },
+          ].map((h) => (
+            <Link
+              key={h.slug}
+              href={`/hashtags/${h.slug}`}
+              className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:border-emerald-500 hover:text-emerald-600 transition flex items-center justify-between"
+            >
+              <span>#{h.slug}</span>
+              <ArrowRight className="w-3.5 h-3.5 text-zinc-400" />
+            </Link>
+          ))}
         </div>
       </section>
 

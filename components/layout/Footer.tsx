@@ -67,10 +67,15 @@ export function Footer() {
                   Global Names Directory
                 </Link>
               </li>
+              <li>
+                <Link href="/hashtags" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-semibold text-emerald-600 dark:text-emerald-400">
+                  Trending Hashtags Hub
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Col 2: 6 AI Studios */}
+          {/* Col 2: AI Studios */}
           <div className="space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
               <Wand2 className="w-3.5 h-3.5 text-purple-500" />
@@ -80,6 +85,11 @@ export function Footer() {
               <li>
                 <Link href="/ai-caption-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   AI Caption Studio
+                </Link>
+              </li>
+              <li>
+                <Link href="/ai-hashtag-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-semibold text-purple-600 dark:text-purple-400">
+                  AI Hashtag Generator
                 </Link>
               </li>
               <li>
@@ -98,8 +108,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/ai-quotes-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                  AI Quotes & Hashtags
+                <Link href="/ai-baby-name-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                  AI Baby Name Studio
                 </Link>
               </li>
               <li>
