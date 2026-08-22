@@ -34,11 +34,11 @@ export function Hero3DVisual() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-[440px] sm:max-w-[480px] lg:max-w-[520px] aspect-square mx-auto flex items-center justify-center select-none"
+      className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[420px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center select-none"
       style={{ perspective: 1400 }}
     >
       {/* Dynamic Background Ambient Glow */}
-      <div className="absolute inset-0 bg-radial from-purple-500/20 via-indigo-500/10 to-transparent blur-3xl -z-10 rounded-full animate-pulse" />
+      <div className="absolute inset-0 bg-radial from-purple-500/25 via-indigo-500/15 to-transparent blur-3xl -z-10 rounded-full animate-pulse" />
 
       {/* Main 3D Stage with Real-Time Parallax Tilt */}
       <motion.div

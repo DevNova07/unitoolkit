@@ -191,33 +191,33 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: 3D Stage Visual with U and Floating Platform Cards (PC ONLY) */}
-          <div className="hidden lg:flex lg:col-span-5 justify-center">
+          {/* Right Column: 3D Stage Visual with U and Floating Platform Cards (Mobile & Desktop) */}
+          <div className="flex lg:col-span-5 justify-center mt-6 lg:mt-0">
             <Hero3DVisual />
           </div>
         </div>
 
         {/* 🌟 10 Platform Cards Carousel Strip */}
-        <div className="mt-16 sm:mt-20 pt-10 border-t border-zinc-200/60 dark:border-zinc-800/80 text-center">
-          <p className="text-xs sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-8 flex items-center justify-center gap-2">
-            <span className="w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
+        <div className="mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-zinc-200/60 dark:border-zinc-800/80 text-center">
+          <p className="text-[11px] sm:text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-6 sm:mb-8 flex items-center justify-center gap-2">
+            <span className="w-6 sm:w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
             <span>Supported Across All 10 Major Platforms</span>
-            <span className="w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
+            <span className="w-6 sm:w-8 h-px bg-zinc-300 dark:bg-zinc-700" />
           </p>
 
-          <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar snap-x justify-start lg:justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-4 overflow-x-auto pb-3 sm:pb-4 pt-1 sm:pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar snap-x justify-start lg:justify-between">
             {platformsList.map((plat) => (
               <Link
                 key={plat.name}
                 href={plat.href}
-                className="snap-start shrink-0 flex flex-col items-center gap-2.5 p-3 sm:p-4 rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_12px_28px_-6px_rgba(0,0,0,0.08),inset_0_2px_4px_rgba(255,255,255,0.9)] dark:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.6)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-[84px] sm:min-w-[96px]"
+                className="snap-start shrink-0 flex flex-col items-center gap-2 p-2.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-zinc-900/95 border-2 border-white dark:border-zinc-700/80 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.08),inset_0_2px_4px_rgba(255,255,255,0.9)] dark:shadow-[0_12px_28px_-6px_rgba(0,0,0,0.6)] hover:-translate-y-2 hover:scale-108 transition-all duration-300 group min-w-[74px] sm:min-w-[96px]"
               >
                 <div
-                  className={`w-11 h-11 sm:w-13 sm:h-13 rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
+                  className={`w-10 h-10 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl ${plat.bg} flex items-center justify-center text-white ${plat.shadow} group-hover:rotate-6 transition-transform`}
                 >
                   {plat.icon}
                 </div>
-                <span className="text-xs sm:text-[13px] font-bold text-zinc-900 dark:text-white">
+                <span className="text-[11px] sm:text-[13px] font-bold text-zinc-900 dark:text-white">
                   {plat.name}
                 </span>
               </Link>
@@ -226,60 +226,60 @@ export function HeroSection() {
         </div>
 
         {/* 📊 Bottom Real Architecture Metrics Bar */}
-        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800 shadow-sm">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 items-center divide-y md:divide-y-0 md:divide-x divide-zinc-100 dark:divide-zinc-800">
+        <div className="mt-8 sm:mt-10 p-5 sm:p-8 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800 shadow-sm">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-8 items-center divide-y-0 md:divide-x divide-zinc-100 dark:divide-zinc-800">
             {/* Stat 1 */}
-            <div className="flex items-center gap-3 pt-3 md:pt-0">
-              <div className="w-11 h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
-                <PenTool className="w-5 h-5" />
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+                <PenTool className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">15K+</div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Curated Captions</div>
+                <div className="text-lg sm:text-2xl font-black text-zinc-900 dark:text-white">15K+</div>
+                <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-medium">Curated Captions</div>
               </div>
             </div>
 
             {/* Stat 2 */}
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6">
-              <div className="w-11 h-11 rounded-2xl bg-amber-50 dark:bg-amber-950/50 border border-amber-100 dark:border-amber-900 flex items-center justify-center text-amber-500 shrink-0">
-                <Flame className="w-5 h-5 fill-current" />
+            <div className="flex items-center gap-2.5 sm:gap-3 md:pl-6">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-amber-50 dark:bg-amber-950/50 border border-amber-100 dark:border-amber-900 flex items-center justify-center text-amber-500 shrink-0">
+                <Flame className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">52+</div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Content Moods</div>
+                <div className="text-lg sm:text-2xl font-black text-zinc-900 dark:text-white">52+</div>
+                <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-medium">Content Moods</div>
               </div>
             </div>
 
             {/* Stat 3 */}
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6">
-              <div className="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 flex items-center justify-center text-blue-500 shrink-0">
-                <Globe2 className="w-5 h-5" />
+            <div className="flex items-center gap-2.5 sm:gap-3 md:pl-6">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900 flex items-center justify-center text-blue-500 shrink-0">
+                <Globe2 className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">10</div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Social Platforms</div>
+                <div className="text-lg sm:text-2xl font-black text-zinc-900 dark:text-white">10</div>
+                <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-medium">Social Platforms</div>
               </div>
             </div>
 
             {/* Stat 4 */}
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6">
-              <div className="w-11 h-11 rounded-2xl bg-pink-50 dark:bg-pink-950/50 border border-pink-100 dark:border-pink-900 flex items-center justify-center text-pink-500 shrink-0">
-                <Layers className="w-5 h-5" />
+            <div className="flex items-center gap-2.5 sm:gap-3 md:pl-6">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-pink-50 dark:bg-pink-950/50 border border-pink-100 dark:border-pink-900 flex items-center justify-center text-pink-500 shrink-0">
+                <Layers className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">6</div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">AI Creator Studios</div>
+                <div className="text-lg sm:text-2xl font-black text-zinc-900 dark:text-white">6</div>
+                <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-medium">AI Creator Studios</div>
               </div>
             </div>
 
             {/* Stat 5 */}
-            <div className="flex items-center gap-3 pt-3 md:pt-0 md:pl-6 col-span-2 md:col-span-1">
-              <div className="w-11 h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900 flex items-center justify-center text-emerald-600 shrink-0">
-                <ShieldCheck className="w-5 h-5" />
+            <div className="flex items-center gap-2.5 sm:gap-3 md:pl-6 col-span-2 md:col-span-1 pt-2 md:pt-0 border-t md:border-t-0 border-zinc-100 dark:border-zinc-800">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900 flex items-center justify-center text-emerald-600 shrink-0">
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">100%</div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Free Forever</div>
+                <div className="text-lg sm:text-2xl font-black text-zinc-900 dark:text-white">100%</div>
+                <div className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 font-medium">Free Forever</div>
               </div>
             </div>
           </div>
