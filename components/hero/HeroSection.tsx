@@ -73,7 +73,7 @@ export function HeroSection() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors"
               >
                 <Wand2 className="w-3 h-3" />
-                <span>5 AI Engines</span>
+                <span>6 AI Studios</span>
               </Link>
             </div>
 
@@ -87,7 +87,7 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <p className="text-sm sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto sm:mx-0 leading-relaxed">
-              Instant AI caption generator, authentic Hindi shayari, WhatsApp status, and VIP bios crafted for 10 major platforms.
+              Instant AI captions, 120-tag hashtag ladders, authentic Hindi shayari, daily WhatsApp status, VIP bios, and 10,000+ baby names for 10 platforms.
             </p>
 
             {/* Sleek, Simple Hero Prompt Input Bar */}
