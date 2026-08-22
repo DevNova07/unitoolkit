@@ -113,6 +113,7 @@ export default async function NameCategorySubpage({ params }: PageProps) {
       bannerSubtitle={custom.bannerSubtitle}
       tipsTitle={custom.tipsTitle}
       tips={custom.tips}
+      overviewSections={custom.overviewSections}
       letterHeadingPrefix={custom.letterHeadingPrefix}
       faqs={custom.faqs}
       relatedLinks={relatedLinks}

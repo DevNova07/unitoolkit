@@ -18,6 +18,7 @@ export interface NameCategoryMeta {
   bannerSubtitle?: string;
   tipsTitle?: string;
   tips?: { title: string; desc: string }[];
+  overviewSections?: { heading: string; body: string }[];
   letterHeadingPrefix?: string;
   faqs: { question: string; answer: string }[];
   relatedSlugs?: string[];
@@ -53,11 +54,13 @@ export const CORE_NAME_HUBS: NameCategoryMeta[] = [
       { title: "Timeless Sound", desc: "Pick a name that fits an adorable baby as comfortably as a respected professional adult." },
       { title: "Shortlist Strategy", desc: "Keep a narrow shortlist of 3–5 names to test with close family before birth." },
     ],
+    overviewSections: [
+      { heading: "Boy Naming Trends in 2026", body: "Modern boy names are shifting toward crisp 2-syllable phonetics with deep historical virtue meanings like bravery, dawn, and light." },
+    ],
     letterHeadingPrefix: "Baby boy names starting with",
     faqs: [
       { question: "What are the most popular baby boy names in 2026?", answer: "Top trending boy names globally include Aarav, Liam, Noah, Ayaan, Arjun, Oliver, Leo, Lucas, and Zayn, combining modern rhythm with strong historical roots." },
       { question: "How do I choose a strong and meaningful boy name?", answer: "Look for names with meanings symbolizing courage, wisdom, light, or victory, and test how effortlessly it pairs with your family last name." },
-      { question: "Can I generate tailored boy names with AI?", answer: "Yes! Use our AI Baby Name Generator to enter your surname and preferred themes for personalized matches." },
     ],
     relatedSlugs: ["girl", "unisex", "baby", "unique", "modern", "royal"],
   },
@@ -82,11 +85,13 @@ export const CORE_NAME_HUBS: NameCategoryMeta[] = [
       { title: "Cultural Elegance", desc: "Honor your ancestral roots with modern short variations of classic deities and heroines." },
       { title: "Family Harmony", desc: "Check how the name sounds alongside elder siblings' names." },
     ],
+    overviewSections: [
+      { heading: "Girl Naming Trends in 2026", body: "Lyrical, nature-inspired, and botanical names like Saanvi, Kiara, Maya, and Freya lead modern preferences." },
+    ],
     letterHeadingPrefix: "Baby girl names starting with",
     faqs: [
       { question: "What are the top trending baby girl names for 2026?", answer: "Leading girl names worldwide include Saanvi, Olivia, Kiara, Aisha, Sophia, Ananya, Mia, Freya, and Luna, celebrated for lyrical sweetness." },
       { question: "What makes a baby girl name timeless and memorable?", answer: "Names that carry deep historical or spiritual virtues (like Maya, Grace, Zara, Tara) remain fresh and elegant across all generations." },
-      { question: "How do I verify the exact meaning of girl names?", answer: "Each entry on UniToolkit is verified against linguistic dictionaries including Sanskrit, Arabic, and Latin root lexicons." },
     ],
     relatedSlugs: ["boy", "unisex", "baby", "cute", "elegant", "beautiful"],
   },
@@ -304,17 +309,17 @@ export const AI_NAME_STUDIOS = [
 ];
 
 // -------------------------------------------------------------
-// 🌟 DYNAMIC CUSTOMIZATION FACTORY (Unique per slug)
+// 🌟 DYNAMIC CUSTOMIZATION FACTORY (Unique intent per slug)
 // -------------------------------------------------------------
 export function getCategoryCustomization(slug: string): NameCategoryMeta {
   const s = slug.toLowerCase();
 
-  // 1. Check Core Hubs
+  // 1. Core Hubs
   const coreMatch = CORE_NAME_HUBS.find((c) => c.slug === s);
   if (coreMatch) return coreMatch;
 
-  // 2. Hindu / Vedic Names Customization
-  if (s === "hindu" || s === "sanskrit") {
+  // 2. Hindu Religious Names (Namakarana, Rashi, Vedic Deities)
+  if (s === "hindu") {
     return {
       slug: s,
       name: "Hindu Baby Names",
@@ -334,21 +339,54 @@ export function getCategoryCustomization(slug: string): NameCategoryMeta {
         { title: "Syllable Flow", desc: "Test the name with your family Gotra and surname to ensure pleasant recitation." },
         { title: "Easy Global Spelling", desc: "Opt for spellings that prevent mispronunciation across international schools and records." },
       ],
+      overviewSections: [
+        { heading: "Vedic Naming Tradition (Namakarana)", body: "In Sanatana Dharma, the Namakarana ceremony on the 11th or 12th day assigns a sacred name reflecting the child's astrological Nakshatra and spiritual destiny." },
+      ],
       letterHeadingPrefix: "Hindu baby names starting with",
       faqs: [
         { question: "How are Hindu baby names chosen according to birth star (Nakshatra)?", answer: "In Hindu tradition (Namakarana ceremony), the moon's position at birth determines the Janm Nakshatra, which gives 4 auspicious sound syllables (Padas) to name the newborn." },
         { question: "Which Sanskrit Hindu baby names are trending in 2026?", answer: "Top trending Sanskrit names include Aarav, Advik, Vihaan, Saanvi, Reyansh, Ishaan, Ananya, and Kiara, offering deep Vedic meanings with modern 2-syllable brevity." },
-        { question: "Are these Hindu name meanings cross-verified with Sanskrit lexicons?", answer: "Yes, every entry is verified against authentic Sanskrit root dictionaries (Dhatupatha and Amar Kosha) for complete linguistic accuracy." },
       ],
     };
   }
 
-  // 3. Muslim / Islamic Names Customization
-  if (s === "muslim" || s === "islamic" || s === "arabic") {
+  // 3. Sanskrit Linguistic Names (Dhatupatha, Grammar, Epics)
+  if (s === "sanskrit") {
+    return {
+      slug: s,
+      name: "Sanskrit Baby Names",
+      h1: "Sanskrit Baby Names: 100+ Ancient & Classical Root Names with Meanings (A to Z) [2026]",
+      metaTitle: "Sanskrit Baby Names [2026] — 100+ Classical Vedic Root Names | UniToolkit",
+      metaDescription: "Discover 100+ authentic Sanskrit baby names derived from ancient classical roots, Upanishads, and epics with verified grammatical meanings.",
+      badge: "📜 Classical Sanskrit Vault",
+      intro: "Explore pure Sanskrit baby names celebrated for phonetic elegance, compound harmony (Samasa), and philosophical depth. Organized alphabetically from A to Z with linguistic roots.",
+      type: "origin",
+      bannerTitle: "Sanskrit Baby Name Ideas",
+      bannerSubtitle: "Classical Root & Etymology Guide • 2026 Edition",
+      tipsTitle: "How to choose a Sanskrit baby name (etymology tips)",
+      tips: [
+        { title: "Dhatu (Root) Verification", desc: "Understand the core Sanskrit verb root giving life to the word." },
+        { title: "Sandhi & Euphonic Harmony", desc: "Select compound words that blend naturally without harsh consonant clusters." },
+        { title: "Philosophical Depth", desc: "Choose concepts celebrating consciousness (Chaitanya), radiance (Tejas), or devotion (Bhakti)." },
+        { title: "Crisp Modern Spellings", desc: "Use phonetic English transcriptions that preserve pure pronunciation." },
+        { title: "Short Syllable Cadence", desc: "2-syllable Sanskrit gems like Dev, Avi, and Ira provide international appeal." },
+      ],
+      overviewSections: [
+        { heading: "The Linguistic Science of Sanskrit Names", body: "Sanskrit is known as Deva-bhasha (the language of the gods), where sound vibrations are directly linked to the metaphysical essence of the word." },
+      ],
+      letterHeadingPrefix: "Sanskrit baby names starting with",
+      faqs: [
+        { question: "What makes Sanskrit baby names uniquely special?", answer: "Sanskrit names are mathematically and grammatically derived from pure roots (Dhatus), meaning every name carries an exact philosophical virtue." },
+      ],
+    };
+  }
+
+  // 4. Muslim Religious Names (Quranic, Hadith, Sunnah Etiquette)
+  if (s === "muslim") {
     return {
       slug: s,
       name: "Muslim Baby Names",
-      h1: "Islamic & Muslim Baby Names: 100+ Quranic & Arabic Names with Meanings (A to Z) [2026]",
+      h1: "Muslim Baby Names: 100+ Quranic, Arabic & Prophetic Names with Meanings (A to Z) [2026]",
       metaTitle: "Muslim Baby Names [2026] — 100+ Quranic, Arabic & Prophetic Names | UniToolkit",
       metaDescription: "Discover 100+ unique Islamic baby boy and girl names from A to Z with authentic Quranic references, Arabic meanings, and audio pronunciation guides.",
       badge: "🌙 Quranic & Islamic Names Vault",
@@ -364,16 +402,49 @@ export function getCategoryCustomization(slug: string): NameCategoryMeta {
         { title: "Pronunciation Clarity", desc: "Ensure the Arabic pronunciation remains accurate and easy to articulate in everyday life." },
         { title: "Aqeeqah Timetable", desc: "Finalize your top 3 picks before the 7th-day Sunnah naming and Aqeeqah ceremony." },
       ],
+      overviewSections: [
+        { heading: "Sunnah Naming Etiquette & Aqeeqah", body: "According to Sunnah, naming a newborn on the 7th day with an honorable virtue establishes blessings and identity for life." },
+      ],
       letterHeadingPrefix: "Muslim baby names starting with",
       faqs: [
         { question: "What are the most recommended Islamic baby names according to Hadith?", answer: "The Prophet Muhammad (PBUH) stated that the most beloved names to Allah are Abdullah and Abdur-Rahman, alongside names of righteous Prophets." },
         { question: "Which modern Arabic baby names are popular in 2026?", answer: "Trending Islamic names globally include Ayaan, Rayan, Zayn, Inaya, Zayd, Noor, Hamza, Layla, and Farhan." },
-        { question: "When should an Islamic baby name be officially given?", answer: "According to Sunnah, it is highly recommended to officially name the child on the seventh day after birth during the Aqeeqah." },
       ],
     };
   }
 
-  // 4. Indian Cultural Names
+  // 5. Arabic Cultural Names (Language, Levantine, Gulf & North Africa)
+  if (s === "arabic") {
+    return {
+      slug: s,
+      name: "Arabic Baby Names",
+      h1: "Arabic Baby Names: 100+ Lyrical & Traditional Names with Meanings (A to Z) [2026]",
+      metaTitle: "Arabic Baby Names [2026] — 100+ Lyrical, Modern & Classic Names | UniToolkit",
+      metaDescription: "Explore 100+ authentic Arabic baby names across Middle Eastern and North African traditions with verified meanings and clear pronunciation.",
+      badge: "🌴 Arabic Names Vault",
+      intro: "Browse the rich tapestry of Arabic names celebrating eloquence, natural beauty, desert stars, and noble ancestry. Organized from A to Z with phonetic guidance.",
+      type: "origin",
+      bannerTitle: "Arabic Baby Name Ideas",
+      bannerSubtitle: "Arabic Heritage & Lyrical Guide • 2026 Edition",
+      tipsTitle: "How to choose an Arabic baby name (quick tips)",
+      tips: [
+        { title: "Tri-consonantal Roots", desc: "Appreciate the 3-letter Arabic root conveying deep layers of meaning." },
+        { title: "Poetic & Natural Metaphors", desc: "Names like Layla (night beauty), Tariq (morning star), and Yasmin (jasmine) carry rich imagery." },
+        { title: "Pronunciation in English", desc: "Choose transliterations that prevent mispronunciation across international schools." },
+        { title: "Family Lineage Cadence", desc: "Test the flow of first name with father's name and family surname." },
+        { title: "Contemporary Brevity", desc: "Short modern names like Zayn, Rayan, and Zara are globally popular." },
+      ],
+      overviewSections: [
+        { heading: "The Poetic Beauty of Arabic Nomenclature", body: "Arabic names are renowned for eloquence (Balagha), drawing from celestial navigation, desert flora, and regal hospitality." },
+      ],
+      letterHeadingPrefix: "Arabic baby names starting with",
+      faqs: [
+        { question: "Why are Arabic baby names popular globally?", answer: "Arabic names are cherished worldwide for their melodic vowels, deep poetic imagery, and timeless spiritual resonance." },
+      ],
+    };
+  }
+
+  // 6. Indian Cultural Names (Pan-Indian, Multi-lingual)
   if (s === "indian") {
     return {
       slug: s,
@@ -394,15 +465,78 @@ export function getCategoryCustomization(slug: string): NameCategoryMeta {
         { title: "Family Surname Match", desc: "Recite the full name out loud to verify rhythmic flow." },
         { title: "Astrology Initial", desc: "Use the A–Z letter sections below to find names matching your family's birth letter." },
       ],
+      overviewSections: [
+        { heading: "The Diversity of Indian Naming Traditions", body: "From Vedic Sanskrit classics to modern contemporary Hindi gems, Indian baby names celebrate family honor and auspicious blessings." },
+      ],
       letterHeadingPrefix: "Indian baby names starting with",
       faqs: [
         { question: "What are the fastest rising Indian baby names for 2026?", answer: "Fastest rising Indian names include Aarav, Advik, Reyansh, Saanvi, Ishaan, Ananya, Kiara, and Vivaan." },
-        { question: "How to balance traditional Indian heritage with modern lifestyle?", answer: "Choose short, punchy Sanskrit root names that carry deep philosophical meanings while remaining easy to pronounce worldwide." },
       ],
     };
   }
 
-  // 5. Specific Meaning Categories (e.g. Love, Strength, Wisdom, Peace, Light)
+  // 7. Popular vs Trending (Distinct Intent)
+  if (s === "popular") {
+    return {
+      slug: s,
+      name: "Top Popular Baby Names",
+      h1: "Top 100 Most Popular Baby Names Globally [2026 Official Rankings]",
+      metaTitle: "Top 100 Most Popular Baby Names [2026] — Official Global Rankings | UniToolkit",
+      metaDescription: "Discover the top 100 most popular baby boy and girl names worldwide with verified rank data, country popularity, and meanings.",
+      badge: "🏆 Global Popularity Rankings",
+      intro: "Explore the most cherished and widely registered baby names worldwide. Verified through national registry databases with complete ranking and phonetic guidance.",
+      type: "popularity",
+      bannerTitle: "Most Popular Baby Names",
+      bannerSubtitle: "Global 2026 Official Rankings",
+      tipsTitle: "Why choose a popular baby name (quick tips)",
+      tips: [
+        { title: "Universal Recognition", desc: "Top names are instantly recognized, easily spelled, and widely loved across cultures." },
+        { title: "Proven Timelessness", desc: "Established popular names remain stylish across decades of life." },
+        { title: "Check Local Density", desc: "Check if the name is #1 in your specific city or school district if you prefer moderate uniqueness." },
+        { title: "Pair with Unique Middle Name", desc: "Balance a chart-topping first name with a distinctive cultural middle name." },
+        { title: "Pronunciation Ease", desc: "Popular names have standardized phonetic spellings worldwide." },
+      ],
+      overviewSections: [
+        { heading: "Global Popularity Methodology", body: "Our popular names index aggregates official civil registration records from the US SSA, UK ONS, and international demographic registries." },
+      ],
+      letterHeadingPrefix: "Popular baby names starting with",
+      faqs: [
+        { question: "What is the #1 baby girl and boy name in the world?", answer: "Liam and Noah lead global boy registrations, while Olivia and Emma dominate girl registrations worldwide." },
+      ],
+    };
+  }
+
+  if (s === "trending") {
+    return {
+      slug: s,
+      name: "Trending Baby Names 2026",
+      h1: "Fastest-Rising Trending Baby Names of 2026 [High-Velocity Viral Picks]",
+      metaTitle: "Trending Baby Names [2026] — Fastest-Rising Viral Names | UniToolkit",
+      metaDescription: "Discover the fastest-rising viral baby names of 2026 with high growth velocity, fresh aesthetic vibes, and modern charm.",
+      badge: "🚀 High-Velocity Trending Names",
+      intro: "Discover the freshest, fastest-rising baby names making waves in 2026. Curated for modern parents seeking forward-thinking, creative, and rising stars.",
+      type: "popularity",
+      bannerTitle: "Trending Baby Names 2026",
+      bannerSubtitle: "Fastest-Rising High Velocity Picks",
+      tipsTitle: "How to spot a rising trend name (quick tips)",
+      tips: [
+        { title: "Rising Velocity", desc: "Look for names jumping 50+ spots in annual registration statistics." },
+        { title: "Cultural Crossover", desc: "Names like Kai, Bodhi, and Kiara cross borders effortlessly." },
+        { title: "Nature & Celestial Vibe", desc: "Botanical and star names are experiencing the fastest modern growth." },
+        { title: "Avoid Over-Saturation", desc: "Pick a rising name before it reaches peak saturation in your peer circle." },
+        { title: "Check Longevity", desc: "Ensure the trendy name has substantive meaning and dignity for adulthood." },
+      ],
+      overviewSections: [
+        { heading: "What Drives 2026 Name Trends?", body: "Contemporary naming trends are driven by digital storytelling, global travel, short 1-2 syllable sounds, and inspiring celestial themes." },
+      ],
+      letterHeadingPrefix: "Trending baby names starting with",
+      faqs: [
+        { question: "What distinguishes trending names from popular names?", answer: "Popular names have high total registrations over decades, while trending names have the highest percentage growth and viral momentum in the current year." },
+      ],
+    };
+  }
+
+  // 8. Meaning Categories
   const meaningMatch = MEANING_THEMES_LIST.find((m) => m.slug === s);
   if (meaningMatch) {
     return {
@@ -424,6 +558,9 @@ export function getCategoryCustomization(slug: string): NameCategoryMeta {
         { title: "Uniqueness Level", desc: "Choose between widely cherished classics and rare hidden gems." },
         { title: "Family Alignment", desc: "Ensure both parents resonate deeply with the spirit of the meaning." },
       ],
+      overviewSections: [
+        { heading: `The Symbolism of Names Meaning ${meaningMatch.name}`, body: `Throughout history, naming a child after ${meaningMatch.name.toLowerCase()} acts as a daily blessing and guiding compass for their lifelong character.` },
+      ],
       letterHeadingPrefix: `Names meaning '${meaningMatch.name.toLowerCase()}' starting with`,
       faqs: [
         { question: `What are the most famous baby names meaning '${meaningMatch.name.toLowerCase()}'?`, answer: `Celebrated names in this collection include diverse cross-cultural favorites embodying ${meaningMatch.name.toLowerCase()} with lyrical elegance.` },
@@ -431,7 +568,7 @@ export function getCategoryCustomization(slug: string): NameCategoryMeta {
     };
   }
 
-  // 6. Generic Fallback Customization (Tailored dynamically with name & slug)
+  // 9. Generic Fallback Customization
   const formattedName = capitalize(s);
   return {
     slug: s,

@@ -54,14 +54,6 @@ export default async function NameMeaningSubpage({ params }: PageProps) {
     );
   });
 
-  if (matchedNames.length < 15) {
-    const additional = NAMES_DATA.filter((n) => !matchedNames.some((m) => m.id === n.id)).slice(
-      0,
-      25 - matchedNames.length
-    );
-    matchedNames = [...matchedNames, ...additional];
-  }
-
   const relatedLinks = MEANING_THEMES_LIST.filter((m) => m.slug !== slug)
     .slice(0, 8)
     .map((m) => ({
@@ -81,6 +73,7 @@ export default async function NameMeaningSubpage({ params }: PageProps) {
       bannerSubtitle={custom.bannerSubtitle}
       tipsTitle={custom.tipsTitle}
       tips={custom.tips}
+      overviewSections={custom.overviewSections}
       letterHeadingPrefix={custom.letterHeadingPrefix}
       faqs={custom.faqs}
       relatedLinks={relatedLinks}

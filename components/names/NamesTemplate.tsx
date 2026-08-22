@@ -2,13 +2,19 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Copy, Check, Volume2, Sparkles, BookOpen } from "lucide-react";
+import { Copy, Check, Volume2, Sparkles, BookOpen, Heart, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
-import { NAMES_DATA, NameRecord } from "@/data/namesData";
+import { NameRecord } from "@/data/namesData";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
+import { toggleFavoriteName, isNameFavorite } from "@/lib/namesFavoritesStore";
+
+interface OverviewSection {
+  heading: string;
+  body: string;
+}
 
 interface NamesTemplateProps {
   h1: string;
@@ -21,6 +27,7 @@ interface NamesTemplateProps {
   bannerSubtitle?: string;
   tipsTitle?: string;
   tips?: { title: string; desc: string }[];
+  overviewSections?: OverviewSection[];
   letterHeadingPrefix?: string;
   faqs?: { question: string; answer: string }[];
   relatedLinks?: { label: string; href: string }[];
@@ -69,6 +76,7 @@ export function NamesTemplate({
   bannerSubtitle = "A to Z Curated List • 2026 Edition",
   tipsTitle = "How to choose a baby name (quick tips)",
   tips,
+  overviewSections = [],
   letterHeadingPrefix = "Baby names starting with",
   faqs = [],
   relatedLinks = [],
@@ -94,6 +102,15 @@ export function NamesTemplate({
       window.speechSynthesis.speak(utterance);
     }
   };
+
+  const handleToggleFav = (nameItem: NameRecord) => {
+    const isNow = toggleFavoriteName(nameItem);
+    showToast(isNow ? `Saved ${nameItem.name} to favorites ❤️` : `Removed from favorites`);
+  };
+
+  // Subsets for Structured Intent Sections
+  const boyNames = useMemo(() => items.filter((n) => n.gender === "boy"), [items]);
+  const girlNames = useMemo(() => items.filter((n) => n.gender === "girl"), [items]);
 
   // Group items strictly by letter from the authentic category items
   const groupedByLetter = useMemo(() => {
@@ -147,7 +164,7 @@ export function NamesTemplate({
 
       <Breadcrumbs items={breadcrumbs} />
 
-      {/* 1. Article Title & Metadata (Exact clean match to Screenshot 1) */}
+      {/* 1. Article Title & Metadata */}
       <header className="space-y-4">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
           {h1}
@@ -158,14 +175,16 @@ export function NamesTemplate({
           <span>•</span>
           <span>Verified Meanings & A–Z Guide</span>
         </div>
+
+        <p className="text-base sm:text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed pt-1">
+          {intro}
+        </p>
       </header>
 
-      {/* 2. Editorial Notebook Banner (Exact visual replica of Screenshot 1) */}
+      {/* 2. Editorial Notebook Banner */}
       <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden bg-gradient-to-br from-amber-100 via-stone-200 to-amber-50 dark:from-zinc-900 dark:via-zinc-850 dark:to-zinc-900 border border-stone-300/80 dark:border-zinc-800 shadow-md flex items-center justify-center p-6 text-center select-none">
-        {/* Wood texture background overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
 
-        {/* Notebook Card Center */}
         <div className="relative px-8 sm:px-14 py-6 sm:py-8 rounded-2xl bg-white/90 dark:bg-zinc-950/90 shadow-xl border border-stone-200/90 dark:border-zinc-800 backdrop-blur-xs space-y-2 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
           <p className="font-serif italic text-3xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
             {bannerTitle}
@@ -176,7 +195,119 @@ export function NamesTemplate({
         </div>
       </div>
 
-      {/* 3. Category Specific Quick Tips (Exact match to Screenshot 2) */}
+      {/* 3. Dedicated Intent Overview Sections (If Provided) */}
+      {overviewSections.length > 0 && (
+        <div className="space-y-6 pt-2">
+          {overviewSections.map((sec, idx) => (
+            <section key={idx} className="space-y-2">
+              <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
+                {sec.heading}
+              </h2>
+              <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                {sec.body}
+              </p>
+            </section>
+          ))}
+        </div>
+      )}
+
+      {/* 4. Intent Highlights: Top Boy Picks in this Category (When applicable) */}
+      {boyNames.length > 0 && categorySlug !== "girl" && (
+        <section className="space-y-3 pt-2">
+          <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
+            Popular {bannerTitle?.replace(" Ideas", "")} for Boys
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500">
+            Strong, classic, and modern boy choices with authentic cultural roots.
+          </p>
+          <ol className="space-y-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
+            {boyNames.slice(0, 5).map((item, idx) => (
+              <li
+                key={`top-boy-${item.id}`}
+                className="flex items-baseline justify-between gap-2 py-1 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
+              >
+                <div className="flex items-baseline gap-2 min-w-0">
+                  <span className="font-semibold text-zinc-900 dark:text-white shrink-0">
+                    {idx + 1}. {item.name}
+                  </span>
+                  <span className="text-zinc-400 dark:text-zinc-500">—</span>
+                  <span className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-normal">
+                    {item.meaning}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => handlePlayAudio(item.name)}
+                    title="Hear Pronunciation"
+                    className="p-1 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(item)}
+                    title="Copy Name"
+                    className="p-1 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
+                  >
+                    {copiedId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {/* 5. Intent Highlights: Top Girl Picks in this Category (When applicable) */}
+      {girlNames.length > 0 && categorySlug !== "boy" && (
+        <section className="space-y-3 pt-2">
+          <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
+            Popular {bannerTitle?.replace(" Ideas", "")} for Girls
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500">
+            Sweet, elegant, and melodious girl choices celebrating grace and beauty.
+          </p>
+          <ol className="space-y-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
+            {girlNames.slice(0, 5).map((item, idx) => (
+              <li
+                key={`top-girl-${item.id}`}
+                className="flex items-baseline justify-between gap-2 py-1 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
+              >
+                <div className="flex items-baseline gap-2 min-w-0">
+                  <span className="font-semibold text-zinc-900 dark:text-white shrink-0">
+                    {idx + 1}. {item.name}
+                  </span>
+                  <span className="text-zinc-400 dark:text-zinc-500">—</span>
+                  <span className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 font-normal">
+                    {item.meaning}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => handlePlayAudio(item.name)}
+                    title="Hear Pronunciation"
+                    className="p-1 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
+                  >
+                    <Volume2 className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(item)}
+                    title="Copy Name"
+                    className="p-1 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
+                  >
+                    {copiedId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {/* 6. Category Specific Quick Tips */}
       <section className="space-y-4 pt-2">
         <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
           {tipsTitle}
@@ -191,23 +322,25 @@ export function NamesTemplate({
         </ul>
       </section>
 
-      {/* 4. A–Z Quick Jump Bar (Clean text navigation) */}
-      <nav aria-label="A to Z Alphabet Jump" className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-        <div className="flex items-center gap-1.5 flex-wrap text-xs font-bold text-zinc-600 dark:text-zinc-300">
-          <span className="text-zinc-400 font-semibold pr-1">Jump to:</span>
-          {activeLetters.map((l) => (
-            <a
-              key={l}
-              href={`#letter-${l.toLowerCase()}`}
-              className="px-2 py-1 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 transition-colors"
-            >
-              {l}
-            </a>
-          ))}
-        </div>
-      </nav>
+      {/* 7. A–Z Quick Jump Bar */}
+      {activeLetters.length > 1 && (
+        <nav aria-label="A to Z Alphabet Jump" className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+          <div className="flex items-center gap-1.5 flex-wrap text-xs font-bold text-zinc-600 dark:text-zinc-300">
+            <span className="text-zinc-400 font-semibold pr-1">Jump to:</span>
+            {activeLetters.map((l) => (
+              <a
+                key={l}
+                href={`#letter-${l.toLowerCase()}`}
+                className="px-2 py-1 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 transition-colors"
+              >
+                {l}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
 
-      {/* 5. Pure Clean A to Z Text Sections (NO BOXES, NO CARDS, EXACT MATCH TO SCREENSHOTS 2, 3, 4) */}
+      {/* 8. Pure Clean A to Z Text Sections */}
       <div className="space-y-12 pt-4">
         {activeLetters.map((letter) => {
           const letterItems = groupedByLetter[letter];
@@ -221,17 +354,14 @@ export function NamesTemplate({
               id={`letter-${letter.toLowerCase()}`}
               className="space-y-3 scroll-mt-20"
             >
-              {/* Unique H2 Heading Per Category */}
               <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
                 {letterHeadingPrefix} {letter}
               </h2>
 
-              {/* Descriptive Intro Paragraph */}
               <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
                 {introParagraph}
               </p>
 
-              {/* Numbered Plain Text List (Exact format: "1. Aarav — Peaceful") */}
               <ol className="space-y-2.5 pt-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
                 {letterItems.map((item, idx) => (
                   <li
@@ -248,7 +378,6 @@ export function NamesTemplate({
                       </span>
                     </div>
 
-                    {/* Subtle Actions (Audio & Copy) */}
                     <div className="flex items-center gap-1 shrink-0 opacity-40 group-hover:opacity-100 transition-opacity">
                       <button
                         type="button"
@@ -280,10 +409,10 @@ export function NamesTemplate({
         })}
       </div>
 
-      {/* 6. FAQs Section */}
+      {/* 9. FAQs Section */}
       <FAQSection faqs={activeFaqs} title={`Frequently Asked Questions`} />
 
-      {/* 7. Related Category Links */}
+      {/* 10. Related Category Links */}
       {relatedLinks.length > 0 && (
         <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
           <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
