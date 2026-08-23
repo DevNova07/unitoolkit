@@ -61,7 +61,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="w-full space-y-16 sm:space-y-20 pb-16">
+    <div className="w-full space-y-8 sm:space-y-12 pb-16">
       {/* Google Structured Data (JSON-LD) */}
       <JsonLdSchema
         type="WebSite"

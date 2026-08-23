@@ -211,6 +211,7 @@ export function Footer() {
 
           <div className="flex items-center gap-5 text-xs font-medium flex-wrap">
             <Link href="/about" className="hover:text-zinc-900 dark:hover:text-white transition-colors">About</Link>
+            <Link href="/editorial-policy" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Editorial Policy</Link>
             <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Blog</Link>
             <Link href="/contact" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</Link>
             <Link href="/privacy-policy" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Privacy Policy</Link>

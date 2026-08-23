@@ -164,7 +164,7 @@ export function Header() {
               <Zap className="w-3.5 h-3.5 fill-current" />
               <span>AI Tools</span>
               <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-600 dark:text-indigo-300">
-                6
+                7
               </span>
               <ChevronDown
                 className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -177,7 +177,7 @@ export function Header() {
               <div className="absolute top-full left-0 w-[340px] p-3 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-2xl space-y-1 animate-in fade-in-50 slide-in-from-top-2 duration-150 z-50 text-left">
                 <div className="px-2 py-1 flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                    6 Dedicated AI Studios
+                    7 Dedicated AI Studios
                   </span>
                   <span className="text-[10px] text-zinc-400">ChatGPT Style</span>
                 </div>
@@ -196,7 +196,21 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 2: AI Hashtag Studio */}
+                {/* AI Tool 2: AI Quotes Studio */}
+                <Link
+                  href="/ai-quotes-generator"
+                  className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-yellow-600 transition-colors group"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-yellow-50 dark:bg-yellow-950 text-yellow-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Quote className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-extrabold text-xs">AI Quotes Studio</p>
+                    <p className="text-[10px] font-normal text-zinc-400">Mindset, Motivation & Wisdom</p>
+                  </div>
+                </Link>
+
+                {/* AI Tool 3: AI Hashtag Studio */}
                 <Link
                   href="/ai-hashtag-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-purple-600 transition-colors group"
@@ -210,7 +224,7 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 3: AI Bio Generator */}
+                {/* AI Tool 4: AI Bio Generator */}
                 <Link
                   href="/ai-bio-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-pink-600 transition-colors group"
@@ -224,7 +238,7 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 4: AI Status Generator */}
+                {/* AI Tool 5: AI Status Generator */}
                 <Link
                   href="/ai-status-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-emerald-600 transition-colors group"
@@ -238,7 +252,7 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 5: AI Hindi Shayari Generator */}
+                {/* AI Tool 6: AI Hindi Shayari Generator */}
                 <Link
                   href="/ai-shayari-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-amber-600 transition-colors group"
@@ -252,7 +266,7 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 6: AI Baby Name Studio */}
+                {/* AI Tool 7: AI Baby Name Studio */}
                 <Link
                   href="/ai-baby-name-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-blue-600 transition-colors group"
@@ -640,7 +654,7 @@ export function Header() {
                     AI Tools
                   </span>
                   <div className="flex items-center gap-1.5 text-zinc-400">
-                    <span className="text-xs font-bold px-1.5 py-0.2 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-500">5</span>
+                    <span className="text-xs font-bold px-1.5 py-0.2 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-500">7</span>
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${
                         mobileAiOpen ? "rotate-180" : ""
@@ -653,6 +667,7 @@ export function Header() {
                   <div className="space-y-0.5 pt-1 animate-in fade-in-50 duration-150">
                     {[
                       { name: "AI Caption Studio", href: "/ai-caption-generator", icon: <PenTool className="w-5 h-5 text-indigo-500" /> },
+                      { name: "AI Quotes Studio", href: "/ai-quotes-generator", icon: <Quote className="w-5 h-5 text-yellow-500" /> },
                       { name: "AI Hashtag Studio", href: "/ai-hashtag-generator", icon: <Hash className="w-5 h-5 text-purple-500" /> },
                       { name: "AI Bio Generator", href: "/ai-bio-generator", icon: <User className="w-5 h-5 text-pink-500" /> },
                       { name: "AI WhatsApp Status", href: "/ai-status-generator", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },

@@ -20,24 +20,6 @@ export const metadata: Metadata = {
 };
 
 export default function NamesIndexPage() {
-  const faqs = [
-    {
-      question: "What makes a great baby name for 2026?",
-      answer:
-        "A great name pairs deep cultural and spiritual resonance with clear spelling, positive virtue meanings, and easy pronunciation across global communities.",
-    },
-    {
-      question: "How is this A to Z name guide organized?",
-      answer:
-        "Every letter from A to Z features verified multicultural entries with concise meanings and 1-tap audio pronunciation assistance.",
-    },
-    {
-      question: "Can I generate custom baby names with AI?",
-      answer:
-        "Yes! Launch our free AI Baby Name Generator studio to specify your desired origins, themes, and parental name combinations.",
-    },
-  ];
-
   const relatedLinks = [
     ...CORE_NAME_HUBS.map((c) => ({ label: c.name, href: `/names/${c.slug}` })),
     ...ORIGIN_CULTURE_LIST.slice(0, 6).map((o) => ({ label: `${o.name} Names`, href: `/names/${o.slug}` })),
@@ -51,7 +33,7 @@ export default function NamesIndexPage() {
       items={NAMES_DATA}
       categoryType="core"
       categorySlug="names"
-      faqs={faqs}
+      faqs={[]}
       relatedLinks={relatedLinks}
       breadcrumbs={[{ label: "Names", href: "/names" }]}
     />

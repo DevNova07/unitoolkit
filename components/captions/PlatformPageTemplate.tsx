@@ -23,6 +23,8 @@ import { FAQSection } from "@/components/common/FAQSection";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
 import { AuthorBioBox } from "@/components/common/AuthorBioBox";
+import { HowToUseGuide } from "@/components/common/HowToUseGuide";
+import { TopicClusterSiloCloud } from "@/components/common/TopicClusterSiloCloud";
 import { PLATFORM_TAXONOMY } from "@/data/platformTaxonomy";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
@@ -72,23 +74,31 @@ export function PlatformPageTemplate({ platform }: PlatformPageTemplateProps) {
   const platformFAQs = [
     {
       question: `What tools are available for ${platform.name}?`,
-      answer: `Our ${platform.name} hub includes: 1) ${platform.name} Captions Vault, 2) ${platform.name} Hashtags Hub, 3) ${platform.name} Bio Generator, 4) ${platform.name} Quotes Hub, and 5) Authentic Hindi Shayari with 1-click sharing.`,
+      answer: `Our ${platform.name} hub includes: 1) ${platform.name} Captions Vault (50+ curated lines), 2) ${platform.name} 3-Tier Hashtag Generator, 3) ${platform.name} VIP Bio Generator & Styler, 4) ${platform.name} Quotes Hub, and 5) Authentic Hindi Shayari with 1-click clipboard copy.`,
     },
     {
       question: `How do I write a high-engagement ${platform.name} caption?`,
-      answer: `Start with a compelling 3-second hook or bold statement, keep the key message above the fold before the '...more' button, and include a clear question or call-to-action to maximize comment velocity.`,
+      answer: `Start with a compelling 3-second hook or bold statement, keep the key message above the fold before the '...more' button, and include a clear question or call-to-action to maximize comment velocity and algorithmic distribution.`,
     },
     {
       question: `What is the optimal character length for ${platform.name}?`,
-      answer: `${platformDetail.specs?.optimalLength || "70 to 150 characters generally achieve the highest organic reach and reader retention."}`,
+      answer: `${platformDetail.specs?.optimalLength || "70 to 150 characters generally achieve the highest organic reach and reader retention on short-form feeds."}`,
+    },
+    {
+      question: `How many hashtags should I use on ${platform.name}?`,
+      answer: `For ${platform.name}, the algorithmic sweet spot is ${platformDetail.specs?.hashtagLimit || "3 to 5 highly relevant niche hashtags"}. Combine 1 broad category tag, 2 medium-tier community tags, and 1 ultra-targeted micro tag.`,
+    },
+    {
+      question: `What are the peak posting hours for ${platform.name}?`,
+      answer: `According to creator analytics, peak engagement occurs between ${platformDetail.specs?.bestHours || "6:00 PM – 9:00 PM local time"} on weekdays and 11:00 AM – 2:00 PM on weekends when audience dwell time is highest.`,
     },
     {
       question: `Can I copy and share directly to WhatsApp or social media?`,
-      answer: `Yes! Every line and curated caption includes 1-click clipboard copy and a direct share button.`,
+      answer: `Yes! Every line and curated caption includes 1-click clipboard copy and a direct WhatsApp share button for instant cross-posting.`,
     },
     {
-      question: `Are these ${platform.name} tools and captions 100% free?`,
-      answer: `Yes! 100% of the tools and caption databases for ${platform.name} on UniToolkit are completely free with no registration required.`,
+      question: `Are these ${platform.name} tools and captions 100% free forever?`,
+      answer: `Yes! 100% of the tools, generators, and caption databases for ${platform.name} on UniToolkit are completely free with zero logins or paywalls.`,
     },
   ];
 
@@ -230,64 +240,21 @@ export function PlatformPageTemplate({ platform }: PlatformPageTemplateProps) {
         </section>
       )}
 
-      {/* 5. 📖 Platform Growth & Algorithm Guide (Google E-E-A-T) */}
-      {platformDetail.growthGuide && platformDetail.growthGuide.length > 0 && (
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 text-xs font-bold shadow-2xs">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Creator Playbook</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
-              How to Beat the {platform.name} Algorithm in 2026
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-              Practical content strategies based on audience retention data and social feed indexing.
-            </p>
-          </div>
+      {/* 5. 📖 Platform-Specific How To Use & Growth System (Google HowTo Schema) */}
+      <HowToUseGuide
+        platform={platform.id}
+        categoryName={platform.name}
+        title={`How to Use ${platform.name} Creator Tools`}
+        pageUrl={`https://unitoolkit.com/${platform.id}-captions`}
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {platformDetail.growthGuide.map((guide, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/90 dark:border-zinc-800/90 shadow-2xs space-y-3"
-              >
-                <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-black text-xs flex items-center justify-center">
-                  0{idx + 1}
-                </div>
-                <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-                  {guide.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  {guide.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 6. 🏷️ Sub-Niches Topic Explorer */}
-      {platformDetail.popularTopics && platformDetail.popularTopics.length > 0 && (
-        <section className="p-6 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800 space-y-4 text-left">
-          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            <Compass className="w-4 h-4 text-indigo-500" />
-            <span>Explore {platform.name} Niches & Vibes:</span>
-          </div>
-
-          <div className="flex flex-wrap gap-2.5">
-            {platformDetail.popularTopics.map((topic) => (
-              <Link
-                key={topic}
-                href={`/categories/${topic.toLowerCase().replace(/\s+/g, "-")}`}
-                className="px-3.5 py-2 rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:border-indigo-400 dark:hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-2xs"
-              >
-                #{topic}
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* 6. 🏷️ Topic Cluster Silo & Related Platform Explorer (Pillar 5) */}
+      <TopicClusterSiloCloud
+        topic={platform.name}
+        contentType="captions"
+        platform={platform.id}
+        currentRoute={`/${platform.id}-captions`}
+      />
 
       {/* 7. FAQ Section */}
       <section className="pt-6 border-t border-zinc-100 dark:border-zinc-900">

@@ -23,6 +23,8 @@ import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { AIGeneratorStudio } from "@/components/generator/AIGeneratorStudio";
 import { FAQSection } from "@/components/common/FAQSection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { HowToUseGuide } from "@/components/common/HowToUseGuide";
+import { TopicClusterSiloCloud } from "@/components/common/TopicClusterSiloCloud";
 import {
   InstagramIcon,
   TikTokIcon,
@@ -131,63 +133,12 @@ export default function AIGeneratorPage() {
       </div>
 
       {/* ======================================================== */}
-      {/* SECTION 1: HOW IT WORKS IN 3 EASY STEPS (Google HowTo) */}
+      {/* SECTION 1: HOW IT WORKS IN 4 STEPS (Google HowTo Schema) */}
       {/* ======================================================== */}
-      <section className="pt-10 border-t border-zinc-100 dark:border-zinc-900 space-y-8 text-left">
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold shadow-2xs">
-            <Zap className="w-3.5 h-3.5 fill-current" />
-            <span>Fast & Effortless</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white">
-            How to Generate Viral Captions with AI
-          </h2>
-          <p className="text-sm sm:text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
-            Create high-engagement social copy in 3 simple steps without writer&apos;s block.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Step 1 */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/90 shadow-sm relative space-y-3">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white font-black text-base flex items-center justify-center shadow-md">
-              1
-            </div>
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-              Describe Your Post or Vibe
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Type a few words about your photo, reel, or video (e.g. <em>&quot;sunset at Jaipur beach&quot;</em> or <em>&quot;heavy gym PR workout&quot;</em>). Use the 🪄 Auto-Enhance button for instant inspiration.
-            </p>
-          </div>
-
-          {/* Step 2 */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/90 shadow-sm relative space-y-3">
-            <div className="w-10 h-10 rounded-2xl bg-purple-600 text-white font-black text-base flex items-center justify-center shadow-md">
-              2
-            </div>
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-              AI Crafts 10 Viral Lines
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Gemini AI analyzes emotional triggers, scroll-stopping hooks, and platform trends to generate 10 unique, high-CTR caption variations in seconds.
-            </p>
-          </div>
-
-          {/* Step 3 */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/90 shadow-sm relative space-y-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white font-black text-base flex items-center justify-center shadow-md">
-              3
-            </div>
-            <h3 className="text-base font-bold text-zinc-900 dark:text-white">
-              1-Click Copy & Post
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Pick your favorite line and copy it with 1-click. You can also generate high-res 9:16 Visual Quote Cards to post directly to Instagram Stories or WhatsApp Status.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HowToUseGuide
+        guideId="ai-caption-generator"
+        pageUrl="https://unitoolkit.com/ai-caption-generator"
+      />
 
       {/* ======================================================== */}
       {/* SECTION 2: PLATFORM CAPABILITIES KEYWORD GRID */}
@@ -315,6 +266,13 @@ export default function AIGeneratorPage() {
           ))}
         </div>
       </section>
+
+      {/* Deep Silo Topic Interlinking (Pillar 5) */}
+      <TopicClusterSiloCloud
+        topic="Viral"
+        contentType="captions"
+        currentRoute="/ai-caption-generator"
+      />
 
       {/* ======================================================== */}
       {/* SECTION 4: FREQUENTLY ASKED QUESTIONS (FAQ) */}

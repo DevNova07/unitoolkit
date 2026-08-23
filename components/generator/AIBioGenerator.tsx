@@ -16,6 +16,7 @@ import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 
 export function AIBioGenerator() {
   const [prompt, setPrompt] = useState("");
@@ -283,6 +284,84 @@ export function AIBioGenerator() {
           </div>
         </div>
       )}
+
+      {/* Rich SEO Sections: FAQs, AuthorBioBox, and Related Hubs */}
+      <JsonLdSchema
+        type="SoftwareApplication"
+        title="AI Bio Generator & Styler"
+        description="Generate aesthetic, VIP attitude, and professional profile bios for Instagram, TikTok, and Twitter."
+        url="https://unitoolkit.com/ai-bio-generator"
+      />
+
+      <JsonLdSchema
+        type="FAQPage"
+        faqs={[
+          {
+            question: "How does the AI Bio Generator work?",
+            answer: "Enter your vibe, profession, city, or hobbies. Our AI crafts 6 multi-line profile bios with aesthetic fonts, emojis, and clean line breaks ready to copy.",
+          },
+          {
+            question: "Will the line breaks stay intact when I paste into Instagram bio?",
+            answer: "Yes! All bios generated here use standard Unicode spacing and clean line breaks that paste perfectly into Instagram, TikTok, and Twitter bios without collapsing.",
+          },
+          {
+            question: "Is the AI Bio Generator 100% free?",
+            answer: "Yes! UniToolkit AI Bio Generator is completely free with unlimited generations and no account needed.",
+          },
+        ]}
+        title="AI Bio Generator FAQ"
+        description="Frequently asked questions about creating aesthetic and VIP social media profile bios."
+        url="https://unitoolkit.com/ai-bio-generator"
+      />
+
+      {/* Related Bio Categories Hub Grid */}
+      <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800 text-left">
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
+          Explore Ready-Made Bio Collections
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { label: "VIP Attitude Bios", href: "/bios/attitude" },
+            { label: "Aesthetic Bios", href: "/bios/aesthetic" },
+            { label: "Boys Swag Bios", href: "/bios/boys" },
+            { label: "Girls Aesthetic Bios", href: "/bios/girls" },
+            { label: "Professional Bios", href: "/bios/professional" },
+            { label: "Instagram Bio Styler", href: "/instagram-bio" },
+            { label: "WhatsApp About Quotes", href: "/whatsapp-bio" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="px-3.5 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:border-pink-500 hover:text-pink-600 transition-all"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Author & E-E-A-T Review Box */}
+      <AuthorBioBox categoryType="Bio Styler" topic="Social Media Profile Bios" />
+
+      {/* FAQ Section */}
+      <FAQSection
+        title="AI Bio Generator FAQ"
+        subtitle="Frequently asked questions about creating aesthetic, VIP, and professional profile bios."
+        faqs={[
+          {
+            question: "How does the AI Bio Generator work?",
+            answer: "Enter your vibe, profession, city, or hobbies. Our AI crafts 6 multi-line profile bios with aesthetic fonts, emojis, and clean line breaks ready to copy.",
+          },
+          {
+            question: "Will the line breaks stay intact when I paste into Instagram bio?",
+            answer: "Yes! All bios generated here use standard Unicode spacing and clean line breaks that paste perfectly into Instagram, TikTok, and Twitter bios without collapsing.",
+          },
+          {
+            question: "Is the AI Bio Generator 100% free?",
+            answer: "Yes! UniToolkit AI Bio Generator is completely free with unlimited generations and no account needed.",
+          },
+        ]}
+      />
 
       <CTASection />
     </div>

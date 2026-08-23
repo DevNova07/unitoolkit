@@ -13,6 +13,9 @@ import {
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { FAQSection } from "@/components/common/FAQSection";
+import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { CTASection } from "@/components/common/CTASection";
 
 export function AIStatusGenerator() {
@@ -296,6 +299,83 @@ export function AIStatusGenerator() {
           </div>
         </div>
       )}
+
+      {/* Rich SEO Sections: FAQs, AuthorBioBox, and Related Status Hubs */}
+      <JsonLdSchema
+        type="SoftwareApplication"
+        title="AI WhatsApp Status Studio"
+        description="Generate 2-line viral WhatsApp status quotes, attitude lines, and sukoon thoughts in Hindi & English with 1-click WhatsApp share."
+        url="https://unitoolkit.com/ai-status-generator"
+      />
+
+      <JsonLdSchema
+        type="FAQPage"
+        faqs={[
+          {
+            question: "How do I share AI generated status directly to WhatsApp?",
+            answer: "Click the green '🟢 WhatsApp' button below any status to instantly open WhatsApp with your quote pre-formatted and ready to send as your status or message.",
+          },
+          {
+            question: "What languages are supported for WhatsApp status generation?",
+            answer: "Our AI supports authentic Hindi (हिंदी देवनागरी), Hinglish (Roman English), and pure English.",
+          },
+          {
+            question: "Is the AI WhatsApp Status generator 100% free?",
+            answer: "Yes! Generate unlimited WhatsApp status quotes with zero fees, no subscription, and no signup.",
+          },
+        ]}
+        title="AI WhatsApp Status FAQ"
+        description="Frequently asked questions about creating viral WhatsApp status quotes."
+        url="https://unitoolkit.com/ai-status-generator"
+      />
+
+      {/* Related Status Categories Hub Grid */}
+      <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800 text-left">
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
+          Explore Curated WhatsApp Status Collections
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { label: "Attitude Status", href: "/status/attitude" },
+            { label: "Love & Romantic Status", href: "/status/love" },
+            { label: "Sad & Alone Status", href: "/status/sad" },
+            { label: "Morning Motivation Status", href: "/status/motivational" },
+            { label: "WhatsApp Captions Vault", href: "/whatsapp-captions" },
+            { label: "Hindi 2-Line Status", href: "/hindi-status" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="px-3.5 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:border-emerald-500 hover:text-emerald-600 transition-all"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Author & E-E-A-T Review Box */}
+      <AuthorBioBox categoryType="Status Studio" topic="WhatsApp & Social Status Quotes" />
+
+      {/* FAQ Section */}
+      <FAQSection
+        title="AI WhatsApp Status FAQ"
+        subtitle="Frequently asked questions about creating viral WhatsApp status quotes."
+        faqs={[
+          {
+            question: "How do I share AI generated status directly to WhatsApp?",
+            answer: "Click the green '🟢 WhatsApp' button below any status to instantly open WhatsApp with your quote pre-formatted and ready to send as your status or message.",
+          },
+          {
+            question: "What languages are supported for WhatsApp status generation?",
+            answer: "Our AI supports authentic Hindi (हिंदी देवनागरी), Hinglish (Roman English), and pure English.",
+          },
+          {
+            question: "Is the AI WhatsApp Status generator 100% free?",
+            answer: "Yes! Generate unlimited WhatsApp status quotes with zero fees, no subscription, and no signup.",
+          },
+        ]}
+      />
 
       <CTASection />
     </div>

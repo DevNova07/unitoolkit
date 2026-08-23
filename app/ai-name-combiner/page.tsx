@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { AINameStudio } from "@/components/names/AINameStudio";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { HowToUseGuide } from "@/components/common/HowToUseGuide";
 
 export const metadata: Metadata = {
   title: "AI Name Combiner & Blender — Combine Two Names for Baby [2026] | UniToolkit",
@@ -18,6 +19,10 @@ export default function AINameCombinerPage() {
         title="AI Name Combiner & Dual Heritage Blender"
         description="Blend mother & father names or bridge two different cultural backgrounds into a cohesive, charming modern baby name."
         defaultPrompt="Combine names 'Rohan' and 'Aisha' into creative, melodious boy and girl names"
+      />
+      <HowToUseGuide
+        guideId="ai-name-combiner"
+        pageUrl="https://unitoolkit.com/ai-name-combiner"
       />
     </div>
   );

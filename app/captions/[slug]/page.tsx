@@ -1,16 +1,14 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight, Check, Copy, Share2, Layers, MessageCircle } from "lucide-react";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
 import { AuthorBioBox } from "@/components/common/AuthorBioBox";
-import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
-import { CaptionCard } from "@/components/captions/CaptionCard";
-import { SearchIntentGuide } from "@/components/common/SearchIntentGuide";
-import { CAPTIONS_DATA } from "@/data/captionsData";
 import { PILLAR_CAPTIONS_SUBPAGES } from "@/data/master300Architecture";
+import { getCategoryCaptions } from "@/data/captionsBlueprintEngine";
+import { CaptionListSection } from "./CaptionListSection";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -32,14 +30,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const name = capitalize(slug);
   return {
-    title: `${name} Captions for Social Media [2026] | UniToolkit`,
-    description: `Explore 50+ best ${name.toLowerCase()} captions for Instagram, TikTok, and YouTube with 1-click copy and instant AI variations.`,
+    title: `100+ Best ${name} Captions for Instagram & Social Media [2026]`,
+    description: `Explore 100+ curated ${name.toLowerCase()} captions for Instagram photos, reels, and TikTok. 1-click copy, verified engagement hooks, and instant AI generator.`,
     alternates: {
       canonical: `/captions/${slug}`,
     },
     openGraph: {
-      title: `${name} Captions for Instagram & Social Media | UniToolkit`,
-      description: `Best ${name.toLowerCase()} captions for photos, reels, and stories.`,
+      title: `100+ Best ${name} Captions for Instagram | UniToolkit`,
+      description: `100+ curated ${name.toLowerCase()} captions for photos, reels, and stories with 1-click copy.`,
       url: `https://unitoolkit.com/captions/${slug}`,
       type: "article",
     },
@@ -53,41 +51,23 @@ export default async function CaptionsSubpage({ params }: PageProps) {
   }
 
   const name = capitalize(slug);
-  let matchingCaptions = CAPTIONS_DATA.filter((c) => {
-    return (
-      c.category.toLowerCase().includes(slug.toLowerCase()) ||
-      c.style.toLowerCase().includes(slug.toLowerCase()) ||
-      c.text.toLowerCase().includes(slug.toLowerCase())
-    );
-  }).slice(0, 30);
+  const data = getCategoryCaptions(slug);
 
-  if (matchingCaptions.length < 8) {
-    const additional = CAPTIONS_DATA.slice(0, 15 - matchingCaptions.length);
-    matchingCaptions = [...matchingCaptions, ...additional];
-  }
-
-  const faqs = [
-    {
-      question: `How do I use these ${name} captions for maximum engagement?`,
-      answer: `Click any card or the copy button to copy directly to your clipboard. Pair it with 3-5 relevant hashtags and post during peak activity hours for your audience.`,
-    },
-    {
-      question: `Are these captions optimized for Instagram Reels and TikTok?`,
-      answer: `Yes, each line is crafted with strong curiosity hooks and formatted to stop thumbs from scrolling past your post.`,
-    },
-    {
-      question: `Can I generate custom ${name} captions with AI?`,
-      answer: `Yes! Click 'Generate with AI' to open our free AI Caption Studio and describe your exact visual scene for unique 1-of-a-kind variations.`,
-    },
+  const relatedPlatforms = [
+    { name: "Instagram", href: `/instagram-captions` },
+    { name: "TikTok", href: `/tiktok-captions` },
+    { name: "WhatsApp", href: `/whatsapp-status` },
+    { name: "YouTube", href: `/youtube-captions` },
+    { name: "LinkedIn", href: `/linkedin-captions` },
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-12 text-left">
+    <article className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10 text-left">
       <JsonLdSchema
         type="FAQPage"
-        faqs={faqs}
-        title={`50+ Best ${name} Captions for Social Media`}
-        description={`Best ${name.toLowerCase()} captions for Instagram, TikTok, and social media.`}
+        faqs={data.faqs}
+        title={data.h1}
+        description={data.intro}
         url={`https://unitoolkit.com/captions/${slug}`}
       />
 
@@ -98,23 +78,45 @@ export default async function CaptionsSubpage({ params }: PageProps) {
         ]}
       />
 
-      {/* Header with Semantic H1 */}
-      <div className="space-y-4 max-w-4xl">
+      {/* 1. Header with Semantic H1 */}
+      <header className="space-y-4">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-bold shadow-2xs">
           <Sparkles className="w-3.5 h-3.5 fill-current" />
-          <span>{name} • 2026 Curated Collection</span>
+          <span>100+ Curated {name} Captions • 2026 Edition</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight">
-          50+ Best {name} Captions for Social Media [2026]
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
+          {data.h1}
         </h1>
 
-        <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          Curated {name.toLowerCase()} lines, one-liners, and viral hooks designed to make your photos, reels, and stories stand out in crowded feeds.
-        </p>
-      </div>
+        <div className="flex items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400 font-medium">
+          <span>Updated for 2026</span>
+          <span>•</span>
+          <span>1-Click Copy & WhatsApp Ready</span>
+        </div>
 
-      {/* AI Action Banner */}
+        <p className="text-base sm:text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed pt-1">
+          {data.intro}
+        </p>
+      </header>
+
+      {/* 2. Quick Section Jump Navigation */}
+      <nav aria-label="Section Jump Bar" className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+        <div className="flex items-center gap-2 flex-wrap text-xs font-bold text-zinc-600 dark:text-zinc-300">
+          <span className="text-zinc-400 font-semibold pr-1">Jump to:</span>
+          {data.sections.map((sec, idx) => (
+            <a
+              key={idx}
+              href={`#section-${idx + 1}`}
+              className="px-2.5 py-1 rounded-lg hover:bg-zinc-200 dark:hover:bg-zinc-800 text-indigo-600 dark:text-indigo-400 transition-colors"
+            >
+              {sec.title}
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      {/* 3. AI Action Banner */}
       <div className="p-5 sm:p-6 rounded-3xl bg-linear-to-r from-indigo-500/10 via-purple-500/10 to-transparent border border-indigo-200/80 dark:border-indigo-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
@@ -122,7 +124,7 @@ export default async function CaptionsSubpage({ params }: PageProps) {
             <span>Need Custom {name} Captions?</span>
           </h3>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            Describe your photo or video to generate unique {name.toLowerCase()} lines in seconds.
+            Describe your photo or reel to generate personalized {name.toLowerCase()} lines in seconds.
           </p>
         </div>
         <Link
@@ -134,53 +136,75 @@ export default async function CaptionsSubpage({ params }: PageProps) {
         </Link>
       </div>
 
-      {/* Caption Cards with H2 */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
-              Trending {name} Captions
-            </h2>
-            <p className="text-xs text-zinc-500 pt-0.5">
-              1-click instant copy ready for Instagram, Reels, TikTok & Snapchat.
-            </p>
+      {/* 4. 5 Dedicated H2 Sections (20 captions each = 100 captions) */}
+      <div className="space-y-12 pt-2">
+        {data.sections.map((section, sIdx) => (
+          <CaptionListSection
+            key={sIdx}
+            index={sIdx + 1}
+            title={section.title}
+            captions={section.captions}
+          />
+        ))}
+      </div>
+
+      {/* 5. How to Choose & Use these Captions (3 Tips) */}
+      <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight">
+          How to Choose the Best {name} Caption
+        </h2>
+
+        <ul className="space-y-3 text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed list-disc list-inside">
+          {data.tips.map((t, idx) => (
+            <li key={idx}>
+              <strong>{t.title}:</strong> {t.desc}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 6. Related Categories & Related Platforms */}
+      <section className="space-y-6 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="space-y-2">
+          <h3 className="text-lg font-black text-zinc-900 dark:text-white">
+            Related Caption Categories
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {PILLAR_CAPTIONS_SUBPAGES.filter((s) => s !== slug).slice(0, 10).map((item) => (
+              <Link
+                key={item}
+                href={`/captions/${item}`}
+                className="px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:border-indigo-500 hover:text-indigo-600 transition-all capitalize"
+              >
+                {item} Captions
+              </Link>
+            ))}
           </div>
-          <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">1-Click Copy Ready</span>
         </div>
 
         <div className="space-y-2">
-          {matchingCaptions.map((cap, i) => (
-            <CaptionCard key={cap.id} caption={cap} index={i + 1} />
-          ))}
+          <h3 className="text-lg font-black text-zinc-900 dark:text-white">
+            Platform Caption Guides
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {relatedPlatforms.map((plat) => (
+              <Link
+                key={plat.name}
+                href={plat.href}
+                className="px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:border-indigo-500 hover:text-indigo-600 transition-all"
+              >
+                {plat.name} Captions & Hooks
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Search Intent Guide (Posting times, hashtags, photo ideas, 3-sec hook) */}
-      <SearchIntentGuide categoryName={name} type="caption" />
+      {/* 7. E-E-A-T Author & Research Review Box */}
+      <AuthorBioBox categoryType="Social Media Copywriting" topic={`${name} Captions`} />
 
-      {/* Related Categories */}
-      <section className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
-        <h3 className="text-lg font-extrabold text-zinc-900 dark:text-white">
-          Explore More Caption Categories
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {PILLAR_CAPTIONS_SUBPAGES.filter((s) => s !== slug).map((item) => (
-            <Link
-              key={item}
-              href={`/captions/${item}`}
-              className="px-3.5 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:border-indigo-500 hover:text-indigo-600 transition-all capitalize"
-            >
-              {item} Captions
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* E-E-A-T Author & Research Review Box */}
-      <AuthorBioBox categoryType="Social Captions" topic={`${name} Captions`} />
-
-      <FAQSection faqs={faqs} />
-      <CTASection />
-    </div>
+      {/* 8. FAQs */}
+      <FAQSection faqs={data.faqs} title={`Frequently Asked Questions about ${name} Captions`} />
+    </article>
   );
 }

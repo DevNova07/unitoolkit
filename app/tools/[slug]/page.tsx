@@ -61,7 +61,7 @@ export default async function ToolDynamicPage({ params }: PageProps) {
         url={`https://unitoolkit.com/tools/${tool.slug}`}
       />
 
-      <div className="flex justify-center sm:justify-start">
+      <div className="flex justify-start text-left">
         <Breadcrumbs
           items={[
             { label: "Tools", href: "/tools" },
@@ -69,6 +69,16 @@ export default async function ToolDynamicPage({ params }: PageProps) {
           ]}
         />
       </div>
+
+      {/* Clean Center-Aligned Bold Tool Header & Subtitle */}
+      <header className="space-y-3 text-center max-w-3xl mx-auto">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
+          {tool.title}
+        </h1>
+        <p className="text-sm sm:text-base lg:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed font-normal">
+          {tool.subheading}
+        </p>
+      </header>
 
       {/* Render specialized tool based on category */}
       <Suspense fallback={<div className="h-[350px] rounded-3xl bg-zinc-100 dark:bg-zinc-900 animate-pulse" />}>

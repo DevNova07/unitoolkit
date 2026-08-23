@@ -293,6 +293,12 @@ export function AIGeneratorStudio({
               {t.label}
             </button>
           ))}
+          <Link
+            href="/ai-baby-name-generator"
+            className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 transition-all cursor-pointer"
+          >
+            👶 Names
+          </Link>
         </div>
 
         {/* Platform Selector */}

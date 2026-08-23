@@ -3,7 +3,8 @@ import { generateCaptions } from "@/lib/aiEngine";
 import { GeneratorOptions } from "@/lib/types";
 
 export interface ExtendedGeneratorOptions extends GeneratorOptions {
-  generatorType?: "captions" | "bio" | "status" | "shayari" | "quotes" | "hashtags";
+  generatorType?: "captions" | "bio" | "status" | "shayari" | "quotes" | "hashtags" | "name";
+  type?: "captions" | "bio" | "status" | "shayari" | "quotes" | "hashtags" | "name";
   format?: "2-line" | "4-line" | "bullets" | "minimal";
 }
 
@@ -15,7 +16,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid request payload" }, { status: 400 });
     }
 
-    const generatorType = body.generatorType || "captions";
+    const generatorType = body.generatorType || body.type || "captions";
     const prompt = body.prompt || "aesthetic daily life";
     const count = body.count || 8;
     const language = body.language || (generatorType === "shayari" ? "hi" : "en");
@@ -42,6 +43,10 @@ Generate exactly ${count} deeply touching, authentic, original Shayaris based on
 Language: ${language === "hi" ? "Pure Hindi (हिंदी देवनागरी लिपि)" : "Hinglish (Roman Hindi script)"}.
 Each Shayari should rhyme beautifully with authentic emotion (Ishq, Dard, Attitude, Dosti, or Sukoon).
 Format: Return ONLY a JSON array of strings (use \\n for line breaks between couplets).`;
+    } else if (generatorType === "name") {
+      systemPrompt = `You are an expert global onomastician and baby name stylist.
+Generate exactly ${count} beautiful, meaningful baby/personal names based on: "${prompt}".
+Format: Return ONLY a valid JSON array of objects with keys: "name", "gender", "meaning", "origin", "whyItMatches", "pronunciation".`;
     } else if (generatorType === "quotes" || generatorType === "hashtags") {
       systemPrompt = `You are an elite mindset philosopher and growth copywriter.
 Generate exactly ${count} powerful, high-conviction wisdom quotes and viral hashtags based on: "${prompt}".
@@ -188,12 +193,16 @@ Format: Return ONLY a JSON array of strings.`;
         "Silence is the ultimate flex when words are cheap 💎",
         "Making peace with the journey while working for the destination 🚀",
       ];
-    } else if (generatorType === "quotes" || generatorType === "hashtags") {
+    } else if (generatorType === "name") {
       fallbackResults = [
-        `"Discipline is choosing between what you want now, and what you want most."\n\n#Discipline #Mindset #Growth`,
-        `"Do not pray for an easy life, pray for the strength to endure a difficult one."\n\n#Resilience #InnerStrength #Wisdom`,
-        `"The man who moves a mountain begins by carrying away small stones."\n\n#Consistency #Focus #SuccessQuotes`,
-        `"Your calm mind is the ultimate weapon against your challenges."\n\n#PeaceOfMind #Stoicism #MentalClarity`,
+        JSON.stringify({ name: "Aarav", gender: "boy", meaning: "Peaceful sound, wisdom and radiant light", origin: "Sanskrit", whyItMatches: "Timeless 2-syllable Sanskrit name with auspicious rhythm.", pronunciation: "Ah-ruhv" }),
+        JSON.stringify({ name: "Saanvi", gender: "girl", meaning: "Goddess Lakshmi, sacred beauty and grace", origin: "Sanskrit", whyItMatches: "Lyrical and modern with deep spiritual roots.", pronunciation: "Sahn-vee" }),
+        JSON.stringify({ name: "Zayn", gender: "boy", meaning: "Grace, beauty, and excellence", origin: "Arabic", whyItMatches: "Short 1-syllable global name with effortless pronunciation.", pronunciation: "Zain" }),
+        JSON.stringify({ name: "Inaya", gender: "girl", meaning: "Divine care, concern and guardian blessing", origin: "Arabic", whyItMatches: "Sweet vowel ending with protective meaning.", pronunciation: "Ee-nah-yah" }),
+        JSON.stringify({ name: "Bodhi", gender: "unisex", meaning: "Awakening, enlightenment and supreme wisdom", origin: "Sanskrit / Pali", whyItMatches: "Globally recognized modern gender-neutral name.", pronunciation: "Boh-dee" }),
+        JSON.stringify({ name: "Kiara", gender: "girl", meaning: "Bright, clear, first morning beam of light", origin: "Italian / Hindi", whyItMatches: "Cross-cultural international charm.", pronunciation: "Kee-ah-rah" }),
+        JSON.stringify({ name: "Advik", gender: "boy", meaning: "Unique, unparalleled and one-of-a-kind", origin: "Sanskrit", whyItMatches: "Modern punchy sound with distinctive virtue.", pronunciation: "Uhd-veek" }),
+        JSON.stringify({ name: "Noor", gender: "unisex", meaning: "Divine celestial radiance and illumination", origin: "Arabic", whyItMatches: "Short, luminous, and versatile.", pronunciation: "Noor" }),
       ];
     } else {
       fallbackResults = generateCaptions({

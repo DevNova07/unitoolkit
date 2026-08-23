@@ -67,23 +67,56 @@ export default async function NameCategorySubpage({ params }: PageProps) {
 
   const custom = getCategoryCustomization(slug);
 
-  // Filter matching names strictly from dataset
+  // Filter matching names strictly and comprehensively from dataset
   const matchedNames = NAMES_DATA.filter((item) => {
     const s = slug.toLowerCase();
     if (s === "boy" || s === "girl" || s === "unisex") {
       return item.gender === s;
     }
-    if (s === "muslim" || s === "islamic") {
-      return item.religion === "Muslim";
+    if (s === "baby" || s === "twins") {
+      return true;
     }
-    if (s === "hindu" || s === "sanskrit") {
-      return item.religion === "Hindu";
+    if (s === "muslim" || s === "islamic") {
+      return item.religion === "Muslim" || item.origin === "Arabic";
+    }
+    if (s === "hindu" || s === "sanskrit" || s === "vedic") {
+      return item.religion === "Hindu" || item.language === "Sanskrit";
     }
     if (s === "indian") {
-      return item.origin === "Indian";
+      return item.origin === "Indian" || item.culture === "South Asian";
     }
     if (s === "english" || s === "american" || s === "british") {
-      return item.origin === "English";
+      return item.origin === "English" || item.culture === "Western" || item.language === "English";
+    }
+    if (s === "christian" || s === "biblical") {
+      return item.religion === "Christian" || item.culture === "Western";
+    }
+    if (s === "sikh") {
+      return item.religion === "Sikh" || item.language === "Punjabi";
+    }
+    if (s === "jain") {
+      return item.religion === "Jain";
+    }
+    if (s === "buddhist") {
+      return item.religion === "Buddhist";
+    }
+    if (s === "modern") {
+      return item.style.includes("modern") || item.style.includes("popular");
+    }
+    if (s === "royal") {
+      return item.style.includes("royal") || item.style.includes("noble");
+    }
+    if (s === "vintage") {
+      return item.style.includes("vintage") || item.style.includes("classic");
+    }
+    if (s === "unique" || s === "rare") {
+      return item.style.includes("unique") || item.style.includes("rare");
+    }
+    if (s === "short") {
+      return item.style.includes("short") || item.name.length <= 5;
+    }
+    if (s === "cute" || s === "sweet") {
+      return item.style.includes("sweet") || item.style.includes("cute") || item.style.includes("popular");
     }
     return (
       item.origin.toLowerCase().includes(s) ||

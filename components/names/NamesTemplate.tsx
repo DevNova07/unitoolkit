@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { FAQSection } from "@/components/common/FAQSection";
 import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { HowToUseGuide } from "@/components/common/HowToUseGuide";
 import { NameRecord } from "@/data/namesData";
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
@@ -142,12 +143,32 @@ export function NamesTemplate({
 
   const defaultFaqs = [
     {
-      question: `What are the most popular names in this collection for 2026?`,
-      answer: `Top names in this category combine melodious phonetic sound, deep spiritual roots, and easy modern pronunciation across cultures.`,
+      question: `What are the most popular baby names in this collection for 2026?`,
+      answer: `Top names in this category combine melodious phonetic sound, deep spiritual or cultural roots, and easy modern pronunciation across diverse global communities.`,
     },
     {
-      question: `How should I choose the right name from this A to Z list?`,
-      answer: `Check the meaning first for positive virtues, test the syllable cadence with your family surname, and maintain a short list of 3–5 favorite picks.`,
+      question: `How should I choose the right baby name from this A to Z list?`,
+      answer: `Check the meaning first for positive virtues, test the syllable cadence with your family surname, and maintain a short list of 3–5 favorite picks before finalizing.`,
+    },
+    {
+      question: `How do I listen to the correct audio pronunciation of a name?`,
+      answer: `Click the speaker icon next to any baby name in our directory to hear real-time phonetic speech synthesis with authentic accent pacing.`,
+    },
+    {
+      question: `Are these baby name meanings linguistically and culturally verified?`,
+      answer: `Yes. Our research team cross-references Sanskrit, Hindi, Arabic, Urdu, Persian, and English names against standard etymological lexicons to guarantee accurate positive meanings.`,
+    },
+    {
+      question: `Can I save and bookmark favorite names to share with my family?`,
+      answer: `Yes! Click the heart or copy icon next to any name to save it to your local browser tray, allowing you to easily review and compare your shortlisted picks.`,
+    },
+    {
+      question: `How does astrological Nakshatra or Rashi naming work with this guide?`,
+      answer: `Use our A to Z letter filter to instantly navigate to the specific starting syllable recommended by your family astrologer or cultural tradition.`,
+    },
+    {
+      question: `Can I combine father and mother names to generate a unique modern name?`,
+      answer: `Yes! Launch our free AI Name Combiner and AI Baby Name Generator tools to blend parental names and specify custom meaning themes.`,
     },
   ];
 
@@ -222,7 +243,7 @@ export function NamesTemplate({
             Strong, classic, and modern boy choices with authentic cultural roots.
           </p>
           <ol className="space-y-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
-            {boyNames.slice(0, 5).map((item, idx) => (
+            {boyNames.slice(0, 10).map((item, idx) => (
               <li
                 key={`top-boy-${item.id}`}
                 className="flex items-baseline justify-between gap-2 py-1 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
@@ -270,7 +291,7 @@ export function NamesTemplate({
             Sweet, elegant, and melodious girl choices celebrating grace and beauty.
           </p>
           <ol className="space-y-2 text-base sm:text-lg text-zinc-900 dark:text-zinc-100 font-medium list-none">
-            {girlNames.slice(0, 5).map((item, idx) => (
+            {girlNames.slice(0, 10).map((item, idx) => (
               <li
                 key={`top-girl-${item.id}`}
                 className="flex items-baseline justify-between gap-2 py-1 group border-b border-zinc-100 dark:border-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 px-2 rounded-lg transition-colors"
@@ -410,7 +431,15 @@ export function NamesTemplate({
         })}
       </div>
 
-      {/* 9. FAQs Section */}
+      {/* 9. Google HowTo Schema Guide */}
+      <HowToUseGuide
+        guideId="baby-name-generator"
+        categoryName="Baby Names Directory"
+        title="How to Research & Select the Perfect Baby Name"
+        pageUrl={`https://unitoolkit.com/names/${categorySlug}`}
+      />
+
+      {/* 10. FAQs Section */}
       <FAQSection faqs={activeFaqs} title={`Frequently Asked Questions`} />
 
       {/* 10. E-E-A-T Author & Research Review Box */}

@@ -92,26 +92,26 @@ export function CoreContentSection() {
 
   return (
     <section className="space-y-6 text-left">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-[11px] font-bold text-indigo-600 dark:text-indigo-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-6">
+        <div className="space-y-1.5 max-w-2xl">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-[11px] font-bold text-indigo-600 dark:text-indigo-400">
             <Layers className="w-3 h-3" />
             <span>6 Core Creator Vaults</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
-            Captions, Hashtags, Shayari, Status, Bio & Quotes
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+            Explore Creator Vaults
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-            Everything you need to craft viral content, growth hashtags, and aesthetic profiles across 10 platforms.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+            Curated captions, viral hashtags, authentic shayari, VIP bios & daily status.
           </p>
         </div>
 
         <Link
           href="/categories"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors shrink-0"
         >
           <span>Explore All Categories</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
 

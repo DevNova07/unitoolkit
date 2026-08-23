@@ -13,6 +13,9 @@ import {
 import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { FAQSection } from "@/components/common/FAQSection";
+import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
 import { CTASection } from "@/components/common/CTASection";
 
 export function AIShayariGenerator() {
@@ -294,6 +297,83 @@ export function AIShayariGenerator() {
           </div>
         </div>
       )}
+
+      {/* Rich SEO Sections: FAQs, AuthorBioBox, and Related Shayari Hubs */}
+      <JsonLdSchema
+        type="SoftwareApplication"
+        title="AI Hindi Shayari & Ghazal Generator"
+        description="Generate original 2-line rhyming Hindi Shayari and romantic Ghazals in Devanagari script and Hinglish."
+        url="https://unitoolkit.com/ai-shayari-generator"
+      />
+
+      <JsonLdSchema
+        type="FAQPage"
+        faqs={[
+          {
+            question: "How does the AI Shayari Generator create authentic Hindi poetry?",
+            answer: "Our engine uses classical Urdu & Hindi meter (Bahr & Qafiya) to generate emotionally resonant 2-line and 4-line couplets for Ishq, Dard, Attitude, and Dosti.",
+          },
+          {
+            question: "Can I generate shayari in both Devanagari Hindi and Hinglish?",
+            answer: "Yes! Simply toggle between हिंदी (Devanagari) and Hinglish (Roman English) above the prompt input box.",
+          },
+          {
+            question: "Can I share AI generated Shayari directly to WhatsApp?",
+            answer: "Yes! Every generated couplet features a 1-tap '🟢 WhatsApp' button that opens WhatsApp with your shayari ready to post as your status or send to friends.",
+          },
+        ]}
+        title="AI Hindi Shayari Generator FAQ"
+        description="Frequently asked questions about creating authentic Hindi and Hinglish poetry."
+        url="https://unitoolkit.com/ai-shayari-generator"
+      />
+
+      {/* Related Shayari Categories Hub Grid */}
+      <section className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800 text-left">
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-white">
+          Explore Ready-Made Shayari Collections
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { label: "Mohabbat & Ishq Shayari", href: "/shayari/love" },
+            { label: "Dard & Tanhai Shayari", href: "/shayari/sad" },
+            { label: "Royal Attitude Shayari", href: "/shayari/attitude" },
+            { label: "Dosti Yaari Shayari", href: "/shayari/dosti" },
+            { label: "Romantic 2-Line Sher", href: "/shayari/romantic" },
+            { label: "Hindi Status Quotes", href: "/hindi-status" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="px-3.5 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:border-amber-500 hover:text-amber-600 transition-all"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Author & E-E-A-T Review Box */}
+      <AuthorBioBox categoryType="Poetry & Sher" topic="Hindi & Urdu Shayari Collections" />
+
+      {/* FAQ Section */}
+      <FAQSection
+        title="AI Hindi Shayari Generator FAQ"
+        subtitle="Frequently asked questions about creating authentic Hindi and Hinglish poetry."
+        faqs={[
+          {
+            question: "How does the AI Shayari Generator create authentic Hindi poetry?",
+            answer: "Our engine uses classical Urdu & Hindi meter (Bahr & Qafiya) to generate emotionally resonant 2-line and 4-line couplets for Ishq, Dard, Attitude, and Dosti.",
+          },
+          {
+            question: "Can I generate shayari in both Devanagari Hindi and Hinglish?",
+            answer: "Yes! Simply toggle between हिंदी (Devanagari) and Hinglish (Roman English) above the prompt input box.",
+          },
+          {
+            question: "Can I share AI generated Shayari directly to WhatsApp?",
+            answer: "Yes! Every generated couplet features a 1-tap '🟢 WhatsApp' button that opens WhatsApp with your shayari ready to post as your status or send to friends.",
+          },
+        ]}
+      />
 
       <CTASection />
     </div>

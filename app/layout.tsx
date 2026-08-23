@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ToastContainer } from "@/components/common/Toast";
 import { LocaleProvider } from "@/components/common/LocaleProvider";
 import { DesktopViralToolsTray } from "@/components/common/DesktopViralToolsTray";
+
+const fontSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://unitoolkit.com"),
@@ -37,7 +46,7 @@ export const metadata: Metadata = {
       "x-default": "https://unitoolkit.com",
     },
   },
-  authors: [{ name: "Unitoolkit Team" }],
+  authors: [{ name: "Unitoolkit Editorial Team", url: "https://unitoolkit.com/about" }],
   creator: "Unitoolkit",
   publisher: "Unitoolkit Inc.",
   openGraph: {
@@ -77,9 +86,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={fontSans.variable}>
       <head>
-        <script
+        <Script
+          id="theme-initializer"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               try {
@@ -92,6 +103,40 @@ export default function RootLayout({
                 }
               } catch (e) {}
             `,
+          }}
+        />
+        {/* Google E-E-A-T Organization Schema with sameAs Links */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "UniToolkit",
+              url: "https://unitoolkit.com",
+              logo: "https://unitoolkit.com/icon.png",
+              sameAs: [
+                "https://twitter.com/unitoolkit",
+                "https://www.instagram.com/unitoolkit",
+                "https://www.linkedin.com/company/unitoolkit",
+                "https://github.com/unitoolkit",
+                "https://www.youtube.com/@unitoolkit",
+              ],
+              publishingPrinciples: "https://unitoolkit.com/editorial-policy",
+              knowsAbout: [
+                "Social Media Marketing",
+                "Instagram Reel Algorithms",
+                "Computational Linguistics",
+                "Natural Language Processing",
+                "Creative Writing",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "Customer Support & Editorial Inquiries",
+                email: "support@unitoolkit.com",
+                availableLanguage: ["English", "Hindi"],
+              },
+            }),
           }}
         />
         <script
@@ -115,7 +160,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-white dark:bg-black text-zinc-900 dark:text-white antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 font-sans">
+      <body className={`min-h-screen flex flex-col bg-white dark:bg-black text-zinc-900 dark:text-white antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 ${fontSans.className}`}>
         <LocaleProvider>
           <Header />
           <main className="flex-1">{children}</main>

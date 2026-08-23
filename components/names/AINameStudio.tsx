@@ -1,7 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { Sparkles, Wand2, RefreshCw, Copy, Heart, Check, Volume2 } from "lucide-react";
+import { useState, useRef } from "react";
+import Link from "next/link";
+import {
+  Sparkles,
+  RefreshCw,
+  Copy,
+  Heart,
+  Check,
+  Volume2,
+  Zap,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
 import { showToast } from "@/components/common/Toast";
 import { copyToClipboard } from "@/lib/utils";
 import { toggleFavoriteName } from "@/lib/namesFavoritesStore";
@@ -21,33 +32,43 @@ interface AINameStudioProps {
   defaultPrompt?: string;
   defaultGender?: string;
   defaultOrigin?: string;
+  className?: string;
 }
 
+const NAME_PROMPT_SUGGESTIONS = [
+  { label: "👑 Royal Hindu Boy", prompt: "Royal auspicious Hindu baby boy name with Vedic strength and sun meaning" },
+  { label: "🌸 Sweet Arabic Girl", prompt: "Sweet, melodious Arabic baby girl name meaning flower of paradise or light" },
+  { label: "✨ Modern 2-Syllable", prompt: "Short modern 2-syllable international baby name easy to pronounce in USA & India" },
+  { label: "🌿 English Aesthetic", prompt: "Aesthetic vintage nature-inspired English baby name meaning meadow or river" },
+  { label: "🕊️ Sukoon & Peace", prompt: "Meaningful peaceful baby name representing tranquility, wisdom and hope" },
+];
+
 export function AINameStudio({
-  title = "AI Name Generator Studio",
-  description = "Describe your ideal baby or character name in plain words. Our AI analyzes global linguistic roots, phonetic rhythms, and cultural meanings.",
+  title = "AI Baby Name Generator",
+  description = "Craft personalized, meaningful, and auspicious baby names for your newborn based on parental cultural heritage, sound rhythm with your surname, and positive virtues.",
   defaultPrompt = "",
   defaultGender = "any",
   defaultOrigin = "any",
+  className = "",
 }: AINameStudioProps) {
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [gender, setGender] = useState(defaultGender);
   const [origin, setOrigin] = useState(defaultOrigin);
-  const [style, setStyle] = useState("modern");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<GeneratedNameResult[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  const handleGenerate = async (e?: React.FormEvent) => {
+  const handleGenerate = async (e?: React.FormEvent, customPrompt?: string) => {
     if (e) e.preventDefault();
+    const activePrompt = customPrompt || prompt;
     setLoading(true);
 
     try {
       const fullQuery = `Generate 8 beautiful, meaningful baby/personal names based on this criteria:
-Prompt: ${prompt.trim() || "Modern meaningful names"}
+Prompt: ${activePrompt.trim() || "Modern meaningful baby names"}
 Gender Preference: ${gender}
 Origin/Culture Preference: ${origin}
-Style/Tone: ${style}
 
 Please respond strictly in JSON array format with these exact keys:
 [
@@ -91,7 +112,10 @@ Please respond strictly in JSON array format with these exact keys:
 
         if (parsed.length > 0) {
           setResults(parsed);
-          showToast(`Generated ${parsed.length} tailored names!`, "sparkle");
+          showToast(`Generated ${parsed.length} tailored names! ✨`, "sparkle");
+          setTimeout(() => {
+            resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
         }
       }
     } catch (err) {
@@ -107,7 +131,7 @@ Please respond strictly in JSON array format with these exact keys:
     const ok = await copyToClipboard(text);
     if (ok) {
       setCopiedIndex(idx);
-      showToast(`Copied ${item.name}!`);
+      showToast(`Copied ${item.name}! 📋`, "success");
       setTimeout(() => setCopiedIndex(null), 1800);
     }
   };
@@ -130,7 +154,7 @@ Please respond strictly in JSON array format with these exact keys:
       origin: item.origin,
       culture: "AI Curated",
       language: "Universal",
-      style: [style],
+      style: ["modern"],
       themes: ["custom"],
       startingLetter: item.name.charAt(0).toUpperCase(),
       detailedMeaning: item.whyItMatches,
@@ -139,86 +163,135 @@ Please respond strictly in JSON array format with these exact keys:
     showToast(`Saved ${item.name} to your private favorites! ❤️`);
   };
 
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        setPrompt(text);
+        showToast("Pasted from clipboard! 📋", "success");
+      }
+    } catch {}
+  };
+
+  const handleSuggestionClick = (sugPrompt: string) => {
+    setPrompt(sugPrompt);
+    handleGenerate(undefined, sugPrompt);
+  };
+
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8 text-left">
-      {/* Studio Header (Clean & Minimal) */}
-      <div className="space-y-2">
-        <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 dark:text-white tracking-tight">
+    <div className={`w-full max-w-4xl mx-auto space-y-8 sm:space-y-10 text-center ${className}`}>
+      {/* 1. Centered Hero Header */}
+      <div className="space-y-3">
+        <div className="flex justify-center">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-600 dark:text-indigo-400">
+            <Zap className="w-3.5 h-3.5 fill-current" />
+            <span>Name Studio • AI Powered</span>
+          </div>
+        </div>
+
+        <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-900 dark:text-white leading-[1.15]">
           {title}
-        </h2>
-        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        </h1>
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
           {description}
         </p>
       </div>
 
-      {/* Generator Form */}
-      <form onSubmit={handleGenerate} className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {/* Gender Selector */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Gender</label>
-            <select
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
+      {/* 2. Direct Generator Form */}
+      <form onSubmit={handleGenerate} className="space-y-4 max-w-xl mx-auto text-left">
+        {/* Studio Switcher Tabs */}
+        <div className="flex items-center justify-center gap-1.5 flex-wrap">
+          {[
+            { label: "📝 Captions", href: "/ai-caption-generator" },
+            { label: "👤 Bio", href: "/ai-bio-generator" },
+            { label: "💬 Status", href: "/ai-status-generator" },
+            { label: "💡 Quotes", href: "/ai-caption-generator?type=quotes" },
+            { label: "📜 Shayari", href: "/ai-shayari-generator" },
+            { label: "👶 Names", href: "/ai-baby-name-generator", active: true },
+          ].map((t) => (
+            <Link
+              key={t.label}
+              href={t.href}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                t.active
+                  ? "bg-indigo-600 text-white shadow-xs"
+                  : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+              }`}
             >
-              <option value="any">✨ Any Gender / Unisex</option>
-              <option value="boy">👦 Baby Boy</option>
-              <option value="girl">👧 Baby Girl</option>
-            </select>
-          </div>
-
-          {/* Origin / Culture Selector */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Origin / Culture</label>
-            <select
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
-            >
-              <option value="any">🌍 Any Culture / Multicultural</option>
-              <option value="Indian">🇮🇳 Indian / Sanskrit</option>
-              <option value="Arabic">🌙 Arabic / Islamic</option>
-              <option value="Persian">👑 Persian</option>
-              <option value="English">🇬🇧 English / British</option>
-              <option value="Japanese">🌸 Japanese</option>
-              <option value="Spanish">🇪🇸 Spanish / Latin</option>
-            </select>
-          </div>
-
-          {/* Style Selector */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Naming Style</label>
-            <select
-              value={style}
-              onChange={(e) => setStyle(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none"
-            >
-              <option value="modern">Modern & Trendy</option>
-              <option value="royal">Royal & Majestic</option>
-              <option value="unique">Rare & Unique</option>
-              <option value="short">Short (1-2 Syllables)</option>
-              <option value="nature">Nature & Celestial</option>
-            </select>
-          </div>
+              {t.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Prompt Input */}
+        {/* Gender & Culture Pills */}
+        <div className="flex items-center justify-center gap-1.5 flex-wrap">
+          {[
+            { id: "any", label: "✨ Any Gender", type: "gender" },
+            { id: "boy", label: "👦 Baby Boy", type: "gender" },
+            { id: "girl", label: "👧 Baby Girl", type: "gender" },
+            { id: "Indian", label: "🇮🇳 Indian", type: "origin" },
+            { id: "Arabic", label: "🌙 Arabic", type: "origin" },
+            { id: "English", label: "🇺🇸 American", type: "origin" },
+          ].map((p) => {
+            const isSelected = p.type === "gender" ? gender === p.id : origin === p.id;
+            return (
+              <button
+                key={p.id + p.type}
+                type="button"
+                onClick={() => {
+                  if (p.type === "gender") {
+                    setGender(gender === p.id ? "any" : p.id);
+                  } else {
+                    setOrigin(origin === p.id ? "any" : p.id);
+                  }
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  isSelected
+                    ? "bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs"
+                    : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+                }`}
+              >
+                {p.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Input Box with Paste Button */}
         <div className="relative">
           <input
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Describe preferences (e.g. 'Starts with S, means peaceful morning light, easy to pronounce in USA & India')..."
-            className="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm sm:text-base text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="e.g. Modern auspicious baby name, easy to pronounce in USA & India..."
+            className="w-full h-14 pl-4 pr-24 rounded-2xl bg-zinc-100/90 dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 text-sm sm:text-base text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-hidden focus:border-indigo-500 shadow-2xs"
           />
+
+          {prompt ? (
+            <button
+              type="button"
+              onClick={() => setPrompt("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs font-semibold hover:bg-zinc-300 transition-colors"
+            >
+              Clear
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handlePaste}
+              className="absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl bg-zinc-200/80 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              <Copy className="w-3.5 h-3.5" />
+              <span>Paste</span>
+            </button>
+          )}
         </div>
 
-        {/* Submit Button */}
+        {/* Big Gradient Generate Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full h-13 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white font-extrabold text-sm uppercase tracking-wider shadow-md hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
         >
           {loading ? (
             <>
@@ -227,16 +300,45 @@ Please respond strictly in JSON array format with these exact keys:
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4" />
-              <span>Generate AI Names</span>
+              <span>GENERATE AI NAMES</span>
+              <ArrowRight className="w-4 h-4" />
             </>
           )}
         </button>
+
+        {/* Feature Badges */}
+        <div className="flex items-center justify-center gap-4 text-[11px] font-semibold text-zinc-500 pt-1">
+          <span className="flex items-center gap-1">
+            <Zap className="w-3 h-3 text-indigo-500" /> Instant
+          </span>
+          <span>•</span>
+          <span className="flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-emerald-500" /> 100% Free
+          </span>
+          <span>•</span>
+          <span className="flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-pink-500" /> No Sign-up
+          </span>
+        </div>
+
+        {/* Quick Suggestion Pills */}
+        <div className="flex items-center justify-center gap-1.5 flex-wrap pt-2">
+          {NAME_PROMPT_SUGGESTIONS.map((sug) => (
+            <button
+              key={sug.label}
+              type="button"
+              onClick={() => handleSuggestionClick(sug.prompt)}
+              className="px-3 py-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 hover:border-indigo-500/50 hover:text-indigo-600 transition-all cursor-pointer"
+            >
+              {sug.label}
+            </button>
+          ))}
+        </div>
       </form>
 
-      {/* Generated Results: Pure Clean Editorial Numbered List (NO CARDS) */}
+      {/* 3. Generated Results */}
       {results.length > 0 && (
-        <div className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <div ref={resultsRef} className="space-y-4 pt-6 border-t border-zinc-200 dark:border-zinc-800 max-w-2xl mx-auto text-left">
           <div className="pb-1 border-b border-zinc-200 dark:border-zinc-800">
             <h3 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white">
               AI Tailored Baby Names
@@ -276,13 +378,13 @@ Please respond strictly in JSON array format with these exact keys:
                   </div>
                 </div>
 
-                {/* Action buttons (Copy, Audio, Save) */}
+                {/* Action buttons (Audio, Save, Copy) */}
                 <div className="flex items-center gap-1.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
                   <button
                     type="button"
                     onClick={() => handlePlayAudio(res.name)}
                     title="Hear Pronunciation"
-                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
@@ -291,7 +393,7 @@ Please respond strictly in JSON array format with these exact keys:
                     type="button"
                     onClick={() => handleSaveName(res)}
                     title="Save to Favorites"
-                    className="p-1.5 text-zinc-400 hover:text-rose-500 transition-colors"
+                    className="p-1.5 text-zinc-400 hover:text-rose-500 transition-colors cursor-pointer"
                   >
                     <Heart className="w-4 h-4" />
                   </button>
@@ -300,7 +402,7 @@ Please respond strictly in JSON array format with these exact keys:
                     type="button"
                     onClick={() => handleCopyName(res, idx)}
                     title="Copy"
-                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors"
+                    className="p-1.5 text-zinc-400 hover:text-indigo-600 transition-colors cursor-pointer"
                   >
                     {copiedIndex === idx ? (
                       <Check className="w-4 h-4 text-emerald-500" />

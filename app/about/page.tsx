@@ -179,6 +179,101 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* ======================================================== */}
+      {/* 5. MEET OUR EDITORIAL & RESEARCH LEADERSHIP (Google E-E-A-T) */}
+      {/* ======================================================== */}
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+            <Users className="w-3.5 h-3.5" />
+            <span>Editorial Board & Creator Specialists</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white">
+            The Experts Behind the Curation
+          </h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl">
+            Our content and algorithms are governed by seasoned social media strategists, literary scholars, and NLP engineers.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Member 1: Aanya Sharma */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 space-y-3 shadow-2xs hover:border-indigo-400 dark:hover:border-indigo-600 transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-linear-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-md">
+              AS
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
+                <span>Aanya Sharma</span>
+                <CheckCircle2 className="w-4 h-4 text-indigo-500 fill-indigo-50 dark:fill-indigo-950" />
+              </h3>
+              <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                Head of Creative Editorial
+              </p>
+            </div>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Former social media growth strategist with 6+ years managing viral creator accounts. Specializes in Instagram Reels dwell-time mechanics and 3-second hook retention.
+            </p>
+          </div>
+
+          {/* Member 2: Dr. Kabir Verma */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 space-y-3 shadow-2xs hover:border-purple-400 dark:hover:border-purple-600 transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-linear-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-white font-black text-xl shadow-md">
+              KV
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
+                <span>Dr. Kabir Verma</span>
+                <CheckCircle2 className="w-4 h-4 text-purple-500 fill-purple-50 dark:fill-purple-950" />
+              </h3>
+              <p className="text-xs font-semibold text-purple-600 dark:text-purple-400">
+                Linguistics & Cultural Literature Editor
+              </p>
+            </div>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Scholar in classical Hindi and Urdu poetry (Sher/Ghazal meter). Oversees authenticity, wazn rhythm, and Devanagari etymological verification for shayari & names.
+            </p>
+          </div>
+
+          {/* Member 3: Rohan Mehta */}
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 space-y-3 shadow-2xs hover:border-emerald-400 dark:hover:border-emerald-600 transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-linear-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white font-black text-xl shadow-md">
+              RM
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
+                <span>Rohan Mehta</span>
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-50 dark:fill-emerald-950" />
+              </h3>
+              <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                Lead AI Systems Architect
+              </p>
+            </div>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              NLP engineer focusing on LLM latency reduction and hate-speech moderation filters. Ensures AI generator studios deliver safe, instant, and high-CTR copy.
+            </p>
+          </div>
+        </div>
+
+        {/* Editorial Standards CTA Box */}
+        <div className="p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h4 className="text-sm font-bold text-zinc-900 dark:text-white">
+              Want to read our complete quality and fact-checking policy?
+            </h4>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400">
+              Learn how we verify linguistic roots, eliminate duplicate spam, and audit algorithmic hashtags.
+            </p>
+          </div>
+          <Link
+            href="/editorial-policy"
+            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shrink-0 transition-colors shadow-2xs"
+          >
+            Read Editorial Policy →
+          </Link>
+        </div>
+      </div>
+
       {/* FAQ Section with JSON-LD Schema */}
       <section className="pt-6 border-t border-zinc-100 dark:border-zinc-900">
         <FAQSection

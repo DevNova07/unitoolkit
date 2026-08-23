@@ -43,6 +43,8 @@ export function createPlatformMetadata(
     return { title: `${capitalize(subslug)} ${platName} ${capitalize(contentType)} | Unitoolkit` };
   }
 
+  const ogImageUrl = `/api/og?title=${encodeURIComponent(page.h1)}&badge=${encodeURIComponent(page.badge)}&subtitle=${encodeURIComponent(page.metaDescription.slice(0, 100))}`;
+
   return {
     title: page.metaTitle,
     description: page.metaDescription,
@@ -53,6 +55,21 @@ export function createPlatformMetadata(
       title: `${page.h1} | Unitoolkit`,
       description: page.metaDescription,
       url: `https://unitoolkit.com${page.route}`,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: page.h1,
+        },
+      ],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${page.h1} | Unitoolkit`,
+      description: page.metaDescription,
+      images: [ogImageUrl],
     },
   };
 }
@@ -97,16 +114,7 @@ export function renderPlatformPage(
           `Living softly and shining brightly on ${platName}. ✨`,
           `Building my empire in silence. 👑⚡`,
         ],
-      faqs: [
-        {
-          question: `How do I copy these ${platName} ${contentType}?`,
-          answer: `Simply click any card to copy instantly to your clipboard.`,
-        },
-        {
-          question: `Can I generate custom ${platName} lines with AI?`,
-          answer: `Yes, click the 'Generate with AI' button to launch our free AI assistant.`,
-        },
-      ],
+      faqs: generateComprehensiveFaqs(platformId, contentType, platName),
     };
 
     const relatedLinks = subpages.map((s) => ({
@@ -210,16 +218,7 @@ export function renderTopicPage(
       `Living in my own chapter, playing by my own rules. ✨`,
       `जो दिल में है वही जुबां पर, दिखावे की आदत नहीं हमारी। 🌿`,
     ],
-    faqs: [
-      {
-        question: `How do I copy these ${topic} ${contentType}?`,
-        answer: `Click on any card to copy directly to your clipboard.`,
-      },
-      {
-        question: `Can I use these ${topic} lines on Instagram Reels and WhatsApp Status?`,
-        answer: `Yes! All lines are formatted for optimal read time and high engagement on short-form videos and stories.`,
-      },
-    ],
+    faqs: generateComprehensiveFaqs(topic, contentType),
   };
 
   const relatedLinks = [
@@ -240,6 +239,47 @@ export function renderTopicPage(
       relatedLinks={relatedLinks}
     />
   );
+}
+
+export function generateComprehensiveFaqs(
+  topicOrPlatform: string,
+  contentType: string,
+  platformName?: string
+): { question: string; answer: string }[] {
+  const capTopic = capitalize(topicOrPlatform);
+  const capType = capitalize(contentType);
+  const targetName = platformName || `${capTopic} Social Media`;
+
+  return [
+    {
+      question: `What are the best ${capTopic} ${capType} for Instagram Reels and Stories in 2026?`,
+      answer: `The top-performing ${capTopic.toLowerCase()} ${capType.toLowerCase()} in 2026 are short, high-impact one-liners (under 12 words) that establish immediate curiosity before the '...more' cut-off. Pair with high-contrast font overlays and slowed + reverb background music for maximum viewer dwell time.`,
+    },
+    {
+      question: `How do I write a viral ${capTopic} ${capType} that stops the scroll?`,
+      answer: `Follow the 3-Second Hook Formula: 1) Place your boldest statement or relatable insight in the first 5 words, 2) Include 1-2 curated aesthetic emojis, and 3) End with a low-friction question (e.g. '1 or 2?' or 'Agree?') to multiply comment velocity.`,
+    },
+    {
+      question: `What is the optimal time to post ${capTopic} content on Instagram, TikTok, and WhatsApp?`,
+      answer: `Engagement data shows peak leisure browsing happens between 6:00 PM – 9:00 PM on weekdays and 11:00 AM – 2:00 PM on weekends. For WhatsApp Status, morning updates at 8:00 AM – 9:30 AM achieve the highest day-long view counts.`,
+    },
+    {
+      question: `Which hashtags should I pair with my ${capTopic} posts?`,
+      answer: `Use our 3-Tier Hashtag Ladder: Combine 10 High-Competition tags (e.g. #${topicOrPlatform.toLowerCase().replace(/\s+/g, "")} #viralreels), 10 Medium Niche tags, and 10 Low-Competition discovery tags. Place them directly inside the caption body for instant Instagram search indexing.`,
+    },
+    {
+      question: `Can I copy and share these ${capTopic} lines directly to WhatsApp or social apps?`,
+      answer: `Yes! Every card features 1-click clipboard copying with verified emojis and formatting preserved. You can also tap the direct WhatsApp share button to set as your status in 1 second.`,
+    },
+    {
+      question: `Can I export high-resolution 9:16 Story Quote Cards from these ${capTopic} lines?`,
+      answer: `Yes! Click the Story Card icon next to any line to open our 1-Click Visual Quote Maker. Export clean, dark-mode 9:16 vertical graphics ready to post to Instagram Stories, Snapchat, or Pinterest.`,
+    },
+    {
+      question: `Are these ${capTopic} ${capType} free to use for commercial and creator accounts?`,
+      answer: `Yes! 100% of the ${capTopic.toLowerCase()} ${capType.toLowerCase()} on UniToolkit are free to use for personal reels, brand accounts, YouTube Shorts, sponsored creator posts, and daily status updates with no registration required.`,
+    },
+  ];
 }
 
 function capitalize(str: string): string {

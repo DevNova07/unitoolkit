@@ -8,11 +8,19 @@ interface BreadcrumbItem {
   item: string;
 }
 
+export interface HowToStepItem {
+  name: string;
+  text: string;
+  url?: string;
+  image?: string;
+}
+
 interface JsonLdSchemaProps {
-  type?: "FAQPage" | "ItemList" | "SoftwareApplication" | "WebApplication" | "Article" | "WebSite" | "Breadcrumbs";
+  type?: "FAQPage" | "ItemList" | "SoftwareApplication" | "WebApplication" | "Article" | "WebSite" | "Breadcrumbs" | "HowTo";
   faqs?: FAQItem[];
   items?: { name: string; position?: number }[];
   breadcrumbs?: BreadcrumbItem[];
+  howToSteps?: HowToStepItem[];
   title?: string;
   description?: string;
   url?: string;
@@ -27,6 +35,7 @@ export function JsonLdSchema({
   faqs,
   items,
   breadcrumbs,
+  howToSteps,
   title = "UniToolkit — Multi-Tool Creator Studio & Global Names Vault",
   description = "Access 15,000+ verified captions, shayari, social tools, and global baby names with meanings and audio pronunciation.",
   url = "https://unitoolkit.com",
@@ -37,7 +46,22 @@ export function JsonLdSchema({
 }: JsonLdSchemaProps) {
   let schemaData: Record<string, unknown> = {};
 
-  if (type === "FAQPage" && faqs && faqs.length > 0) {
+  if (type === "HowTo" && howToSteps && howToSteps.length > 0) {
+    schemaData = {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: title,
+      description: description,
+      step: howToSteps.map((step, idx) => ({
+        "@type": "HowToStep",
+        position: idx + 1,
+        name: step.name,
+        text: step.text,
+        url: step.url || url,
+        ...(step.image ? { image: step.image } : {}),
+      })),
+    };
+  } else if (type === "FAQPage" && faqs && faqs.length > 0) {
     schemaData = {
       "@context": "https://schema.org",
       "@type": "FAQPage",

@@ -14,6 +14,7 @@ import { copyToClipboard } from "@/lib/utils";
 import { showToast } from "@/components/common/Toast";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { CTASection } from "@/components/common/CTASection";
+import { HowToUseGuide } from "@/components/common/HowToUseGuide";
 
 export function AIQuotesGenerator() {
   const [prompt, setPrompt] = useState("");
@@ -110,6 +111,30 @@ export function AIQuotesGenerator() {
 
       {/* Direct Generator Form: NO Card Box */}
       <form onSubmit={handleGenerate} className="space-y-4 max-w-xl mx-auto text-left">
+        {/* Studio Switcher Tabs */}
+        <div className="flex items-center justify-center gap-1.5 flex-wrap">
+          {[
+            { label: "📝 Captions", href: "/ai-caption-generator" },
+            { label: "👤 Bio", href: "/ai-bio-generator" },
+            { label: "💬 Status", href: "/ai-status-generator" },
+            { label: "💡 Quotes", href: "/ai-quotes-generator", active: true },
+            { label: "📜 Shayari", href: "/ai-shayari-generator" },
+            { label: "👶 Names", href: "/ai-baby-name-generator" },
+          ].map((t) => (
+            <Link
+              key={t.label}
+              href={t.href}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                t.active
+                  ? "bg-yellow-500 text-white shadow-xs"
+                  : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700"
+              }`}
+            >
+              {t.label}
+            </Link>
+          ))}
+        </div>
+
         {/* Input Box with Paste Button */}
         <div className="relative">
           <input
@@ -258,6 +283,11 @@ export function AIQuotesGenerator() {
           </div>
         </div>
       )}
+
+      <HowToUseGuide
+        guideId="ai-quotes-generator"
+        pageUrl="https://unitoolkit.com/ai-quotes-generator"
+      />
 
       <CTASection />
     </div>
