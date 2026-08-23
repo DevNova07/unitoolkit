@@ -1,10 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { PenTool, Hash, User, MessageCircle, BookOpen, Globe2, ArrowRight, Zap } from "lucide-react";
+import { PenTool, Hash, User, MessageCircle, BookOpen, Globe2, ArrowRight, Zap, Sparkles } from "lucide-react";
 
 export function AiStudiosSection() {
   const studios = [
+    {
+      name: "AI Wishes & Greetings",
+      desc: "Instant personalized wishes for 150+ festivals, birthdays & milestones.",
+      href: "/ai-wishes-generator",
+      icon: Sparkles,
+      color: "from-purple-600 to-indigo-600",
+      badge: "150+ Occasions",
+    },
     {
       name: "AI Caption Studio",
       desc: "Generate 5 high-converting Reels, Post & Story hooks in 3 seconds.",
@@ -61,7 +69,7 @@ export function AiStudiosSection() {
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 text-[11px] font-bold text-purple-600 dark:text-purple-400">
             <Zap className="w-3 h-3 fill-current" />
-            <span>6 Dedicated AI Studios</span>
+            <span>7 Dedicated AI Studios</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
             ChatGPT-Powered Creator Tools

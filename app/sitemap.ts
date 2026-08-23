@@ -10,9 +10,17 @@ import {
   AI_NAME_STUDIOS,
 } from "@/data/namesTaxonomy";
 
+import { OCCASION_HUBS } from "@/data/wishesTaxonomy";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://unitoolkit.com";
   const master300Urls = getAllMaster300Urls();
+
+  const wishesUrls = [
+    "/wishes",
+    "/ai-wishes-generator",
+    ...OCCASION_HUBS.map((h) => `/${h.slug}`),
+  ];
 
   const nameUrls = [
     "/names",
@@ -31,7 +39,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/names/name-combiner",
   ];
 
-  const allUrls = Array.from(new Set([...master300Urls, ...nameUrls]));
+  // Pages with route files that were previously missing from sitemap
+  const additionalPages = [
+    "/blog",
+    "/editorial-policy",
+    "/hashtags",
+    "/categories",
+    "/platforms",
+    "/ai-hashtag-generator",
+  ];
+
+  const allUrls = Array.from(new Set([...master300Urls, ...nameUrls, ...wishesUrls, ...additionalPages]));
 
   return allUrls.map((path) => {
     let priority = 0.85;

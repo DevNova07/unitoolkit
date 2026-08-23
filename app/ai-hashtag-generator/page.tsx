@@ -247,7 +247,7 @@ export default function AIHashtagGeneratorPage() {
             { label: "TikTok Viral FYP Hashtags", href: "/hashtags/tiktok", count: "85+ tags" },
             { label: "YouTube Shorts Hashtags", href: "/hashtags/youtube", count: "65+ tags" },
             { label: "Travel & Adventure Tags", href: "/hashtags/travel", count: "90+ tags" },
-            { label: "Gym & Fitness PR Tags", href: "/hashtags/gym", count: "95+ tags" },
+            { label: "Gym & Fitness PR Tags", href: "/hashtags/fitness", count: "95+ tags" },
             { label: "Fashion & Outfit Tags", href: "/hashtags/fashion", count: "80+ tags" },
             { label: "Photography & Art Tags", href: "/hashtags/photography", count: "100+ tags" },
             { label: "Attitude & Swag Tags", href: "/hashtags/attitude", count: "90+ tags" },

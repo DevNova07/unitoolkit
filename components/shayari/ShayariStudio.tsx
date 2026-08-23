@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Sparkles,
@@ -16,6 +15,10 @@ import {
   Share2,
   Search,
   X,
+  Volume2,
+  Image as ImageIcon,
+  Languages,
+  Flame,
 } from "lucide-react";
 import {
   SHAYARI_SECTIONS,
@@ -29,6 +32,48 @@ import { showToast } from "@/components/common/Toast";
 import { FAQSection } from "@/components/common/FAQSection";
 import { CTASection } from "@/components/common/CTASection";
 import { JsonLdSchema } from "@/components/common/JsonLdSchema";
+import { VisualQuoteModal } from "@/components/captions/VisualQuoteModal";
+import { HowToUseGuide } from "@/components/common/HowToUseGuide";
+import { AuthorBioBox } from "@/components/common/AuthorBioBox";
+import { TopicClusterSiloCloud } from "@/components/common/TopicClusterSiloCloud";
+
+const SHAYARI_FAQS = [
+  {
+    question: "What is the difference between Sher, Ghazal, and Nazm?",
+    answer:
+      "A 'Sher' is an independent, 2-line rhyming couplet complete in its own meaning. A 'Ghazal' is a collection of 5 to 15 independent shers adhering to the same poetic meter (Beher), rhyme (Qafia), and refrain (Radif). A 'Nazm' is a thematic poem where all verses follow a single continuous subject or story.",
+  },
+  {
+    question: "How do I switch between Hindi (देवनागरी) and Romanized Hinglish script?",
+    answer:
+      "Use the script toggle button [📜 हिंदी] and [🔤 Hinglish] at the top of the shayari portal. It switches the entire collection of 1,000+ couplets in 1 click without losing your position.",
+  },
+  {
+    question: "How to format 2-line shayari for WhatsApp Status and Instagram Reels?",
+    answer:
+      "Every shayari on UniToolkit is pre-formatted with clean line breaks and cultural emojis. Click 'WhatsApp' to share directly into your status, or click 'Copy' to paste with perfect two-line spacing.",
+  },
+  {
+    question: "Can I download these shayari lines as 9:16 Instagram Story image cards?",
+    answer:
+      "Yes! Click the 🖼️ Photo Card button on any shayari card to open our Visual Studio, choose from 5 aesthetic color themes (Parchment Cream, Dark Slate, Nebula Glow, Sunset Gold, Emerald Sage), and download crisp 1080x1920px story images in 1-click.",
+  },
+  {
+    question: "Are classical couplets from Mirza Ghalib, Rahat Indori, and Jaun Elia authentic?",
+    answer:
+      "Yes. Our linguistic researchers cross-reference historical couplets against verified Dewan editions (Rekhta & Urdu Academy archives) to guarantee poetic meter, correct phrasing, and authentic attribution.",
+  },
+  {
+    question: "How does the AI Shayari Generator craft rhyming couplets?",
+    answer:
+      "Our AI model is trained on classical Urdu/Hindi prosody (Arooz and Wazn). Select your mood (Ishq, Tevar, Dard, Dosti, Hausla), and it synthesizes 5 custom rhyming 2-line shers in 3 seconds.",
+  },
+  {
+    question: "Are these shayari couplets free to use in YouTube videos and reels?",
+    answer:
+      "100% yes. All curated verses and AI-generated couplets are free for personal status, creator video dubbing, background voiceovers, and commercial posts without royalties.",
+  },
+];
 
 export function ShayariStudio() {
   const [scriptMode, setScriptMode] = useState<"hindi" | "hinglish">("hindi");
@@ -38,6 +83,9 @@ export function ShayariStudio() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [upvotes, setUpvotes] = useState<Record<string, number>>({});
   const [hasUpvoted, setHasUpvoted] = useState<Record<string, boolean>>({});
+
+  // Visual Quote Modal
+  const [selectedQuoteForModal, setSelectedQuoteForModal] = useState<string | null>(null);
 
   // AI Generator state
   const [aiShayaris, setAiShayaris] = useState<ShayariItem[]>([]);
@@ -68,6 +116,20 @@ export function ShayariStudio() {
       setUpvotes((prev) => ({ ...prev, [id]: (prev[id] ?? currentLikes) + 1 }));
       setHasUpvoted((prev) => ({ ...prev, [id]: true }));
       showToast("❤️ Upvoted this Shayari!", "heart");
+    }
+  };
+
+  const handlePlayAudio = (text: string) => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "hi-IN";
+      utterance.rate = 0.88;
+      utterance.pitch = 0.95;
+      window.speechSynthesis.speak(utterance);
+      showToast("Playing audio recitation... 🔊", "sparkle");
+    } else {
+      showToast("Speech synthesis not supported on this browser.", "error");
     }
   };
 
@@ -170,32 +232,23 @@ export function ShayariStudio() {
     return result;
   }, [activeCategory, selectedFormat, searchQuery]);
 
-  const faqs = [
-    {
-      question: "Can I read Shayari in both Hindi (Devanagari) and Hinglish?",
-      answer:
-        "Yes! Use the script toggle at the top of the page to switch between authentic Hindi Devanagari script (हिंदी) and Romanized Hinglish script in 1 click.",
-    },
-    {
-      question: "What is the difference between 2-Line and 4-Line Shayari?",
-      answer:
-        "2-Line Shayari (Sher) is punchy and concise, ideal for Instagram bios and WhatsApp status. 4-Line Shayari (Rubaiyat) weaves a deeper poetic narrative with richer rhyming cadence.",
-    },
-    {
-      question: "Can I share Shayari directly to WhatsApp or copy in 1-click?",
-      answer:
-        "Yes, every Shayari card includes a 1-click Copy button and a direct WhatsApp button that opens WhatsApp with the poem pre-formatted.",
-    },
-  ];
-
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-14">
+      {/* Visual Quote Image Studio Modal */}
+      {selectedQuoteForModal && (
+        <VisualQuoteModal
+          isOpen={!!selectedQuoteForModal}
+          onClose={() => setSelectedQuoteForModal(null)}
+          captionText={selectedQuoteForModal}
+        />
+      )}
+
       {/* 1. Ultra Aesthetic Editorial Hero */}
       <EditorialHero
         platformName="Shayari"
         badge="Shayari Portal (शायरी हब)"
         title="1000+ Best Shayari in Hindi & Hinglish (2026)"
-        description="The most touching Love, Sad, Attitude, Romantic, Dosti, and Motivational Shayari. Switch between Hindi & Hinglish, 1-click copy, or share directly to WhatsApp."
+        description="The most touching Love, Sad, Attitude, Romantic, Dosti, and Motivational Shayari. Switch between Hindi & Hinglish, 1-click copy, make photo cards, or share directly to WhatsApp."
         heroImage="/images/shayari-hub-banner.jpg"
         breadcrumbs={[
           { label: "Content", href: "/#explore-content" },
@@ -213,8 +266,83 @@ export function ShayariStudio() {
         ]}
       />
 
-      {/* 2. Search & Category Controls */}
-      <div className="space-y-4 text-left">
+      {/* 2. Interactive Control Bar (Script Switcher + Format Filter + Search) */}
+      <div className="space-y-4 text-left p-4 sm:p-5 rounded-3xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+        {/* Top Controls Row: Script Mode (Hindi/Hinglish) & Format Filter (2-Line/4-Line) */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 dark:border-zinc-800 pb-3">
+          {/* Script Mode Switcher (Devanagari vs Hinglish) */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+              <Languages className="w-3.5 h-3.5 text-amber-500" />
+              <span>Script:</span>
+            </span>
+            <div className="inline-flex p-1 rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
+              <button
+                type="button"
+                onClick={() => setScriptMode("hindi")}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  scriptMode === "hindi"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                }`}
+              >
+                📜 हिंदी (Devanagari)
+              </button>
+              <button
+                type="button"
+                onClick={() => setScriptMode("hinglish")}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  scriptMode === "hinglish"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                }`}
+              >
+                🔤 Hinglish (Roman)
+              </button>
+            </div>
+          </div>
+
+          {/* Format Tabs (All / 2-Line / 4-Line) */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 hidden sm:inline">Format:</span>
+            <div className="inline-flex p-1 rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
+              <button
+                type="button"
+                onClick={() => setSelectedFormat("all")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedFormat === "all"
+                    ? "bg-zinc-900 dark:bg-white text-white dark:text-black font-bold"
+                    : "text-zinc-600 dark:text-zinc-400"
+                }`}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedFormat("2-line")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedFormat === "2-line"
+                    ? "bg-zinc-900 dark:bg-white text-white dark:text-black font-bold"
+                    : "text-zinc-600 dark:text-zinc-400"
+                }`}
+              >
+                ⚡ 2-Line
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedFormat("4-line")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedFormat === "4-line"
+                    ? "bg-zinc-900 dark:bg-white text-white dark:text-black font-bold"
+                    : "text-zinc-600 dark:text-zinc-400"
+                }`}
+              >
+                📜 4-Line
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Search Input for Shayari */}
         <div className="relative flex items-center">
           <Search className="w-4 h-4 text-zinc-400 absolute left-4" />
@@ -222,14 +350,14 @@ export function ShayariStudio() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Hindi Shayari (e.g. ishq, sukoon, yaadein, attitude, dosti)..."
-            className="w-full pl-11 pr-10 py-3.5 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-500/50 shadow-2xs transition-all"
+            placeholder="Search Hindi Shayari (e.g. ishq, sukoon, yaadein, attitude, dosti, ghalib)..."
+            className="w-full pl-11 pr-10 py-3 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-500/50 shadow-2xs transition-all"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-3.5 p-1 rounded-full text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="absolute right-3.5 p-1 rounded-full text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -237,30 +365,30 @@ export function ShayariStudio() {
         </div>
 
         {/* Category Filter Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pt-1">
           <button
             type="button"
             onClick={() => setActiveCategory("all")}
-            className={`shrink-0 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeCategory === "all"
                 ? "bg-amber-600 text-white shadow-md shadow-amber-600/20"
-                : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500"
+                : "bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500"
             }`}
           >
-            🌟 All Shayari
+            🌟 All Categories
           </button>
           {SHAYARI_SECTIONS.map((sec) => (
             <button
               key={sec.slug}
               type="button"
               onClick={() => setActiveCategory(sec.slug)}
-              className={`shrink-0 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeCategory === sec.slug
                   ? "bg-amber-600 text-white shadow-md shadow-amber-600/20"
-                  : "bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500"
+                  : "bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500"
               }`}
             >
-              {sec.title.split("(")[0]}
+              {sec.title.split("(")[0].trim()}
             </button>
           ))}
         </div>
@@ -274,7 +402,7 @@ export function ShayariStudio() {
             id={section.id}
             className="space-y-4 pt-2 scroll-mt-24"
           >
-            <div className="space-y-2 pb-2">
+            <div className="space-y-1.5 pb-2">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800 text-xs font-bold">
                   {section.badge}
@@ -286,7 +414,7 @@ export function ShayariStudio() {
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
                 {section.title}
               </h2>
-              <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-4xl">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-4xl">
                 {section.intro}
               </p>
             </div>
@@ -309,7 +437,7 @@ export function ShayariStudio() {
                       <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400">
                         #{idx + 1}
                       </span>
-                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-500 uppercase tracking-wider">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-500 uppercase tracking-wider">
                         {item.format}
                       </span>
                     </div>
@@ -319,9 +447,10 @@ export function ShayariStudio() {
                       {currentText}
                     </p>
 
-                    {/* Action Bar */}
+                    {/* Action Bar with Copy, WhatsApp, Audio, and Image Maker */}
                     <div className="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-900">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {/* 1-Click Copy */}
                         <button
                           type="button"
                           onClick={() => handleCopy(item.id, currentText)}
@@ -335,6 +464,7 @@ export function ShayariStudio() {
                           <span>{isCopied ? "Copied" : "Copy"}</span>
                         </button>
 
+                        {/* WhatsApp Direct Share */}
                         <button
                           type="button"
                           onClick={() => handleShareWhatsApp(currentText)}
@@ -343,12 +473,33 @@ export function ShayariStudio() {
                           <MessageCircle className="w-3.5 h-3.5 fill-current" />
                           <span>WhatsApp</span>
                         </button>
+
+                        {/* Audio Recitation Button */}
+                        <button
+                          type="button"
+                          onClick={() => handlePlayAudio(currentText)}
+                          title="Listen to Shayari"
+                          className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-amber-100 dark:hover:bg-amber-950/40 text-zinc-600 dark:text-zinc-400 hover:text-amber-600 transition-colors cursor-pointer"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
+
+                        {/* Visual Quote / Photo Card Maker */}
+                        <button
+                          type="button"
+                          onClick={() => setSelectedQuoteForModal(currentText)}
+                          title="Make Photo Card for Instagram Story"
+                          className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-purple-100 dark:hover:bg-purple-950/40 text-zinc-600 dark:text-zinc-400 hover:text-purple-600 transition-colors cursor-pointer"
+                        >
+                          <ImageIcon className="w-3.5 h-3.5" />
+                        </button>
                       </div>
 
+                      {/* Likes / Upvote */}
                       <button
                         type="button"
                         onClick={() => handleUpvote(item.id, item.likes)}
-                        className={`hidden sm:flex p-2 rounded-xl text-xs font-semibold transition-all items-center gap-1 cursor-pointer ${
+                        className={`p-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                           isLiked
                             ? "text-rose-600 bg-rose-50 dark:bg-rose-950/40"
                             : "text-zinc-400 hover:text-rose-500 hover:bg-zinc-100 dark:hover:bg-zinc-900"
@@ -432,7 +583,7 @@ export function ShayariStudio() {
           {/* AI Output List */}
           {aiShayaris.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left pt-4">
-              {aiShayaris.map((item, idx) => (
+              {aiShayaris.map((item) => (
                 <div
                   key={item.id}
                   className="p-5 rounded-2xl bg-white dark:bg-zinc-950 border border-amber-300 dark:border-amber-800 shadow-md space-y-3"
@@ -444,16 +595,23 @@ export function ShayariStudio() {
                     <button
                       type="button"
                       onClick={() => handleCopy(item.id, item.hindi)}
-                      className="px-3 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900 text-xs font-bold"
+                      className="px-3 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900 text-xs font-bold cursor-pointer"
                     >
                       Copy
                     </button>
                     <button
                       type="button"
                       onClick={() => handleShareWhatsApp(item.hindi)}
-                      className="px-3 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold"
+                      className="px-3 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold cursor-pointer"
                     >
                       WhatsApp
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedQuoteForModal(item.hindi)}
+                      className="px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-bold cursor-pointer"
+                    >
+                      Make Card
                     </button>
                   </div>
                 </div>
@@ -498,26 +656,47 @@ export function ShayariStudio() {
         </div>
       </section>
 
-      {/* 7. FAQ Section */}
+      {/* 7. How To Use Guide */}
+      <HowToUseGuide
+        guideId="shayari-selection"
+        categoryName="Hindi & Urdu Shayari"
+        title="How to Select, Format & Share Authentic Hindi Shayari"
+        pageUrl="https://unitoolkit.com/shayari"
+      />
+
+      {/* 8. Topic Cluster Silo Cloud */}
+      <TopicClusterSiloCloud
+        topic="Shayari"
+        contentType="shayari"
+        currentRoute="/shayari"
+      />
+
+      {/* 9. E-E-A-T Editorial Review Box */}
+      <AuthorBioBox categoryType="Hindi & Urdu Cultural Poetry" topic="Ghazals & Classical Shers" />
+
+      {/* 10. FAQ Section */}
       <section className="pt-6 border-t border-zinc-200 dark:border-zinc-800">
         <FAQSection
-          title="Shayari Frequently Asked Questions"
-          subtitle="Learn about poetic meters, rhyming couplets, and sharing Shayari."
-          faqs={faqs}
+          title="Frequently Asked Questions About Hindi Shayari"
+          subtitle="Everything you need to know about poetic meters, Radif, Qafia, and image card downloads."
+          faqs={SHAYARI_FAQS}
         />
       </section>
 
-      {/* JSON-LD Schema */}
-      <JsonLdSchema type="FAQPage" faqs={faqs} />
+      {/* JSON-LD Schemas */}
+      <JsonLdSchema type="FAQPage" faqs={SHAYARI_FAQS} />
       <JsonLdSchema
         type="ItemList"
-        title="Best Hindi Shayari Collection"
-        description="Top curated Love, Sad, and Attitude Shayari in Hindi and Hinglish"
+        title="Best Hindi Shayari Collection 2026"
+        description="Top curated Love, Sad, Attitude, Romantic and Dosti Shayari in Hindi and Hinglish"
         items={SHAYARI_SECTIONS.flatMap((s) => s.items.map((item) => ({ name: item.hindi })))}
       />
 
       {/* CTA */}
-      <CTASection />
+      <CTASection
+        title="Want custom poetry written for your exact mood?"
+        subtitle="Use our free AI Shayari Synthesizer above to generate original rhyming couplets in seconds."
+      />
     </div>
   );
 }

@@ -1,19 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ToastContainer } from "@/components/common/Toast";
 import { LocaleProvider } from "@/components/common/LocaleProvider";
 import { DesktopViralToolsTray } from "@/components/common/DesktopViralToolsTray";
-
-const fontSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://unitoolkit.com"),
@@ -86,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={fontSans.variable}>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <Script
           id="theme-initializer"
@@ -159,8 +151,14 @@ export default function RootLayout({
             }),
           }}
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className={`min-h-screen flex flex-col bg-white dark:bg-black text-zinc-900 dark:text-white antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 ${fontSans.className}`}>
+      <body className="min-h-screen flex flex-col bg-white dark:bg-black text-zinc-900 dark:text-white antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200 font-sans">
         <LocaleProvider>
           <Header />
           <main className="flex-1">{children}</main>

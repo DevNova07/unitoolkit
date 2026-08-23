@@ -87,19 +87,20 @@ export const AI_ENGINES_MAP = {
 };
 
 // -------------------------------------------------------------------------
-// 4. TEN PLATFORM ECOSYSTEM (80 Pages = 10 Platforms x 8 Pages)
+// 4. TEN PLATFORM ECOSYSTEM (50 Pages = 10 Platforms x 5 Core Types)
+// Only includes types that have actual app/[platform]-[type]/page.tsx route files.
 // -------------------------------------------------------------------------
 export const PLATFORMS_80_MAP: Record<string, string[]> = {
-  instagram: ["captions", "bio", "status", "shayari", "quotes", "reels-captions", "story-captions", "photo-captions"],
-  whatsapp: ["captions", "bio", "status", "shayari", "quotes", "about", "profile-bio", "love-status"],
-  youtube: ["captions", "bio", "status", "shayari", "quotes", "shorts-captions", "video-captions", "community-post-captions"],
-  tiktok: ["captions", "bio", "status", "shayari", "quotes", "video-captions", "short-captions", "viral-captions"],
-  facebook: ["captions", "bio", "status", "shayari", "quotes", "photo-captions", "reel-captions", "post-captions"],
-  twitter: ["captions", "bio", "status", "shayari", "quotes", "one-liners", "hot-takes", "post-captions"],
-  linkedin: ["captions", "bio", "status", "shayari", "quotes", "professional-captions", "personal-branding-captions", "post-ideas"],
-  pinterest: ["captions", "bio", "status", "shayari", "quotes", "aesthetic-captions", "pin-descriptions", "idea-captions"],
-  threads: ["captions", "bio", "status", "shayari", "quotes", "one-liners", "post-ideas", "attitude-captions"],
-  snapchat: ["captions", "bio", "status", "shayari", "quotes", "streak-captions", "story-captions", "selfie-captions"],
+  instagram: ["captions", "bio", "status", "shayari", "quotes"],
+  whatsapp: ["captions", "bio", "status", "shayari", "quotes"],
+  youtube: ["captions", "bio", "status", "shayari", "quotes"],
+  tiktok: ["captions", "bio", "status", "shayari", "quotes"],
+  facebook: ["captions", "bio", "status", "shayari", "quotes"],
+  twitter: ["captions", "bio", "status", "shayari", "quotes"],
+  linkedin: ["captions", "bio", "status", "shayari", "quotes"],
+  pinterest: ["captions", "bio", "status", "shayari", "quotes"],
+  threads: ["captions", "bio", "status", "shayari", "quotes"],
+  snapchat: ["captions", "bio", "status", "shayari", "quotes"],
 };
 
 // -------------------------------------------------------------------------

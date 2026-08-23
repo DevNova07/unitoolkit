@@ -58,6 +58,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/wishes" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-semibold text-amber-600 dark:text-amber-400">
+                  Wishes & Occasions Hub
+                </Link>
+              </li>
+              <li>
                 <Link href="/quotes" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   Quotes & Wisdom
                 </Link>
@@ -82,6 +87,11 @@ export function Footer() {
               <span>AI Studios</span>
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
+              <li>
+                <Link href="/ai-wishes-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-semibold text-amber-600 dark:text-amber-400">
+                  AI Wishes Generator
+                </Link>
+              </li>
               <li>
                 <Link href="/ai-caption-generator" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                   AI Caption Studio

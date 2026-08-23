@@ -10,6 +10,7 @@ import {
   Hash,
   ArrowRight,
   Layers,
+  Sparkles,
 } from "lucide-react";
 import { useLocale } from "@/components/common/LocaleProvider";
 
@@ -17,6 +18,17 @@ export function CoreContentSection() {
   const { hasShayari, t } = useLocale();
 
   const allTools = [
+    {
+      id: "wishes",
+      title: "Wishes & Occasions Hub",
+      desc: "100+ curated wishes, greetings & status cards across 80+ festivals & milestones.",
+      icon: Sparkles,
+      href: "/wishes",
+      badge: "80+ Occasions",
+      color: "from-purple-500 to-indigo-600",
+      accentBorder: "hover:border-purple-400 dark:hover:border-purple-600",
+      regional: false,
+    },
     {
       id: "captions",
       title: "Captions Studio & Vault",

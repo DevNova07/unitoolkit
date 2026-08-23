@@ -208,7 +208,7 @@ export default function AIGeneratorPage() {
 
           {/* Card 4: Hinglish & Desi */}
           <Link
-            href="/categories/hinglish"
+            href="/hindi-captions"
             className="group p-5 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200/80 dark:border-zinc-800/90 hover:border-amber-500/50 hover:shadow-md transition-all space-y-2.5"
           >
             <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white font-bold text-base flex items-center justify-center shadow-xs">

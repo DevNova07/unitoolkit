@@ -21,6 +21,7 @@ import {
   Hash,
   Globe2,
   PenTool,
+  Sparkles,
 } from "lucide-react";
 import {
   InstagramIcon,
@@ -145,29 +146,29 @@ export function Header() {
         </Link>
 
         {/* 2. Desktop Navigation (AI Tools Dropdown + Direct 5 Pillars + 10 Platforms Dropdown) */}
-        <nav className="hidden lg:flex items-center gap-1.5 text-xs font-semibold">
-          {/* 🌟 1. AI TOOLS DROPDOWN (5 Dedicated AI Engines) */}
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-xs font-semibold whitespace-nowrap">
+          {/* 🌟 1. AI TOOLS DROPDOWN (8 Dedicated AI Engines) */}
           <div
-            className="relative"
+            className="relative shrink-0"
             onMouseEnter={handleAiMouseEnter}
             onMouseLeave={handleAiMouseLeave}
           >
             <button
               type="button"
               onClick={() => setAiToolsDropdownOpen(!aiToolsDropdownOpen)}
-              className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-2.5 xl:px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer font-bold whitespace-nowrap shrink-0 ${
                 aiToolsDropdownOpen || pathname.startsWith("/ai-")
                   ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs"
                   : "bg-indigo-50/80 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200/80 dark:border-indigo-800/80 hover:bg-indigo-100"
               }`}
             >
-              <Zap className="w-3.5 h-3.5 fill-current" />
-              <span>AI Tools</span>
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-600 dark:text-indigo-300">
-                7
+              <Zap className="w-3.5 h-3.5 fill-current shrink-0" />
+              <span className="whitespace-nowrap">AI Tools</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 shrink-0">
+                8
               </span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
                   aiToolsDropdownOpen ? "rotate-180" : ""
                 }`}
               />
@@ -177,7 +178,7 @@ export function Header() {
               <div className="absolute top-full left-0 w-[340px] p-3 rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-2xl space-y-1 animate-in fade-in-50 slide-in-from-top-2 duration-150 z-50 text-left">
                 <div className="px-2 py-1 flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                    7 Dedicated AI Studios
+                    8 Dedicated AI Studios
                   </span>
                   <span className="text-[10px] text-zinc-400">ChatGPT Style</span>
                 </div>
@@ -266,7 +267,21 @@ export function Header() {
                   </div>
                 </Link>
 
-                {/* AI Tool 7: AI Baby Name Studio */}
+                {/* AI Tool 7: AI Wishes & Greetings Studio */}
+                <Link
+                  href="/ai-wishes-generator"
+                  className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-purple-600 transition-colors group"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-purple-50 dark:bg-purple-950 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="font-extrabold text-xs">AI Wishes & Greetings</p>
+                    <p className="text-[10px] font-normal text-zinc-400">150+ Occasions & Festivals</p>
+                  </div>
+                </Link>
+
+                {/* AI Tool 8: AI Baby Name Studio */}
                 <Link
                   href="/ai-baby-name-generator"
                   className="flex items-center gap-2.5 p-2.5 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 hover:text-blue-600 transition-colors group"
@@ -283,110 +298,120 @@ export function Header() {
             )}
           </div>
 
+          {/* 💌 Wishes Direct Link */}
+          <Link
+            href="/wishes"
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
+              pathname.startsWith("/wishes") || pathname.includes("-wishes")
+                ? "text-purple-600 dark:text-purple-400 bg-purple-50/80 dark:bg-purple-950/50 font-bold"
+                : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-purple-500 shrink-0" />
+            <span>Wishes</span>
+          </Link>
+
           {/* 📝 Captions Direct Link */}
           <Link
             href="/captions"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname === "/captions"
                 ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50/80 dark:bg-indigo-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <FileText className="w-3.5 h-3.5 text-indigo-500" />
+            <FileText className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
             <span>Captions</span>
           </Link>
 
           {/* 📜 Shayari Direct Link */}
           <Link
             href="/shayari"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname.startsWith("/shayari")
                 ? "text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5 text-amber-500" />
+            <BookOpen className="w-3.5 h-3.5 text-amber-500 shrink-0" />
             <span>Shayari</span>
           </Link>
 
           {/* 💬 Status Direct Link */}
           <Link
             href="/whatsapp-status"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname.startsWith("/whatsapp-status") || pathname === "/status"
                 ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <MessageCircle className="w-3.5 h-3.5 text-emerald-500" />
+            <MessageCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
             <span>Status</span>
           </Link>
 
           {/* 👤 Bio Direct Link */}
           <Link
             href="/bios"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname.startsWith("/bios")
                 ? "text-pink-600 dark:text-pink-400 bg-pink-50/80 dark:bg-pink-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <User className="w-3.5 h-3.5 text-pink-500" />
+            <User className="w-3.5 h-3.5 text-pink-500 shrink-0" />
             <span>Bio</span>
           </Link>
 
           {/* 💡 Quotes Direct Link */}
           <Link
             href="/quotes"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname.startsWith("/quotes")
                 ? "text-yellow-600 dark:text-yellow-400 bg-yellow-50/80 dark:bg-yellow-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <Quote className="w-3.5 h-3.5 text-yellow-500" />
+            <Quote className="w-3.5 h-3.5 text-yellow-500 shrink-0" />
             <span>Quotes</span>
           </Link>
 
           {/* 🏷️ Hashtags Direct Link */}
           <Link
             href="/hashtags"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname.startsWith("/hashtags")
                 ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <Hash className="w-3.5 h-3.5 text-emerald-500" />
+            <Hash className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
             <span>Hashtags</span>
           </Link>
 
           {/* 🌍 Global Names Hub */}
           <Link
             href="/names"
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-2 xl:px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 whitespace-nowrap ${
               pathname.startsWith("/names")
                 ? "text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-950/50 font-bold"
                 : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
             }`}
           >
-            <Globe2 className="w-3.5 h-3.5 text-blue-500" />
+            <Globe2 className="w-3.5 h-3.5 text-blue-500 shrink-0" />
             <span>Names</span>
-            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-black bg-blue-500/10 text-blue-600 dark:text-blue-400">
-              New
-            </span>
           </Link>
 
           {/* 📱 10 PLATFORMS DROPDOWN */}
           <div
-            className="relative"
+            className="relative shrink-0"
             onMouseEnter={handlePlatMouseEnter}
             onMouseLeave={handlePlatMouseLeave}
           >
             <button
               type="button"
               onClick={() => setPlatformsDropdownOpen(!platformsDropdownOpen)}
-              className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 xl:px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shrink-0 whitespace-nowrap ${
                 platformsDropdownOpen ||
                 pathname.includes("-captions") ||
                 pathname.startsWith("/platforms")
@@ -394,13 +419,13 @@ export function Header() {
                   : "text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-900/70"
               }`}
             >
-              <Layers className="w-3.5 h-3.5 text-rose-500" />
+              <Layers className="w-3.5 h-3.5 text-rose-500 shrink-0" />
               <span>Platforms</span>
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 shrink-0">
                 10
               </span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${
                   platformsDropdownOpen ? "rotate-180" : ""
                 }`}
               />
@@ -654,7 +679,7 @@ export function Header() {
                     AI Tools
                   </span>
                   <div className="flex items-center gap-1.5 text-zinc-400">
-                    <span className="text-xs font-bold px-1.5 py-0.2 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-500">7</span>
+                    <span className="text-xs font-bold px-1.5 py-0.2 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-500">8</span>
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${
                         mobileAiOpen ? "rotate-180" : ""
@@ -672,6 +697,7 @@ export function Header() {
                       { name: "AI Bio Generator", href: "/ai-bio-generator", icon: <User className="w-5 h-5 text-pink-500" /> },
                       { name: "AI WhatsApp Status", href: "/ai-status-generator", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },
                       { name: "AI Hindi Shayari", href: "/ai-shayari-generator", icon: <BookOpen className="w-5 h-5 text-amber-500" /> },
+                      { name: "AI Wishes & Greetings", href: "/ai-wishes-generator", icon: <Sparkles className="w-5 h-5 text-purple-500" /> },
                       { name: "AI Baby Name Studio", href: "/ai-baby-name-generator", icon: <Globe2 className="w-5 h-5 text-blue-500" /> },
                     ].map((tool) => (
                       <Link
@@ -754,6 +780,7 @@ export function Header() {
 
                 <div className="space-y-0.5 pt-1">
                   {[
+                    { name: "Wishes & Greetings (80+)", href: "/wishes", icon: <Sparkles className="w-5 h-5 text-purple-500" /> },
                     { name: "Captions Library", href: "/captions", icon: <FileText className="w-5 h-5 text-indigo-500" /> },
                     { name: "Hindi Shayari", href: "/shayari", icon: <BookOpen className="w-5 h-5 text-amber-500" /> },
                     { name: "WhatsApp Status", href: "/whatsapp-status", icon: <MessageCircle className="w-5 h-5 text-emerald-500" /> },

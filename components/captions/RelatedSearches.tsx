@@ -14,9 +14,9 @@ export function RelatedSearches({
     { label: `${currentTopic} for boys`, href: `/captions?q=${encodeURIComponent(currentTopic + " boys")}` },
     { label: `${currentTopic} for girls`, href: `/captions?q=${encodeURIComponent(currentTopic + " girls")}` },
     { label: `Short 1-line ${currentTopic.toLowerCase()}`, href: `/captions?q=${encodeURIComponent("short " + currentTopic)}` },
-    { label: `Aesthetic ${currentTopic.toLowerCase()} bio`, href: `/tools/aesthetic-font-generator` },
-    { label: `Savage ${currentTopic.toLowerCase()} attitude`, href: `/categories/attitude` },
-    { label: `Funny ${currentTopic.toLowerCase()} one liners`, href: `/categories/funny` },
+    { label: `Aesthetic ${currentTopic.toLowerCase()} bio`, href: `/tools/fancy-font-generator` },
+    { label: `Savage ${currentTopic.toLowerCase()} attitude`, href: `/captions/attitude` },
+    { label: `Funny ${currentTopic.toLowerCase()} one liners`, href: `/captions/funny` },
     { label: `Viral hashtags for ${currentTopic.toLowerCase()}`, href: `/tools/hashtag-generator` },
     { label: `AI ${currentTopic.toLowerCase()} writer`, href: `/ai-caption-generator?topic=${encodeURIComponent(currentTopic)}` },
   ];

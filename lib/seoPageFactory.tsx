@@ -162,16 +162,42 @@ export function renderPlatformPage(
 export function createTopicMetadata(topic: string, contentType: string): Metadata {
   const capTopic = capitalize(topic);
   const capType = capitalize(contentType);
+
+  // Map content type to pillar vault path prefix
+  const pillarMap: Record<string, string> = {
+    captions: "captions",
+    bio: "bios",
+    status: "status",
+    shayari: "shayari",
+    quotes: "quotes",
+  };
+
+  // Import pillar subpage lists to check if this topic exists as a pillar child
+  const { PILLAR_CAPTIONS_SUBPAGES, PILLAR_BIOS_SUBPAGES, PILLAR_STATUS_SUBPAGES, PILLAR_SHAYARI_SUBPAGES, PILLAR_QUOTES_SUBPAGES } = require("@/data/master300Architecture");
+  const pillarSubpages: Record<string, string[]> = {
+    captions: PILLAR_CAPTIONS_SUBPAGES,
+    bio: PILLAR_BIOS_SUBPAGES,
+    status: PILLAR_STATUS_SUBPAGES,
+    shayari: PILLAR_SHAYARI_SUBPAGES,
+    quotes: PILLAR_QUOTES_SUBPAGES,
+  };
+
+  // If the topic exists as a pillar subpage, canonical should point there to avoid cannibalization
+  const vault = pillarMap[contentType];
+  const subpageList = pillarSubpages[contentType] || [];
+  const hasPillarEquivalent = vault && subpageList.includes(topic);
+  const canonicalUrl = hasPillarEquivalent ? `/${vault}/${topic}` : `/${topic}-${contentType}`;
+
   return {
     title: `Best ${capTopic} ${capType} [2026] — Hindi & English | Unitoolkit`,
     description: `100+ Best ${capTopic} ${capType} across all platforms (Instagram, WhatsApp, TikTok, Facebook). 1-click copy & instant AI generator. Updated 2026.`,
     alternates: {
-      canonical: `/${topic}-${contentType}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: `${capTopic} ${capType} [2026] | Unitoolkit`,
       description: `100+ Best ${capTopic} ${capType} for Instagram, WhatsApp, and social media.`,
-      url: `https://unitoolkit.com/${topic}-${contentType}`,
+      url: `https://unitoolkit.com${canonicalUrl}`,
     },
   };
 }

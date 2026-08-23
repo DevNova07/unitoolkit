@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 
+export const dynamic = "force-dynamic";
 export const alt = "UniToolkit — Global Social Media Creator Suite & AI Generators";
 export const size = {
   width: 1200,
