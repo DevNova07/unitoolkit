@@ -206,6 +206,13 @@ export function getAllMaster300Urls(): string[] {
   // 8. Blog (20)
   BLOG_20_SLUGS.forEach((slug) => urls.push(`/blog/${slug}`));
 
-  // Deduplicate
-  return [...new Set(urls)];
+  // Redirected URLs to exclude from canonical sitemap
+  const redirectedUrls = new Set([
+    "/attitude-captions",
+    "/love-captions",
+    "/funny-captions",
+  ]);
+
+  // Deduplicate and filter out 301 redirects
+  return [...new Set(urls)].filter((u) => !redirectedUrls.has(u));
 }

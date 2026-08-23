@@ -70,6 +70,13 @@ export default async function CaptionsSubpage({ params }: PageProps) {
         description={data.intro}
         url={`https://unitoolkit.com/captions/${slug}`}
       />
+      <JsonLdSchema
+        type="ItemList"
+        title={data.h1}
+        description={data.intro}
+        url={`https://unitoolkit.com/captions/${slug}`}
+        items={data.sections.flatMap((s) => s.captions).slice(0, 25).map((text) => ({ name: text }))}
+      />
 
       <Breadcrumbs
         items={[

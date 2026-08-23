@@ -65,6 +65,13 @@ export function BlueprintPageTemplate({
         description={page.metaDescription}
         url={canonicalUrl}
       />
+      <JsonLdSchema
+        type="ItemList"
+        title={page.h1}
+        description={page.metaDescription}
+        url={canonicalUrl}
+        items={dbItems.slice(0, 20).map((item) => ({ name: item.text }))}
+      />
 
       {/* Breadcrumb Navigation */}
       <Breadcrumbs items={breadcrumbs} />

@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       // 301 Permanent Redirects for Clean SEO & Deduplication
       { source: "/privacy", destination: "/privacy-policy", permanent: true },
       { source: "/terms", destination: "/terms-of-service", permanent: true },
+      { source: "/attitude-captions", destination: "/captions/attitude", permanent: true },
+      { source: "/love-captions", destination: "/captions/love", permanent: true },
+      { source: "/funny-captions", destination: "/captions/funny", permanent: true },
       { source: "/x-captions", destination: "/twitter-captions", permanent: true },
       { source: "/x", destination: "/twitter-captions", permanent: true },
       { source: "/twitter", destination: "/twitter-captions", permanent: true },
